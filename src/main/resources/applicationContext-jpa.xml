@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/data/jpa
+http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+	
+	<!-- 1.引入公共配置文件 db.properties-->
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<!-- 2.配置数据源（三种方式 spring jdbc,dbcp,c3p0）-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${dataSource.driverClassName}"></property>
+		<property name="jdbcUrl" 	 value="${dataSource.url}"></property>
+		<property name="user" 		 value="${dataSource.username}"></property>
+		<property name="password" 	 value="${dataSource.password}"></property>
+		<property name="maxPoolSize" value="40"></property>
+		<property name="minPoolSize" value="1"></property>
+		<property name="initialPoolSize" value="1"></property>
+		<property name="maxIdleTime" value="20"></property>
+	</bean>
+	
+	<!-- 3.配置hibernate5的会话工厂SessionFactory-->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		
+		<property name="packagesToScan">
+            <list>
+                <value>com.booking.domain</value>
+            </list>
+		</property>
+		<!-- 用于指定持久化实现厂商类 -->
+		<property name="persistenceProvider">    
+			<bean class="org.hibernate.jpa.HibernatePersistenceProvider"/>
+		</property>
+		<!--用于指定持久化厂商的方言
+		<property name="jpaDialect">    
+		    <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>-->
+		<!-- ClassLoader 实现 LoadTimeWeaver
+		<property name="loadTimeWeaver">
+			<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+		</property>-->  
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.connection.pool_size">${hibernate.connection.pool_size}</prop>
+				<prop key="hibernate.max_fetch_depth">2</prop>
+				<prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<!--   
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>             
+				<prop key="hibernate.query.substitutions">true 1, false 0</prop>
+				<prop key="hibernate.default_batch_fetch_size">16</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="cache.cache.use_query_cache">true</prop>
+				<prop key="cache.cache.use_second_level_cache">true</prop>
+				 -->
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 4.配置Spring的事务管理（业务逻辑上数据操作的一致性） -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
+		<property name="entityManagerFactory" ref="entityManagerFactory" />  
+    </bean>
+
+	<!-- 4.1使用annotation定义事务 	默认：transaction-manager="transactionManager" --> 
+	<tx:annotation-driven  proxy-target-class="true"/>
+	
+	
+	<!--指定使用JPA实现的持久层的根目录    repository-impl-postfix="Impl"-->
+	<jpa:repositories base-package="com.demo.*.dao"/>
+</beans>
