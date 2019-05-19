@@ -88,5 +88,5 @@ http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 	
 	
 	<!--指定使用JPA实现的持久层的根目录    repository-impl-postfix="Impl"-->
-	<jpa:repositories base-package="com.demo.*.dao"/>
+	<jpa:repositories base-package="com.booking.dao"/>
 </beans>
