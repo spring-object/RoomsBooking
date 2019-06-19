@@ -21,7 +21,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<mvc:annotation-driven/>
 	
 	<!-- 设置主页面：访问/自动跳转到home视图 -->
-	<!-- <mvc:view-controller path="/" view-name="index"/> -->
+	<mvc:view-controller path="/" view-name="index"/>
 	
 	<!-- 页面重定向 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -42,5 +42,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
 		<property name="maxUploadSize" value="5120000"/>
 	</bean>
+	
+	<mvc:resources location="/view/" mapping="/view/**"></mvc:resources>
 	
 </beans>

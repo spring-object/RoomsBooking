@@ -14,7 +14,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
 
 
-	<context:component-scan base-package="com.booking"/>
+	<context:component-scan base-package="com.booking.*"/>
 		
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
