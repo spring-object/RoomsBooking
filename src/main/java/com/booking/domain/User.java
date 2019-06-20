@@ -2,12 +2,17 @@ package com.booking.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 //CREATE TABLE `t_user` (
 //`uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -37,6 +42,9 @@ public class User {
 	@Size(min=11,max=11)
 	private String telephone;
 	private String email;
+	@DateTimeFormat(pattern="yy/MM/dd HH:mm:ss")
+	@JsonFormat(pattern="yy/MM/dd HH:mm:ss")
+	@Column(columnDefinition="timestamp default current_timestamp comment '创建时间'") 
 	private Date create_time;
 	private Integer type;
 	public Long getUid() {
