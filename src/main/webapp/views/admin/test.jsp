@@ -5,16 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datatable.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-responsive.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script type='text/javascript' src='${pageContext.request.contextPath}/js/mytables.js'></script>
-<script type="text/javascript">
-	alert("${pageContext.request.contextPath}");
-</script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap-datatable.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap-responsive.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='${pageContext.request.contextPath}/views/admin/js/mytables.js'></script>
 </head>
 <body>
 	<div class="row-fluid">
