@@ -14,11 +14,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/test")
-	public @ResponseBody String test() {
-		userService.test();
-		return "test";
-	}
 	@GetMapping("/")
 	public String index() {
 		return "user/index";
