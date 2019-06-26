@@ -20,15 +20,15 @@ public class Picture {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long pid;				//图片id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="hid") 		//设置外键
 	private Hotel hotel;			//酒店id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="cid") 		//设置外键
 	private Comment comment;        //评论id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="rid") 		//设置外键
 	private Room room;          	//房间id
 	

@@ -44,7 +44,7 @@ public class TestOrderService {
 //			order.setRoom(room);
 			order.setRprice(2*i + i);
 			order.setStart_time(new Date());
-			order.setStatus("已完成");
+			order.setStatus(0);
 //			order.setUser(user);
 			orderServiceImpl.save(order);
 		}

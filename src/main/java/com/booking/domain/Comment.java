@@ -22,15 +22,15 @@ public class Comment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long cid;               //评论id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="uid") 		//设置外键
 	private User user;				//用户id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="hid") 		//设置外键
 	private Hotel hotel;			//酒店id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="oid") 		//设置外键
 	private Order order;			//订单id
 	
