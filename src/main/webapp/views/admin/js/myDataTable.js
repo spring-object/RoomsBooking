@@ -1,24 +1,28 @@
-$(function() {   
+$(function() {
+/**
+ * DataTable属性配置以及生成datatable
+ */	
     $('#myDatatable').DataTable({
     	"select": true,
-        "processing": true,//数据加载时显示进度都没条
+        "processing": true,//数据加载时显示进度条
         "searching": false,//启用搜索功能
         "serverSide": true,//启用服务端分页（这是使用Ajax服务端的必须配置）
         "ajax": {
 	        "url": "/booking/admin/showPage",
 	        "type": "POST",
 	        "data": function (d) {
-	            d.pageNo = $("#myDatatable").DataTable().page();
-	            var key = $("#search").val();
-	            d.extraSerach=key;
+	            d.pageNo = $("#myDatatable").DataTable().page();//获取当前页码
+	            var key = $("#search").val();//获取搜索框关键字
+	            d.extraSerach=key;//查询条件
 	        }
 	    },
-	    "dom": 'l<"right"B>rtip',
+	    "dom": 'l<"right"B>rtip',//自定义文档对象，因为使用了自定义button,B代表Button,right是绑定在button上从classs，已经在showPage.jsp页面定义
+	    //自定义button,实现添加用户、批量删除等操作，其中添加用户使用bootstrap的模态框实现（模态框在showPage.jsp页面配置，使用模态框时最好将其隐藏起来，可以解决引入模态框时影响页面其他布局焦点消失的问题）
 	    "buttons": [
             {
                 text: '添加用户',
                 action: function ( e, dt, node, config ) {
-                	$("#addWindow").modal();
+                	$("#addWindow").modal();//启用模态框，关闭调用$("#addWindow").modal(false)
                 }
             },
             {
@@ -27,10 +31,10 @@ $(function() {
                 	var strIds=[];
                 	$("input:checked").each(function(){
                 		if($(this).attr("name")!="checkAll"){
-                			strIds.push($(this).parents("tr").children().eq(1).html());                     			
+                			strIds.push($(this).parents("tr").children().eq(1).html());//获取选中的用户                 			
                 		}
                 	});
-                	var strIds = strIds.join(",");
+                	var strIds = strIds.join(",");//将选中的用户拼成?,?,?的格式
                 	var ids = {"ids":strIds};
                 	if(strIds!=null&&strIds.trim()!=""){
                 		var option = confirm("是否确认删除?删除后无法恢复！");
@@ -54,6 +58,10 @@ $(function() {
             }
         ],
         "columns": [
+        	/**
+        	 * 设置列，必须跟后端传来的数据名保持一致（null代表没有对应数据），需要特别操作时给数据绑定函数，
+        	 * "render":function (data, type, full, meta)，其中的data就是对应列从后台传来的数据，直接使用即可
+        	 */
         	{"data":"null","render":function (data, type, full, meta) {
 	            return "<td> <input type='checkbox' name='checkbox' class='checkboxes' /><td>";
 	        }},
@@ -92,7 +100,7 @@ $(function() {
             	return content;
 	        }},
         ],
-        "info":true,
+        "info":true, //分页信息提示等等
         "paging":   true,
         "pagingType":   "full_numbers",
         "bLengthChange": true, //开关，是否显示每页显示多少条数据的下拉框
@@ -126,20 +134,26 @@ $(function() {
         }
     });
     
-
+    /**
+     * 全选和全不选
+     */
     $('#checkAll').change(function () {
 	    var checked = $(this).prop("checked");
 	    $("input[name='checkbox']").each(function() {
 	    	$(this).prop("checked", checked);
 	    });
 	}); 
-    
+    /**
+     * 获取搜索框关键字并将其写进datatable中的key中
+     */
     $("#searchBtn").click(function(){
     	var key = $("#search").val();
     	var table = $('#myDatatable').DataTable();
-        table.search(key).draw();
+        table.search(key).draw();//将查询关键字写进datatable的key中
     });
-    
+    /**
+     * 实现点击图片上传图片，同时能先预览
+     */
     $("#uicon").click(function(){
     	$("#upload").click();
     	$("#upload").change(function(){
@@ -149,28 +163,34 @@ $(function() {
     		}
     	})
     });
-    
+    /**
+     * 编辑用户后与后台进行交互
+     */
     $("#update").click(function(){
     	var uid = $("#uid").val();
     	var uname = $("#uname").val();
     	var file = $("#upload")[0].files[0];
     	var telephone = $("#telephone").val();
     	var email = $("#email").val();
-    	var data = new FormData();
-    	//var commonData = {"uid":uid,"uname":uname,"telephone":telephone,"email":email};
-    	//data.append("commonData",commonData);
+    	var data = new FormData();//通过formdata封装数据
     	data.append("uid",uid);
     	data.append("uname",uname);
     	data.append("telephone",telephone);
     	data.append("email",email);
+    	//判断是否有文件上传
+    	if(file){
+    		data.append("isMultipart",true);
+    	}else{
+    		data.append("isMultipart",false);
+    	}
     	data.append("file",file);
     	$.ajax({
     		url: "/booking/admin/update",
     		type: "POST",
     		data: data,
     		dataType: "json",
-    		processData: false,
-    		contentType: false,
+    		processData: false,//使用formdata传递数据时必须设置processData: false
+    		contentType: false,//使用formdata传递数据时必须设置contentType: false
     		success: function(data) {
     			if(data.result=="success"){
     				console.log("成功");
@@ -184,7 +204,11 @@ $(function() {
     	});
     });
 });
-
+/**
+ * 不同浏览器获取上传文件url，此处不是文件的真正上传url,只是为了实现上传文件在线预览
+ * @param file
+ * @returns
+ */
 function getImageUrl(file){
 	var url = null ;
 	if (window.createObjectURL!=undefined) { // basic
@@ -196,7 +220,11 @@ function getImageUrl(file){
 	}
 	return url ;
 }
-
+/**
+ * 修改用户状态
+ * @param obj
+ * @returns
+ */
 function fnChangeAble(obj){
 	var enable = $(obj).find(".fa").html();
 	var newEnable = false;
@@ -220,14 +248,19 @@ function fnChangeAble(obj){
 				console.log("失败");
 			}
 			var table = $('#myDatatable').DataTable();
-			table.draw(false);
+			table.draw(false);//刷新当前页面
 		}
 	});
 }
+/**
+ * 编辑用户信息时显示当前用户信息
+ * @param obj
+ * @returns
+ */
 function fnEdit(obj){
 	var row = $(obj).parents("tr")[0];
-	var rowData = $("#myDatatable").dataTable().fnGetData(row);
-	$("#editorWindow").modal();
+	var rowData = $("#myDatatable").dataTable().fnGetData(row);//获取datatable指定行的所有数据
+	$("#editorWindow").modal();//初始化模态框
 	$("#uid").val(rowData.uid);
 	$("#uname").val(rowData.uname);
 	if(rowData.uicon!=null){
@@ -244,6 +277,11 @@ function fnEdit(obj){
 		$("#enable").val("无效");
 	}
 }
+/**
+ * 删除单个用户
+ * @param obj
+ * @returns
+ */
 function fnDelete(obj){
 	var option = confirm("是否确认删除?删除后无法恢复！");
 	if(option){
@@ -256,7 +294,7 @@ function fnDelete(obj){
 			data: JSON.stringify(data),
 			success: function(data){
 				var table = $('#myDatatable').DataTable();
-				table.draw(false);
+				table.draw(false);//刷新当前页面
 			}
 		});
 	}

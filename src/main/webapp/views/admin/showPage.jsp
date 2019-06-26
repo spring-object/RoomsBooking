@@ -21,62 +21,13 @@
 .right{
 	float:right;
 }
+.hid{
+	display:none;
+}
 </style>
 </head>
 <body>
-<div class='row-fluid'>
-          <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
-              <div class='box-content box-no-padding'>
-                  <div class='responsive-table'>
-                      <div class='scrollable-area'>
-                      	<form class="form-inline form-horizontal">
-                              <div class="form-group text-center" style="padding-top:20px">
-                                  <label for="search">关键字</label>
-                                  <input type="text" class="form-control" id="search" name="search">
-                                  <button type="button" class="btn btn-primary" id="searchBtn">查询</button>
-                              </div>   
-                          </form>
-                          <table id="myDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
-                              <thead>
-                                  <tr>
-                                      <th><input type="checkbox" id="checkAll" name="checkAll" class='group-checkable' /></th>
-                                      <th>
-                                          ID
-                                      </th>
-                                      <th>
-                                          用户名
-                                      </th>
-                                      <th>
-                                          用户头像
-                                      </th>
-                                      <th>
-                                          联系电话
-                                      </th>
-                                      <th>
-                                          邮箱
-                                      </th>
-                                      <th>
-                                          创建时间
-                                      </th>
-                                      <th>
-                                          状态
-                                      </th>
-                                      <th>
-                                          操作
-                                      </th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                       
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      
-      <div class="modal fade" id="editorWindow" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade hid" id="editorWindow" tabindex="0" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -144,7 +95,7 @@
     </div>
 </div>
       
-      <div class="modal fade" id="addWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade hid" id="addWindow" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -189,5 +140,57 @@
         </div>
     </div>
 </div>
+
+<div class='row-fluid'>
+          <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
+              <div class='box-content box-no-padding'>
+                  <div class='responsive-table'>
+                      <div class='scrollable-area'>
+                      	<form class="form-inline form-horizontal">
+                              <div class="form-group text-center" style="padding-top:20px">
+                                  <label for="search">关键字</label>
+                                  <input type="text" id="search" name="search">
+                                  <button type="button" class="btn btn-primary" id="searchBtn">查询</button>
+                              </div>   
+                          </form>
+                          <table id="myDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
+                              <thead>
+                                  <tr>
+                                      <th><input type="checkbox" id="checkAll" name="checkAll" class='group-checkable' /></th>
+                                      <th>
+                                          ID
+                                      </th>
+                                      <th>
+                                          用户名
+                                      </th>
+                                      <th>
+                                          用户头像
+                                      </th>
+                                      <th>
+                                          联系电话
+                                      </th>
+                                      <th>
+                                          邮箱
+                                      </th>
+                                      <th>
+                                          创建时间
+                                      </th>
+                                      <th>
+                                          状态
+                                      </th>
+                                      <th>
+                                          操作
+                                      </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                       
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
 </body>
 </html>

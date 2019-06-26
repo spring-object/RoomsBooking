@@ -22,6 +22,11 @@ public class UserQueryDto {
 		this.key = key;
 	}
 
+	/**
+	 * 自定义查询条件实现模糊查询
+	 * @param queryDto 查询工具对象，接收查询条件
+	 * @return 返回拼接好的条件
+	 */
 	public static Specification<User> getSpecification(UserQueryDto queryDto){
 		return new Specification<User>() {
 			@Override
