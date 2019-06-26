@@ -26,15 +26,15 @@ public class Order {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long oid;           //订单id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="uid") 	//设置外键
 	private User user;          //用户id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="hid") 	//设置外键
 	private Hotel hotel;        //酒店id
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="rid") 	//设置外键
 	private Room room;          //房间id
 	
@@ -48,8 +48,8 @@ public class Order {
 	private Date end_time;      //离开时间
 
 	private float rprice;       //房间价格
-	private int rcount;        //房间数量
-	private String status;      //订单状态，共3个：已完成（可评价）、未使用（已付款）、待付款（可取消）
+	private int rcount;        	//房间数量
+	private int status;      	//订单状态，共3个：0为已完成（可评价）、1为未使用（已付款）、2为待付款（可取消）
 	
 	public Long getOid() {
 		return oid;
@@ -111,10 +111,11 @@ public class Order {
 	public void setEnd_time(Date end_time) {
 		this.end_time = end_time;
 	}
-	public String getStatus() {
+	
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	
