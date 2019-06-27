@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>管理员列表</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/plugins/font-awesome/css/font-awesome.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/jquery.dataTables.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap-responsive.css">
@@ -16,7 +16,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/dataTables.editor.min.js"></script>
-<script type='text/javascript' src='${pageContext.request.contextPath}/views/admin/js/myDataTable.js'></script>
+<script type='text/javascript' src='${pageContext.request.contextPath}/views/admin/js/adminDataTable.js'></script>
 <style type="text/css">
 .right{
 	float:right;
@@ -27,7 +27,60 @@
 </style>
 </head>
 <body>
-<div class="modal fade hid" id="editorWindow" tabindex="0" role="dialog" aria-hidden="true">
+<div class='row-fluid'>
+          <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
+              <div class='box-content box-no-padding'>
+                  <div class='responsive-table'>
+                      <div class='scrollable-area'>
+                      	<form class="form-inline form-horizontal">
+                              <div class="form-group text-center" style="padding-top:20px">
+                                  <label for="search">关键字</label>
+                                  <input type="text" id="search" name="search">
+                                  <button type="button" class="btn btn-primary" id="searchBtn">查询</button>
+                              </div>   
+                          </form>
+                          <table id="myDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
+                              <thead>
+                                  <tr>
+                                      <th><input type="checkbox" id="checkAll" name="checkAll" class='group-checkable' /></th>
+                                      <th>
+                                          ID
+                                      </th>
+                                      <th>
+                                          用户名
+                                      </th>
+                                      <th>
+                                          用户头像
+                                      </th>
+                                      <th>
+                                          联系电话
+                                      </th>
+                                      <th>
+                                          邮箱
+                                      </th>
+                                      <th>
+                                          创建时间
+                                      </th>
+                                      <th>
+                                          状态
+                                      </th>
+                                      <th>
+                                          操作
+                                      </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                       
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+</div>
+      
+      
+ <div class="modal fade hid" id="editorWindow" tabindex="0" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -94,7 +147,7 @@
         </div>
     </div>
 </div>
-      
+
 <div class="modal fade hid" id="addWindow" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -140,57 +193,5 @@
         </div>
     </div>
 </div>
-
-<div class='row-fluid'>
-          <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
-              <div class='box-content box-no-padding'>
-                  <div class='responsive-table'>
-                      <div class='scrollable-area'>
-                      	<form class="form-inline form-horizontal">
-                              <div class="form-group text-center" style="padding-top:20px">
-                                  <label for="search">关键字</label>
-                                  <input type="text" id="search" name="search">
-                                  <button type="button" class="btn btn-primary" id="searchBtn">查询</button>
-                              </div>   
-                          </form>
-                          <table id="myDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
-                              <thead>
-                                  <tr>
-                                      <th><input type="checkbox" id="checkAll" name="checkAll" class='group-checkable' /></th>
-                                      <th>
-                                          ID
-                                      </th>
-                                      <th>
-                                          用户名
-                                      </th>
-                                      <th>
-                                          用户头像
-                                      </th>
-                                      <th>
-                                          联系电话
-                                      </th>
-                                      <th>
-                                          邮箱
-                                      </th>
-                                      <th>
-                                          创建时间
-                                      </th>
-                                      <th>
-                                          状态
-                                      </th>
-                                      <th>
-                                          操作
-                                      </th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                       
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
 </body>
 </html>
