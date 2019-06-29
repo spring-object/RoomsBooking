@@ -2,13 +2,15 @@ package com.booking.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
-import com.booking.domain.Order;
 import com.booking.domain.User;
+import com.booking.domain.enums.UserState;
 
 public interface UserService {
 //	CrudRepository接口：
@@ -16,6 +18,7 @@ public interface UserService {
 	public void saveAll(List<User> entities);
 	public User findById(Long id);
 	public boolean existsById(Long id);
+	public UserState existsByEmail(String email);
 	public List<User> findAll();
 	public List<User> findAllById(List<Long> ids);
 	public long count();
@@ -28,4 +31,7 @@ public interface UserService {
 	public Page<User> findAll(Pageable pageable);
 	
 	public Page<User> findAll(Specification<User> spec, Pageable pageable);
+	
+	public UserState login(String email,String passwd,HttpSession session);
+	public UserState register(String email,String passwd,HttpSession session);
 }

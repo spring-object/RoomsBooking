@@ -22,8 +22,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.MultipartFilter;
 
+import com.booking.dao.UserDTO;
 import com.booking.domain.User;
-import com.booking.domain.UserQueryDto;
 import com.booking.service.UserService;
 import com.booking.utils.UploadFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -132,10 +132,10 @@ public class AdminController {
 	 */
 	@PostMapping(value="showPage")
 	public @ResponseBody String showPage(@RequestParam Integer pageNo,Integer length,Integer draw,String extraSerach) {
-		UserQueryDto queryDto = new UserQueryDto();
+		UserDTO queryDto = new UserDTO();
 		queryDto.setKey(extraSerach);
 		PageRequest pageable = PageRequest.of(pageNo, length, Direction.ASC, "uid");
-		Page<User> userPage = userService.findAll(UserQueryDto.getSpecification(queryDto), pageable);
+		Page<User> userPage = userService.findAll(UserDTO.getSpecification(queryDto), pageable);
 		HashMap<String, Object> result = new HashMap<>();
 		List<User> data = new ArrayList<User>();
 		for (User user : userPage.getContent()) {

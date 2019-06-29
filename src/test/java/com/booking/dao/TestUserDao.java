@@ -3,11 +3,6 @@ package com.booking.dao;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +27,8 @@ import com.booking.domain.User;
 public class TestUserDao {
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private UserDTO userDTO;
 	
 	@Test
 	@Rollback(false)
@@ -78,6 +75,55 @@ public class TestUserDao {
 		Optional<User> user=userDao.findById(3L);
 		System.out.println(user.get());
 	}
+	
+	@Test
+	@Rollback(true)
+	public void testReadOneByEmail() {
+		
+//		String email="abe3@qq.com";
+//		Specification<User> spec=new Specification<User>() {
+//		public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query,CriteriaBuilder cb) {
+//              Predicate predicate1 = cb.equal(root.get("email").as(String.class), email);
+//
+//              // 2个检索条件同时使用
+//              query.where(predicate1);
+//              return query.getRestriction();
+//			} 
+//		};
+		userDTO.setKey("abc@abc.com");
+		Specification<User> spec=UserDTO.getSpecification(userDTO);
+		Optional<User> user=userDao.findOne(spec);
+		System.out.println(user.isPresent());
+		System.out.println(user.get());
+	}
+	
+//	int pageIndex=0;//第几页
+//	int pageSize=2;//每页多少条
+//	String uid="1";
+//	Date date=new Date();
+//	@SuppressWarnings("serial")
+//	Specification<Order> spec=new Specification<Order>() {
+//		public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> query,CriteriaBuilder cb) {
+//              Predicate predicate1 = cb.equal(root.get("uid").as(String.class), uid);
+//              Predicate predicate2 = cb.lessThan(root.get("date").as(Date.class), date);
+//
+//              // 2个检索条件同时使用
+//              query.where(cb.and(predicate1,predicate2));
+//              return query.getRestriction();
+//		} 
+//	};
+//	PageRequest pageable=PageRequest.of(pageIndex, pageSize, Direction.DESC, "date");//3
+//	
+//	Page<Order> page=(Page<Order>) orderDao.findAll(spec,pageable);
+//	
+//	System.out.println("PageNumber:"+page.getNumber());//第几页0开始
+//	System.out.println("CurrentPageCount:"+page.getNumberOfElements());//当前页条数
+//	System.out.println("PerPageCount:"+page.getSize());//每页多少条
+//	System.out.println("TotalCount:"+page.getTotalElements());
+//	System.out.println("TotalPage:"+page.getTotalPages());
+//	for(Order order:page.getContent()) {
+//		System.out.println(order);
+//	}
 	
 	@Test
 	@Rollback(false)

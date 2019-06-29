@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class TestUserService {
 	@Autowired
 	private UserService userService;
-//	@Test
-//	public void test() {
-//		userService.test();
-//	}
+	@Test
+	public void testExistsByEmail() {
+		System.out.println(userService.existsByEmail("abe30@qq.com"));
+	}
 }

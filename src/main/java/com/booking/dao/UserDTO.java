@@ -1,7 +1,6 @@
-package com.booking.domain;
+package com.booking.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,8 +9,12 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 
-public class UserQueryDto {
+import com.booking.domain.User;
+
+@Component
+public class UserDTO {
 	private String key;
 	
 	public String getKey() {
@@ -27,17 +30,18 @@ public class UserQueryDto {
 	 * @param queryDto 查询工具对象，接收查询条件
 	 * @return 返回拼接好的条件
 	 */
-	public static Specification<User> getSpecification(UserQueryDto queryDto){
+	@SuppressWarnings("serial")
+	public static Specification<User> getSpecification(UserDTO userDTO){
 		return new Specification<User>() {
 			@Override
 			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicates = new ArrayList<Predicate>();
 				
-				if(queryDto.getKey()!=null) {
-					Predicate p1 = criteriaBuilder.like(root.get("uname").as(String.class), "%"+queryDto.getKey()+"%");
-					Predicate p2 = criteriaBuilder.like(root.get("telephone").as(String.class), "%"+queryDto.getKey()+"%");
-					Predicate p3 = criteriaBuilder.like(root.get("email").as(String.class), "%"+queryDto.getKey()+"%");
-					Predicate p4 = criteriaBuilder.like(root.get("create_time").as(String.class), "%"+queryDto.getKey()+"%");
+				if(userDTO.getKey()!=null) {
+					Predicate p1 = criteriaBuilder.like(root.get("uname").as(String.class), "%"+userDTO.getKey()+"%");
+					Predicate p2 = criteriaBuilder.like(root.get("telephone").as(String.class), "%"+userDTO.getKey()+"%");
+					Predicate p3 = criteriaBuilder.like(root.get("email").as(String.class), "%"+userDTO.getKey()+"%");
+					Predicate p4 = criteriaBuilder.like(root.get("create_time").as(String.class), "%"+userDTO.getKey()+"%");
 					predicates.add(p1);
 					predicates.add(p2);
 					predicates.add(p3);
