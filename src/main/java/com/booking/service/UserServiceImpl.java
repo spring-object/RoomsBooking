@@ -1,5 +1,6 @@
 package com.booking.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,6 +124,11 @@ public class UserServiceImpl implements UserService{
 		if(null==rsa) {
 			return UserState.GET_USER_INFO_FAILED;
 		}
+		try {
+			email=java.net.URLDecoder.decode(email, "UTF-8");passwd=java.net.URLDecoder.decode(passwd, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		passwd=rsa.getStrDecryptionText(passwd);
 		//System.out.println("passwd="+passwd);
 		userDTO.setKey(email);
@@ -132,6 +138,9 @@ public class UserServiceImpl implements UserService{
 			return UserState.GET_USER_INFO_FAILED;
 		}
 		User user=optional.get();
+		if(null==user||false==user.getEnable()) {
+			return UserState.DISABLE;
+		}
 		if(user.getUpassword().equals(SHA2.getEncryptionText(passwd, user.getSalt(), "SHA-512"))) {
 			session.setAttribute("user", user);
 			return UserState.LOGIN_SECCESS;
@@ -140,9 +149,14 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public UserState register(String email,String passwd,HttpSession session) {
+	public UserState register(String email,String passwd,HttpSession session,int type) {
 		if(null==email||null==passwd) {
 			return UserState.FORMAT_ERROR;
+		}
+		try {
+			email=java.net.URLDecoder.decode(email, "UTF-8");passwd=java.net.URLDecoder.decode(passwd, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
 		if(UserState.USER_EXIST==this.existsByEmail(email)) {
 			return UserState.USER_EXIST;
@@ -162,6 +176,10 @@ public class UserServiceImpl implements UserService{
 		user.setEmail(email);
 		user.setUpassword(passwd);
 		user.setSalt(salt);
+		if(type>2||type<0) {
+			type=2;
+		}
+		user.setType(type);
 		userDao.save(user);
 		return UserState.REGISTER_SECCESS;
 	}

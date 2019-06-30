@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>忘记密码</title>
+    <title>登陆</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     
     <!--[if lt IE 9]>
@@ -68,7 +68,7 @@
     <div class="controls">
         <div class="caret"></div>
         <div class="form-wrapper">
-            <h1 class="text-center">忘记密码</h1>
+            <h1 class="text-center">登陆</h1>
             <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
                 <div class="row-fluid">
                     <div class="span12 icon-over-input">
@@ -76,11 +76,19 @@
                         <i class="icon-user muted"></i>
                     </div>
                 </div>
-                <label class="checkbox" for="remember_me">找回信息将发送到邮箱</label>
-                <button class="btn btn-block" name="button" type="button" id="loginBtn">发送邮件</button>
+                <div class="row-fluid">
+                    <div class="span12 icon-over-input">
+                        <input class="span12" id="password" name="password" placeholder="密码" type="password" value="" />
+                        <i class="icon-lock muted"></i>
+                    </div>
+                </div>
+                <label class="checkbox" for="remember_me"><input id="remember_me" name="remember_me" type="checkbox" value="1" />
+                   记住我
+                </label>
+                <button class="btn btn-block" name="button" type="button" id="loginBtn">登陆</button>
             <div class="text-center">
                 <hr class="hr-normal" />
-                <a href="${pageContext.request.contextPath }/user/signin">去登陆</a>
+                <a href="${pageContext.request.contextPath }/user/forgetPasswd">忘记密码?</a>
             </div>
         </div>
     </div>
@@ -187,7 +195,18 @@
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/tables.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/theme.js" type="text/javascript"></script>
 
-<script src="${pageContext.request.contextPath }/views/user/js/forgetPasswd.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/base64.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/jsbn.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/jsbn2.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/prng4.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/rng.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/rsa.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/rsa2.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/encryptutils.js" type="text/javascript"></script>
+
+<script src="${pageContext.request.contextPath }/views/manageUser/js/jquery/jquery.cookie.js" type="text/javascript"></script>
+
+<script src="${pageContext.request.contextPath }/views/manageUser/js/sign_in.js" type="text/javascript"></script>
 
 </body>
 </html>

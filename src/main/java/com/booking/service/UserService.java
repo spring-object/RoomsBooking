@@ -33,5 +33,5 @@ public interface UserService {
 	public Page<User> findAll(Specification<User> spec, Pageable pageable);
 	
 	public UserState login(String email,String passwd,HttpSession session);
-	public UserState register(String email,String passwd,HttpSession session);
+	public UserState register(String email,String passwd,HttpSession session,int type);
 }

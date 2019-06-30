@@ -35,11 +35,11 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long uid;
 	private String uname;
-	@Size(min=130,max=130)
+	@Size(min=128)
 	private String upassword;
 	private String salt;
 	private Boolean enable=false;
-	private String uicon="/views/user/images/default_avatar.png";
+	private String uicon="/views/manageUser/images/default_avatar.png";
 	@Size(min=11,max=11)
 	private String telephone;
 	private String email;
@@ -47,7 +47,7 @@ public class User {
 	@JsonFormat(pattern="yy/MM/dd HH:mm:ss")
 	@Column(columnDefinition="timestamp default current_timestamp comment '创建时间'") 
 	private Date create_time=new Date();
-	private Integer type=0;
+	private Integer type=0;//0管理员 1用户管理员 2普通用户
 	public Long getUid() {
 		return uid;
 	}

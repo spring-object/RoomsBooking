@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>注册</title>
+    <title>忘记密码</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     
     <!--[if lt IE 9]>
@@ -55,12 +55,12 @@
     <!-- / demo -->
     <link href="${pageContext.request.contextPath }/views/assets/stylesheets/demo.css" media="all" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
-<body class="contrast-blue sign-up contrast-background">
+<body class="contrast-blue sign-in contrast-background">
 <input type="hidden" id="projectContextPath" value="${pageContext.request.contextPath }"/>
 <div id="wrapper">
     <div class="application">
         <div class="application-content">
-            <a href="${pageContext.request.contextPath }/user/logup"><div class="icon-heart"></div>
+            <a href="${pageContext.request.contextPath }/user/signin"><div class="icon-heart"></div>
                 <span>客房预订系统</span>
             </a>
         </div>
@@ -68,44 +68,26 @@
     <div class="controls">
         <div class="caret"></div>
         <div class="form-wrapper">
-            <h1 class="text-center">注册</h1>
-            <form accept-charset="UTF-8" action="javascript:void(0);" method="GET" />
+            <h1 class="text-center">忘记密码</h1>
             <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
                 <div class="row-fluid">
                     <div class="span12 icon-over-input">
-                        <input class="span12" id="email" name="email" placeholder="电子邮件" type="text" value="" />
+                        <input class="span12" id="email" name="email" placeholder="邮箱" type="text" value="" />
                         <i class="icon-user muted"></i>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12 icon-over-input">
-                        <input class="span12" id="password" name="password" placeholder="密码" type="password" value="" />
-                        <i class="icon-lock muted"></i>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12 icon-over-input">
-                        <input class="span12" id="password_confirmation" name="password_confirmation" placeholder="确认密码" type="password" value="" />
-                        <i class="icon-lock muted"></i>
-                    </div>
-                </div>
-                <label class="checkbox" for="agreement"><input id="agreement" name="agreement" type="checkbox" value="1" />
-                    接受
-                    <a href="javascript:void(0);" class="text-contrast">用户服务条款</a>
-                </label>
-                <button class="btn btn-block" name="button" type="button" id="registerBtn">注册</button>
-            </form>
+                <label class="checkbox" for="remember_me">找回信息将发送到邮箱</label>
+                <button class="btn btn-block" name="button" type="button" id="loginBtn">发送邮件</button>
             <div class="text-center">
                 <hr class="hr-normal" />
-                <a href="${pageContext.request.contextPath }/user/signin"><i class="icon-chevron-left"></i>
-                    返回登陆
-                </a>
+                <a href="${pageContext.request.contextPath }/user/signin">去登陆</a>
             </div>
         </div>
     </div>
     <div class="login-action text-center">
-        <a href="${pageContext.request.contextPath }/user/forgetPasswd"><i class="icon-lock"></i>
-            忘记密码?
+        <a href="${pageContext.request.contextPath }/user/logup"><i class="icon-user"></i>
+            新用户?
+            <strong>注册</strong>
         </a>
     </div>
 </div>
@@ -205,16 +187,7 @@
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/tables.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/theme.js" type="text/javascript"></script>
 
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/base64.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/jsbn.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/jsbn2.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/prng4.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/rng.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/rsa.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/rsa2.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/user/js/rsa/encryptutils.js" type="text/javascript"></script>
-
-<script src="${pageContext.request.contextPath }/views/user/js/sign_up.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/forgetPasswd.js" type="text/javascript"></script>
 
 </body>
 </html>

@@ -116,12 +116,12 @@ function login2(passwd,email){
 	jsonData.passwd=passwd;
 	$.ajax({
 		"url":url,
-		"dataType":"text",
+		"dataType":"json",
 		"data":jsonData,
 		"async":"true",
 		"type":"POST",
-		"success":function(resultCode){
-			if("LOGIN_SECCESS"===resultCode){
+		"success":function(jsonObj){
+			if("LOGIN_SECCESS"===jsonObj.state){
 				//alert("登陆成功");
 				if($("#remember_me").is(":checked")){
 					$.cookie(projectName+"_email",email,{expires:7,path:'/'});
@@ -129,13 +129,27 @@ function login2(passwd,email){
 				else{
 					$.cookie(projectName+"_email","",{expires:7,path:'/'});
 				}
-				window.location.href=projectName+"/user/";
+				if("2"===jsonObj.type){
+					window.location.href=projectName+"/user/";
+				}
+				else if("1"===jsonObj.type){
+					window.location.href=projectName+"/user/manageUser";
+				}
+				else if("0"===jsonObj.type){
+					window.location.href=projectName+"/user/admin";
+				}
+				else{
+					alert("登陆发生错误");
+				}
 			}
-			else if("PASSWD_ERROR"===resultCode){
+			else if("PASSWD_ERROR"===jsonObj.state){
 				alert("密码错误");
 			}
-			else if("GET_USER_INFO_FAILED"===resultCode){
+			else if("GET_USER_INFO_FAILED"===jsonObj.state){
 				alert("获取用户信息失败");
+			}
+			else if("DISABLE"===jsonObj.state){
+				alert("帐号未启用");
 			}
 			else{
 				alert("登陆失败");
