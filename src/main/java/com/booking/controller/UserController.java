@@ -18,6 +18,40 @@ import com.booking.service.UserService;
 import com.booking.utils.RSA;
 import com.booking.utils.RSAPubExepAndModulus;
 
+//js加密密码
+//要引入的js有
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/base64.js" type="text/javascript"></script>
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/jsbn.js" type="text/javascript"></script>
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/jsbn2.js" type="text/javascript"></script>
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/prng4.js" type="text/javascript"></script>
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/rng.js" type="text/javascript"></script>
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/rsa.js" type="text/javascript"></script>
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/rsa2.js" type="text/javascript"></script>
+//<script src="${pageContext.request.contextPath }/views/manageUser/js/rsa/encryptutils.js" type="text/javascript"></script>
+
+//参数为未加密的密码
+//function getPUBEXEP_MODULUS(passwd){
+//	"use strict";
+//	var url=projectName+"/user/getPUBEXEP_MODULUS";//请把projectName换成/项目名(例如 /booking)
+//	$.ajax({
+//		"url":url,
+//		"dataType":"json",
+//		"async":"true",
+//		"type":"GET",
+//		"success":function(jsonObj){
+//			if(null!==jsonObj){
+//				var modulus=jsonObj.modulus;
+//				var pubExep=jsonObj.pubExep;
+//				passwd=jsu_rsa(modulus,pubExep,passwd);//RSA加密，返回的passwd是已经加密好的
+//				login2(passwd);	//把这个函数换成你自己的下一步操作
+//			}
+//			else{
+//				alert("获取用户信息失败");
+//			}
+//		}
+//	});
+//}
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -69,7 +103,7 @@ public class UserController {
 		return rsa.getPubExepAndModulus();
 	}
 	//登陆
-	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码
+	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码(js加密过程请看顶部)
 	//返回json格式的用户类型和枚举状态UserState
 	@PostMapping("/login")
 	public @ResponseBody String login(@RequestParam String email,@RequestParam String passwd,HttpSession session) {
@@ -89,7 +123,7 @@ public class UserController {
 		return result;
 	}
 	//注册普通用户
-	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码
+	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码(js加密过程请看顶部)
 	//返回枚举UserState
 	@PostMapping("/register")
 	public @ResponseBody String register(@RequestParam String email,@RequestParam String passwd,HttpSession session) {
@@ -99,7 +133,7 @@ public class UserController {
 		return temp.toString();
 	}
 	//注册用户管理员
-	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码
+	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码(js加密过程请看顶部)
 	//返回枚举UserState
 	@PostMapping("/registerManageUser")
 	public @ResponseBody String registerManageUser(@RequestParam String email,@RequestParam String passwd,HttpSession session) {
@@ -109,7 +143,7 @@ public class UserController {
 		return temp.toString();
 	}
 	//注册管理员
-	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码
+	//参数：用户email,使用getPUBEXEP_MODULUS获取的指数和模加密的密码(js加密过程请看顶部)
 	//返回枚举UserState
 	@PostMapping("/registerAdmin")
 	public @ResponseBody String registerAdmin(@RequestParam String email,@RequestParam String passwd,HttpSession session) {
@@ -139,5 +173,88 @@ public class UserController {
 	public String forgetPasswd() {
 		return "manageUser/forgetPasswd";
 	}
-
+	//发送临时密码到邮箱
+	@PostMapping("/sendEmailForPasswd")
+	public @ResponseBody String sendEmailForPasswd(@RequestParam String email) {
+		return userService.sendEmailForPasswd(email).toString();
+	}
+//	private Long uid;
+//	private String uname;
+//	@Size(min=128)
+//	private String upassword;
+//	private String salt;
+//	private Boolean enable=false;
+//	private String uicon="/views/manageUser/images/default_avatar.png";
+//	@Size(min=11,max=11)
+//	private String telephone;
+//	private String email;
+//	@DateTimeFormat(pattern="yy/MM/dd HH:mm:ss")
+//	@JsonFormat(pattern="yy/MM/dd HH:mm:ss")
+//	@Column(columnDefinition="timestamp default current_timestamp comment '创建时间'") 
+//	private Date create_time=new Date();
+//	private Integer type=0;//0管理员 1用户管理员 2普通用户
+	
+	//修改昵称
+	@PostMapping("/change/nick")
+	public @ResponseBody String changeNick(@RequestParam String nick,HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		user.setUname(nick);
+		return userService.changeNick(user).toString();
+	}
+	//修改密码
+	@PostMapping("/change/passwd")
+	public @ResponseBody String changePasswd(@RequestParam String newPasswd,@RequestParam String oldPasswd,HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		UserState temp=userService.changePasswd(user, newPasswd,oldPasswd,session);
+		session.removeAttribute("rsa");
+		return temp.toString();
+	}
+	//切换状态
+	@PostMapping("/change/state")
+	public @ResponseBody String changeState(HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		return userService.changeState(user).toString();
+	}
+	//修改手机号
+	@PostMapping("/change/phone")
+	public @ResponseBody String changePhone(@RequestParam String phone,HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		return userService.changePhone(user,phone).toString();
+	}
+	//修改邮箱
+	@PostMapping("/change/email")
+	public @ResponseBody String changeEmail(@RequestParam String email,HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		try {
+			return userService.changeEmail(user, java.net.URLDecoder.decode(email, "UTF-8")).toString();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return UserState.CHANGE_FAILED.toString();
+	}
+//	//修改头像
+//	@PostMapping("/change/avatar")
+//	public @ResponseBody String changeAvatar(@RequestParam String email,HttpSession session) {
+//		User user=(User) session.getAttribute("user");
+//		if(null==user) {
+//			return UserState.NOT_LOGIN.toString();
+//		}
+//			
+//		return userService.sendEmailForPasswd(email).toString();
+//	}
 }

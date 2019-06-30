@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <label class="checkbox" for="remember_me">找回信息将发送到邮箱</label>
-                <button class="btn btn-block" name="button" type="button" id="loginBtn">发送邮件</button>
+                <button class="btn btn-block" name="button" type="button" id="sendEmailBtn">发送邮件</button>
             <div class="text-center">
                 <hr class="hr-normal" />
                 <a href="${pageContext.request.contextPath }/user/signin">去登陆</a>

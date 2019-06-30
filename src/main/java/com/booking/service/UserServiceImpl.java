@@ -23,6 +23,7 @@ import com.booking.domain.enums.UserState;
 import com.booking.utils.RSA;
 import com.booking.utils.SHA2;
 import com.booking.utils.Salt;
+import com.booking.utils.SendEmail;
 
 @Service
 @Transactional(readOnly=true)
@@ -47,7 +48,12 @@ public class UserServiceImpl implements UserService{
 		User user = userDao.findById(id).get();
 		return user;
 	}
-
+	@Override
+	public Optional<User> findByEmail(String email){
+		userDTO.setKey(email);
+		Specification<User> spec=UserDTO.getSpecification(userDTO);
+		return userDao.findOne(spec);
+	}
 	@Override
 	public boolean existsById(Long id) {
 		return userDao.existsById(id);
@@ -131,9 +137,7 @@ public class UserServiceImpl implements UserService{
 		}
 		passwd=rsa.getStrDecryptionText(passwd);
 		//System.out.println("passwd="+passwd);
-		userDTO.setKey(email);
-		Specification<User> spec=UserDTO.getSpecification(userDTO);
-		Optional<User> optional=userDao.findOne(spec);
+		Optional<User> optional=this.findByEmail(email);
 		if(!optional.isPresent()) {
 			return UserState.GET_USER_INFO_FAILED;
 		}
@@ -154,7 +158,8 @@ public class UserServiceImpl implements UserService{
 			return UserState.FORMAT_ERROR;
 		}
 		try {
-			email=java.net.URLDecoder.decode(email, "UTF-8");passwd=java.net.URLDecoder.decode(passwd, "UTF-8");
+			email=java.net.URLDecoder.decode(email, "UTF-8");
+			passwd=java.net.URLDecoder.decode(passwd, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -183,4 +188,87 @@ public class UserServiceImpl implements UserService{
 		userDao.save(user);
 		return UserState.REGISTER_SECCESS;
 	}
+	@Override
+	public UserState sendEmailForPasswd(String email) {
+		try {
+			email=java.net.URLDecoder.decode(email, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		Optional<User> optional=this.findByEmail(email);
+		if(!optional.isPresent()) {
+			return UserState.USER_NOT_EXIST;
+		}
+		User user=optional.get();
+		String newpasswd=Salt.getSalt(33, 16);
+		String salt=Salt.getSalt(33, 94);
+		String passwd=SHA2.getEncryptionText(newpasswd, salt, "SHA-512");
+		user.setUpassword(passwd);
+		user.setSalt(salt);
+		if(SendEmail.sendSimple_163_Mail("skyline_software@163.com", "skyline_software@163.com", "ep01918",email,"找回密码","临时密码为:"+newpasswd)) {
+			userDao.save(user);
+			return UserState.SEND_EMAIL_SECCESS;
+		}
+		return UserState.SEND_EMAIL_FAILED;
+	}
+	@Override
+	public UserState changeNick(User user){
+		userDao.save(user);
+		return UserState.CHANGE_SECCESS;
+	}
+	@Override
+	public UserState changePasswd(User user,String newPasswd,String oldPasswd,HttpSession session){
+		if(null==oldPasswd||null==newPasswd) {
+			return UserState.FORMAT_ERROR;
+		}
+		try {
+			newPasswd=java.net.URLDecoder.decode(newPasswd, "UTF-8");
+			oldPasswd=java.net.URLDecoder.decode(oldPasswd, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		RSA rsa=(RSA) session.getAttribute("rsa");
+		if(null==rsa) {
+			return UserState.GET_USER_INFO_FAILED;
+		}
+		newPasswd=rsa.getStrDecryptionText(newPasswd);
+		oldPasswd=rsa.getStrDecryptionText(oldPasswd);
+		if(null==oldPasswd||null==newPasswd) {
+			return UserState.CHANGE_FAILED;
+		}
+		oldPasswd=SHA2.getEncryptionText(oldPasswd, user.getSalt(), "SHA-512");
+		if(!user.getUpassword().equals(oldPasswd)) {
+			return UserState.PASSWD_ERROR;
+		}
+		String salt=Salt.getSalt(33, 94);
+		newPasswd=SHA2.getEncryptionText(newPasswd, salt, "SHA-512");
+		user.setUpassword(newPasswd);
+		user.setSalt(salt);
+		userDao.save(user);
+		return UserState.CHANGE_SECCESS;
+	}
+	@Override
+	public UserState changeState(User user){
+		user.setEnable(user.getEnable()?false:true);
+		userDao.save(user);
+		return UserState.CHANGE_SECCESS;
+	}
+	@Override
+	public UserState changePhone(User user,String phone){
+		//验证号码是否正确
+		user.setTelephone(phone);
+		userDao.save(user);
+		return UserState.CHANGE_SECCESS;
+	}
+	@Override
+	public UserState changeEmail(User user,String email){
+		//验证email是否正确
+		user.setEmail(email);
+		userDao.save(user);
+		return UserState.CHANGE_SECCESS;
+	}
+//	@Override
+//	public UserState changeAvatar(){
+//		return UserState.SEND_EMAIL_FAILED;
+//	}
 }

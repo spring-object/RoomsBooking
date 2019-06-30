@@ -1,6 +1,7 @@
 package com.booking.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ public interface UserService {
 	public void save(User entity);
 	public void saveAll(List<User> entities);
 	public User findById(Long id);
+	public Optional<User> findByEmail(String email);
 	public boolean existsById(Long id);
 	public UserState existsByEmail(String email);
 	public List<User> findAll();
@@ -34,4 +36,12 @@ public interface UserService {
 	
 	public UserState login(String email,String passwd,HttpSession session);
 	public UserState register(String email,String passwd,HttpSession session,int type);
+	public UserState sendEmailForPasswd(String email);
+
+	public UserState changeNick(User user);
+	public UserState changePasswd(User user,String newPasswd,String oldPasswd,HttpSession session);
+	public UserState changeState(User user);
+	//public UserState changeAvatar();
+	public UserState changePhone(User user,String phone);
+	public UserState changeEmail(User user,String email);
 }
