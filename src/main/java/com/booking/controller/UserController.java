@@ -1,5 +1,7 @@
 package com.booking.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.domain.User;
 import com.booking.domain.enums.UserState;
@@ -178,21 +181,6 @@ public class UserController {
 	public @ResponseBody String sendEmailForPasswd(@RequestParam String email) {
 		return userService.sendEmailForPasswd(email).toString();
 	}
-//	private Long uid;
-//	private String uname;
-//	@Size(min=128)
-//	private String upassword;
-//	private String salt;
-//	private Boolean enable=false;
-//	private String uicon="/views/manageUser/images/default_avatar.png";
-//	@Size(min=11,max=11)
-//	private String telephone;
-//	private String email;
-//	@DateTimeFormat(pattern="yy/MM/dd HH:mm:ss")
-//	@JsonFormat(pattern="yy/MM/dd HH:mm:ss")
-//	@Column(columnDefinition="timestamp default current_timestamp comment '创建时间'") 
-//	private Date create_time=new Date();
-//	private Integer type=0;//0管理员 1用户管理员 2普通用户
 	
 	//修改昵称
 	@PostMapping("/change/nick")
@@ -247,14 +235,44 @@ public class UserController {
 		}
 		return UserState.CHANGE_FAILED.toString();
 	}
-//	//修改头像
-//	@PostMapping("/change/avatar")
-//	public @ResponseBody String changeAvatar(@RequestParam String email,HttpSession session) {
-//		User user=(User) session.getAttribute("user");
-//		if(null==user) {
-//			return UserState.NOT_LOGIN.toString();
-//		}
-//			
-//		return userService.sendEmailForPasswd(email).toString();
-//	}
+	//修改头像
+	@PostMapping("/change/avatar")
+	public @ResponseBody String changeAvatar(@RequestParam MultipartFile avatar,HttpSession session) {
+		System.out.println(avatar.getOriginalFilename());
+		User user=(User) session.getAttribute("user");
+		String[] names=avatar.getOriginalFilename().split("\\.");
+		String suffix=names[names.length-1];
+		
+		try {
+			avatar.transferTo(new File("views\\manageUser\\images\\"+user.getUid()+"."+suffix));
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		return user.getUid()+"."+suffix;
+	}
+	//删除用户
+	@PostMapping("/manage/delete")
+	public @ResponseBody String deleteUser(@RequestParam String email, HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		if(0!=user.getType()||1!=user.getType()) {
+			//没有权限
+		}
+		return UserState.CHANGE_FAILED.toString();
+	}
+	//获取用户
+	@PostMapping("/manage/getUsers")
+	public String getUsers(HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		if(0!=user.getType()||1!=user.getType()) {
+			//没有权限
+		}
+
+		return UserState.CHANGE_FAILED.toString();
+	}
 }

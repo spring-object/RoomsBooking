@@ -57,6 +57,7 @@
 	 <link href="css/index.css" media="all" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body class="contrast-blue ">
+<input type="hidden" id="projectContextPath" value="${pageContext.request.contextPath }"/>
 <header>
     <div class="navbar">
         <div class="navbar-inner">
@@ -375,7 +376,7 @@
 </div>
 </div>
 
-	
+	-->
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span12">
@@ -393,12 +394,12 @@
         <div class="box-content">
             <strong></strong>
             <div>
-                <input title="选择文件" type="file" id="paersonal_info_inputAvatar"/>
+                <input title="选择文件" name="avatar" type="file" id="paersonal_info_inputAvatar"/>
             </div>
 			<p></p>
 			<img src="${pageContext.request.contextPath }${sessionScope.user.uicon }" width="720" height="720" alt="" id="change_paersonal_info_avatar"/>
 			<p></p>
-			<button class="btn btn-success" name="button" style="margin-bottom:5px" type="submit">修改头像</button>
+			<button class="btn btn-success" name="button" style="margin-bottom:5px" type="button" id="changeAvatarBtn">修改头像</button>
         </div>
     </div>
 </div>
@@ -407,7 +408,7 @@
 
 </div>
 </div>
-</div> -->
+</div> 
 <!---------------------------------------------------订单列表------------------------------------------------------------->
 
 <div class="container-fluid">

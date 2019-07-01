@@ -213,7 +213,7 @@ public class UserServiceImpl implements UserService{
 	}
 	@Override
 	public UserState changeNick(User user){
-		userDao.save(user);
+		System.out.println(userDao.save(user));
 		return UserState.CHANGE_SECCESS;
 	}
 	@Override
