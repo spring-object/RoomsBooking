@@ -1,12 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>修改个人资料</title>
+    <title>用户管理</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--[if lt IE 9]>
     <script src="assets/javascripts/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
@@ -54,19 +54,21 @@
     <link href="${pageContext.request.contextPath }/views/assets/stylesheets/light-theme.css" id="color-settings-body-color" media="all" rel="stylesheet" type="text/css" />
     <!-- / demo -->
     <link href="${pageContext.request.contextPath }/views/assets/stylesheets/demo.css" media="all" rel="stylesheet" type="text/css" />
+	 <link href="css/index.css" media="all" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body class="contrast-blue ">
+<input type="hidden" id="projectContextPath" value="${pageContext.request.contextPath }"/>
 <header>
     <div class="navbar">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <a class="brand" href="${pageContext.request.contextPath }/user/">
+                <a class="brand" href="index.html">
                     <i class="icon-heart-empty"></i>
-                    <span class="hidden-phone">个人中心</span>
+                    <span class="hidden-phone">用户管理</span>
                 </a>
-                <a class="toggle-nav btn pull-left" href="#">
+                <!--<a class="toggle-nav btn pull-left" href="#">
                     <i class="icon-reorder"></i>
-                </a>
+                </a>-->
                 <ul class="nav pull-right">
                     <li class="dropdown light only-icon">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -132,8 +134,15 @@
 					
                     <li class="dropdown dark user-menu">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img alt="Mila Kunis" height="23" src="${pageContext.request.contextPath }/views/assets/images/avatar.jpg" width="23" />
-                            <span class="user-name hidden-phone">账号名称</span>
+                            <img alt="Mila Kunis" height="23" src="${pageContext.request.contextPath }${sessionScope.user.uicon }" width="23" />
+                            <span class="user-name hidden-phone">
+                            	<c:if test="${null==sessionScope.user.uname }">
+									未设置昵称
+								</c:if>
+								<c:if test="${null!=sessionScope.user.uname }">
+									${sessionScope.user.uname }
+								</c:if>
+                            </span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
@@ -162,6 +171,7 @@
     </div>
 </header>
 <div id="wrapper">
+	<!--
 <div id="main-nav-bg"></div>
 <nav class="" id="main-nav">
 <div class="navigation">
@@ -174,34 +184,34 @@
     </form>
 </div>
 <ul class="nav nav-stacked">
-<li class="active">
+<li class="">
     <a class="dropdown-collapse" href="#">
         <i class="icon-edit"></i>
         <span>个人资料</span>
         <i class="icon-angle-down angle-down"></i>
     </a>
-    <ul class="in nav nav-stacked">
+    <ul class="nav nav-stacked">
         <li class="">
-            <a href="${pageContext.request.contextPath }/user/info/show">
+            <a href="show_info.html">
                 <i class="icon-caret-right"></i>
                 <span>查看个人资料</span>
             </a>
         </li>
-        <li class="active">
-            <a href="${pageContext.request.contextPath }/user/info/change">
+        <li class="">
+            <a href="change_info.html">
                 <i class="icon-caret-right"></i>
                 <span>修改个人资料</span>
             </a>
         </li>
        <li class="">
-            <a href="${pageContext.request.contextPath }/user/password/change">
+            <a href="change_password.html">
                 <i class="icon-caret-right"></i>
                 <span>修改密码</span>
             </a>
         </li>
     </ul>
 </li>
-<li class="">
+<li>
     <a class="dropdown-collapse " href="#">
         <i class="icon-tint"></i>
         <span>我的订单</span>
@@ -209,13 +219,13 @@
     </a>
     <ul class="nav nav-stacked">
         <li class="">
-            <a href="${pageContext.request.contextPath }/user/order/show">
+            <a href="order_list.html">
                 <i class="icon-caret-right"></i>
                 <span>查看订单</span>
             </a>
         </li>
         <li class="">
-            <a href="${pageContext.request.contextPath }/user/order/sta">
+            <a href="order_sta.html">
                 <i class="icon-caret-right"></i>
                 <span>订单统计</span>
             </a>
@@ -227,8 +237,452 @@
 </div>
 </nav>
 <section id="content">
-修改个人资料
-</section>
+
+</section>-->
+<!---------------------------------------------------查看信息------------------------------------------------------------->
+<!-- 
+<div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="page-header">
+                    <h1 class="pull-left">
+                        <i class="icon-user"></i>
+                        <span>个人资料</span>
+                    </h1>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3 box">
+                        <div class="box-content">
+                            <img alt="头像" src="${pageContext.request.contextPath }${sessionScope.user.uicon }" />
+                        </div>
+                    </div>
+                    <div class="span9 box">
+                        <div class="box-content box-double-padding">
+                                <fieldset>
+                                    <div class="span4 box">
+                                        <div class="lead">
+                                            <i class="icon-user text-contrast"></i>
+                                            账号信息
+                                        </div>
+                                        <small class="muted"></small>
+                                    </div>
+                                    <div class="span7 offset1">
+                                        <div class="control-group">
+                                            <label class="control-label">昵称</label>
+                                            <div class="controls">
+                                                <div class="span12">
+	                                                <c:if test="${null==sessionScope.user.uname }">
+														未设置昵称
+													</c:if>
+													<c:if test="${null!=sessionScope.user.uname }">
+														${sessionScope.user.uname }
+													</c:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">手机号</label>
+                                            <div class="controls">
+                                                <div class="span12">
+	                                                <c:if test="${null==sessionScope.user.telephone }">
+														未设置手机号
+													</c:if>
+													<c:if test="${null!=sessionScope.user.telephone }">
+														${sessionScope.user.telephone }
+													</c:if>
+                                                </div>
+                                            </div>
+                                        </div>
+										<div class="control-group">
+                                            <label class="control-label">邮箱</label>
+                                            <div class="controls">
+                                                <div class="span12">${sessionScope.user.email }</div>
+                                            </div>
+                                        </div>
+										<div class="control-group">
+                                            <label class="control-label">注册日期</label>
+                                            <div class="controls">
+                                                <div class="span12">${sessionScope.user.create_time }</div>
+                                            </div>
+                                        </div>
+										<div class="control-group">
+                                            <label class="control-label">用户类型</label>
+                                            <div class="controls">
+                                            <div class="span12">
+	                                            <c:if test="${0==sessionScope.user.type }">
+													普通用户
+												</c:if>
+												<c:if test="${1==sessionScope.user.type }">
+													管理员
+												</c:if>
+                                             </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!---------------------------------------------------修改信息------------------------------------------------------------->
+	<!-- 
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
+
+<div class="box-content box-no-padding">
+<div class="responsive-table">
+<div class="row-fluid">
+	<div class="span6 box">
+        <div class="box-header blue-background">
+            <div class="title">修改密码</div>
+            <div class="actions">
+                <a href="#" class="btn box-collapse btn-mini btn-link" id="changePasswdActions"><i></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+			<strong></strong>
+            <input class="input-block-level mention" placeholder="旧密码" type="password" />
+            <strong></strong>
+            <input class="input-block-level mention" placeholder="新密码" type="password" />
+			<strong></strong>
+            <input class="input-block-level mention" placeholder="确认密码" type="password" />
+			<button class="btn btn-primary btn-block btn-large disabled" name="button" type="submit">修改</button>
+        </div>
+    </div>
+	<div class="span6 box">
+        <div class="box-header green-background">
+            <div class="title">修改个人信息</div>
+            <div class="actions">
+                <a href="#" class="btn box-collapse btn-mini btn-link" id="changeInfoActions"><i></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            <input class="input-block-level mention" placeholder="昵称" type="password" />
+            <button class="btn btn-success" name="button" style="margin-bottom:5px" type="submit">修改昵称</button>
+            <input class="input-block-level mention" placeholder="电话" type="password" />
+			<button class="btn btn-success" name="button" style="margin-bottom:5px" type="submit">修改电话</button>
+            <input class="input-block-level mention" placeholder="邮箱" type="password" />
+			<button class="btn btn-success" name="button" style="margin-bottom:5px" type="submit">修改邮箱</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+	-->
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
+
+<div class="box-content box-no-padding">
+<div class="responsive-table">
+<div class="row-fluid">
+	<div class="span6 box box-nomargin">
+        <div class="box-header orange-background">
+            <div class="title">修改头像</div>
+            <div class="actions">
+                <a href="#" class="btn box-collapse btn-mini btn-link" id="changeAvatarActions"><i></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            <strong></strong>
+            <div>
+                <input title="选择文件" name="avatar" type="file" id="paersonal_info_inputAvatar"/>
+            </div>
+			<p></p>
+			<img src="${pageContext.request.contextPath }${sessionScope.user.uicon }" width="720" height="720" alt="" id="change_paersonal_info_avatar"/>
+			<p></p>
+			<button class="btn btn-success" name="button" style="margin-bottom:5px" type="button" id="changeAvatarBtn">修改头像</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div> 
+<!---------------------------------------------------订单列表------------------------------------------------------------->
+
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
+
+<hr class="hr-double" />
+
+<div class="row-fluid">
+<div class="span12 box bordered-box orange-border" style="margin-bottom:0;">
+<div class="box-header red-background">
+    <div class="title">用户列表</div>
+	<div class="actions">
+         <a href="#" class="btn box-collapse btn-mini btn-link" id="myOrderActions"><i></i></a>
+    </div>
+</div>
+<div class="box-content box-no-padding">
+<div class="responsive-table">
+<div class="scrollable-area">
+<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+<thead>
+<tr>
+    <th>
+        订单编号
+    </th>
+    <th>
+        创建时间
+    </th>
+    <th>
+        开房时间
+    </th>
+	<th>
+        退房时间
+    </th>
+	<th>
+        房间数
+    </th>
+	<th>
+        状态
+    </th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+   <!-- <td>
+        <div class="text-right">
+            <a class="btn btn-success btn-mini" href="#">
+                <i class="icon-ok"></i>
+            </a>
+            <a class="btn btn-danger btn-mini" href="#">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+	-->
+</tr>
+<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+	<tr>
+    <td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+<tr>
+<td>1</td>
+    <td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>0000/00/00 00:00:00</td>
+	<td>2</td>
+	<td>状态</td>
+	<td>
+        <div class="text-right">
+            <a class="btn btn-danger btn-mini" href="javascript:void(0);" onClick="deleteOrder(1)">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<!---------------------------------------------------订单统计------------------------------------------------------------->
+<!-- 
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
+
+<hr class="hr-double" />
+
+<div class="row-fluid">
+<div class="span12 box bordered-box orange-border" style="margin-bottom:0;">
+<div class="box-header purple-background">
+    <div class="title">订单统计</div>
+	<div class="actions">
+         <a href="#" class="btn box-collapse btn-mini btn-link" id="orderStaActions"><i></i></a>
+    </div>
+</div>
+<div class="box-content box-no-padding">
+<div class="responsive-table">
+	<div id="staBox"></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+	 -->
 </div>
 <!-- / jquery -->
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
@@ -325,11 +779,9 @@
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/nav.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/tables.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/theme.js" type="text/javascript"></script>
-<!-- / demo -->
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/jquery.mockjax.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/inplace_editing.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/charts.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/demo.js" type="text/javascript"></script>
+
+<script src="${pageContext.request.contextPath }/views/manageUser/js/index.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/views/manageUser/js/highcharts/highcharts.js" type="text/javascript"></script>
 
 </body>
 </html>

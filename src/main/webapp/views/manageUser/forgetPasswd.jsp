@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>查看订单</title>
+    <title>忘记密码</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     
     <!--[if lt IE 9]>
-    <script src="assets/javascripts/html5shiv.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath }/views/assets/javascripts/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
     <link href="${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
     <link href="${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap-responsive.css" media="all" rel="stylesheet" type="text/css" />
@@ -55,180 +55,41 @@
     <!-- / demo -->
     <link href="${pageContext.request.contextPath }/views/assets/stylesheets/demo.css" media="all" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
-<body class="contrast-blue ">
-<header>
-    <div class="navbar">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="brand" href="index.html">
-                    <i class="icon-heart-empty"></i>
-                    <span class="hidden-phone">个人中心</span>
-                </a>
-                <a class="toggle-nav btn pull-left" href="#">
-                    <i class="icon-reorder"></i>
-                </a>
-                <ul class="nav pull-right">
-                    <li class="dropdown light only-icon">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="icon-adjust"></i>
-                        </a>
-                        <ul class="dropdown-menu color-settings">
-                            <li class="color-settings-body-color">
-                                <div class="color-title">主题</div>
-                                <a data-change-to="${pageContext.request.contextPath }/views/assets/stylesheets/light-theme.css" href="#">
-                                    亮
-                                    <small>(默认)</small>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="color-settings-contrast-color">
-                                <div class="color-title">主题颜色</div>
-								<a href="#" data-change-to="contrast-blue"><i class="icon-adjust text-blue"></i>
-                                    天蓝色
-									<small>(默认)</small>
-                                </a>
-                                <a href="#" data-change-to="contrast-red"><i class="icon-adjust text-red"></i>
-                                    红色
-                                </a>
-                                <a href="#" data-change-to="contrast-orange"><i class="icon-adjust text-orange"></i>
-                                    橙色
-                                </a>
-                                <a href="#" data-change-to="contrast-purple"><i class="icon-adjust text-purple"></i>
-                                    紫色
-                                </a>
-                                <a href="#" data-change-to="contrast-green"><i class="icon-adjust text-green"></i>
-                                    绿色
-                                </a>
-                                <a href="#" data-change-to="contrast-muted"><i class="icon-adjust text-muted"></i>
-                                    浅灰色
-                                </a>
-                                <a href="#" data-change-to="contrast-fb"><i class="icon-adjust text-fb"></i>
-                                    蓝色
-                                </a>
-                                <a href="#" data-change-to="contrast-dark"><i class="icon-adjust text-dark"></i>
-                                    黑色
-                                </a>
-                                <a href="#" data-change-to="contrast-pink"><i class="icon-adjust text-pink"></i>
-                                    粉色
-                                </a>
-                                <a href="#" data-change-to="contrast-grass-green"><i class="icon-adjust text-grass-green"></i>
-                                    草绿
-                                </a>
-                                <a href="#" data-change-to="contrast-sea-blue"><i class="icon-adjust text-sea-blue"></i>
-                                    海蓝
-                                </a>
-                                <a href="#" data-change-to="contrast-banana"><i class="icon-adjust text-banana"></i>
-                                    黄色
-                                </a>
-                                <a href="#" data-change-to="contrast-dark-orange"><i class="icon-adjust text-dark-orange"></i>
-                                    暗橙色
-                                </a>
-                                <a href="#" data-change-to="contrast-brown"><i class="icon-adjust text-brown"></i>
-                                    棕色
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-					
-                    <li class="dropdown dark user-menu">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img alt="Mila Kunis" height="23" src="${pageContext.request.contextPath }/views/assets/images/avatar.jpg" width="23" />
-                            <span class="user-name hidden-phone">账号名称</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="user_profile.html">
-                                    <i class="icon-cog"></i>
-                                    设置
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="${pageContext.request.contextPath }/user/logout">
-                                    <i class="icon-signout"></i>
-                                    退出登录
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <form accept-charset="UTF-8" action="search_results.html" class="navbar-search pull-right hidden-phone" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
-                    <button class="btn btn-link icon-search" name="button" type="submit"></button>
-                    <input autocomplete="off" class="search-query span2" id="q_header" name="q" placeholder="搜索..." type="text" value="" />
-                </form>
+<body class="contrast-blue sign-in contrast-background">
+<input type="hidden" id="projectContextPath" value="${pageContext.request.contextPath }"/>
+<div id="wrapper">
+    <div class="application">
+        <div class="application-content">
+            <a href="${pageContext.request.contextPath }/user/signin"><div class="icon-heart"></div>
+                <span>客房预订系统</span>
+            </a>
+        </div>
+    </div>
+    <div class="controls">
+        <div class="caret"></div>
+        <div class="form-wrapper">
+            <h1 class="text-center">忘记密码</h1>
+            <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+                <div class="row-fluid">
+                    <div class="span12 icon-over-input">
+                        <input class="span12" id="email" name="email" placeholder="邮箱" type="text" value="" />
+                        <i class="icon-user muted"></i>
+                    </div>
+                </div>
+                <label class="checkbox" for="remember_me">找回信息将发送到邮箱</label>
+                <button class="btn btn-block" name="button" type="button" id="sendEmailBtn">发送邮件</button>
+            <div class="text-center">
+                <hr class="hr-normal" />
+                <a href="${pageContext.request.contextPath }/user/signin">去登陆</a>
             </div>
         </div>
     </div>
-</header>
-<div id="wrapper">
-<div id="main-nav-bg"></div>
-<nav class="" id="main-nav">
-<div class="navigation">
-<div class="search">
-    <form accept-charset="UTF-8" action="search_results.html" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
-        <div class="search-wrapper">
-            <input autocomplete="off" class="search-query" id="q" name="q" placeholder="Search..." type="text" value="" />
-            <button class="btn btn-link icon-search" name="button" type="submit"></button>
-        </div>
-    </form>
-</div>
-<ul class="nav nav-stacked">
-<li class="">
-    <a class="dropdown-collapse" href="#">
-        <i class="icon-edit"></i>
-        <span>个人资料</span>
-        <i class="icon-angle-down angle-down"></i>
-    </a>
-    <ul class="in nav nav-stacked">
-        <li class="">
-            <a href="${pageContext.request.contextPath }/user/info/show">
-                <i class="icon-caret-right"></i>
-                <span>查看个人资料</span>
-            </a>
-        </li>
-        <li class="">
-            <a href="${pageContext.request.contextPath }/user/info/change">
-                <i class="icon-caret-right"></i>
-                <span>修改个人资料</span>
-            </a>
-        </li>
-       <li class="">
-            <a href="${pageContext.request.contextPath }/user/password/change">
-                <i class="icon-caret-right"></i>
-                <span>修改密码</span>
-            </a>
-        </li>
-    </ul>
-</li>
-<li class="">
-    <a class="dropdown-collapse " href="#">
-        <i class="icon-tint"></i>
-        <span>我的订单</span>
-        <i class="icon-angle-down angle-down"></i>
-    </a>
-    <ul class="in nav nav-stacked">
-        <li class="active">
-            <a href="${pageContext.request.contextPath }/user/order/show">
-                <i class="icon-caret-right"></i>
-                <span>查看订单</span>
-            </a>
-        </li>
-        <li class="">
-            <a href="${pageContext.request.contextPath }/user/order/sta">
-                <i class="icon-caret-right"></i>
-                <span>订单统计</span>
-            </a>
-        </li>
-    </ul>
-</li>
-
-</ul>
-</div>
-</nav>
-<section id="content">
-全部订单
-</section>
+    <div class="login-action text-center">
+        <a href="${pageContext.request.contextPath }/user/logup"><i class="icon-user"></i>
+            新用户?
+            <strong>注册</strong>
+        </a>
+    </div>
 </div>
 <!-- / jquery -->
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
@@ -325,11 +186,8 @@
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/nav.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/tables.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath }/views/assets/javascripts/theme.js" type="text/javascript"></script>
-<!-- / demo -->
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/jquery.mockjax.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/inplace_editing.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/charts.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath }/views/assets/javascripts/demo/demo.js" type="text/javascript"></script>
+
+<script src="${pageContext.request.contextPath }/views/manageUser/js/forgetPasswd.js" type="text/javascript"></script>
 
 </body>
 </html>
