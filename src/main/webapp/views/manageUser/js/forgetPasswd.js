@@ -23,13 +23,13 @@ function sendEmail(){
 		"async":"true",
 		"type":"POST",
 		"success":function(resultCode){
-			if("SEND_EMAIL_SECCESS"===resultCode){
+			if("SECCESS"===resultCode){
 				alert("临时密码已发送到邮箱，登陆后请及时更改");
 			}
 			else if("USER_NOT_EXIST"===resultCode){
 				alert("帐号不存在");
 			}
-			else if("SEND_EMAIL_FAILED"===resultCode){
+			else if("FAILED"===resultCode){
 				alert("发送邮件失败");
 			}
 			else{

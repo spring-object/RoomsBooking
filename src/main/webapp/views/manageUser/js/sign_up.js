@@ -125,7 +125,7 @@ function register2(passwd,email){
 		"async":"true",
 		"type":"POST",
 		"success":function(resultCode){
-			if("REGISTER_SECCESS"===resultCode){
+			if("SECCESS"===resultCode){
 				alert("注册成功");
 			}
 			else if("FORMAT_ERROR"===resultCode){
@@ -137,8 +137,8 @@ function register2(passwd,email){
 			else if("USER_EXIST"===resultCode){
 				alert("帐号已存在");
 			}
-			else if("REGISTER_FAILED"===resultCode){
-				alert("帐号已存在");
+			else if("FAILED"===resultCode){
+				alert("注册失败");
 			}
 			else{
 				alert("注册失败");

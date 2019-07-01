@@ -121,7 +121,7 @@ function login2(passwd,email){
 		"async":"true",
 		"type":"POST",
 		"success":function(jsonObj){
-			if("LOGIN_SECCESS"===jsonObj.state){
+			if("SECCESS"===jsonObj.state){
 				//alert("登陆成功");
 				if($("#remember_me").is(":checked")){
 					$.cookie(projectName+"_email",email,{expires:7,path:'/'});

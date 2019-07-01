@@ -1,8 +1,7 @@
 package com.booking.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +19,8 @@ import com.booking.domain.enums.UserState;
 import com.booking.service.UserService;
 import com.booking.utils.RSA;
 import com.booking.utils.RSAPubExepAndModulus;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 //js加密密码
 //要引入的js有
@@ -60,6 +61,7 @@ import com.booking.utils.RSAPubExepAndModulus;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	ObjectMapper jackson=new ObjectMapper();
 	
 	//转到到个人中心
 	@GetMapping("/")
@@ -114,7 +116,7 @@ public class UserController {
 		temp = userService.login(email, passwd, session);
 		session.removeAttribute("rsa");
 		String result="";
-		if(temp==UserState.LOGIN_SECCESS) {
+		if(temp==UserState.SECCESS) {
 			result="{\"type\":\""+((User)session.getAttribute("user")).getType();
 			result+="\",\"state\":\"";
 		}
@@ -233,46 +235,83 @@ public class UserController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return UserState.CHANGE_FAILED.toString();
+		return UserState.FAILED.toString();
 	}
 	//修改头像
 	@PostMapping("/change/avatar")
 	public @ResponseBody String changeAvatar(@RequestParam MultipartFile avatar,HttpSession session) {
-		System.out.println(avatar.getOriginalFilename());
-		User user=(User) session.getAttribute("user");
-		String[] names=avatar.getOriginalFilename().split("\\.");
-		String suffix=names[names.length-1];
-		
-		try {
-			avatar.transferTo(new File("views\\manageUser\\images\\"+user.getUid()+"."+suffix));
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		return user.getUid()+"."+suffix;
+		return userService.changeAvatar(avatar,session).toString();
 	}
 	//删除用户
 	@PostMapping("/manage/delete")
-	public @ResponseBody String deleteUser(@RequestParam String email, HttpSession session) {
+	public @ResponseBody String deleteUser(@RequestParam List<Long> ids, HttpSession session) {
 		User user=(User) session.getAttribute("user");
 		if(null==user) {
 			return UserState.NOT_LOGIN.toString();
 		}
 		if(0!=user.getType()||1!=user.getType()) {
 			//没有权限
+			return UserState.PERMISSION_DENIED.toString();
 		}
-		return UserState.CHANGE_FAILED.toString();
+		return userService.deleteAll(ids).toString();
 	}
-	//获取用户
-	@PostMapping("/manage/getUsers")
-	public String getUsers(HttpSession session) {
+	//获取所有用户
+	@GetMapping("/manage/getUsers")
+	public  @ResponseBody String getUsers(HttpSession session) {
 		User user=(User) session.getAttribute("user");
 		if(null==user) {
 			return UserState.NOT_LOGIN.toString();
 		}
-		if(0!=user.getType()||1!=user.getType()) {
+		if(0!=user.getType()&&1!=user.getType()) {
 			//没有权限
+			return UserState.PERMISSION_DENIED.toString();
 		}
+		try {
+			return jackson.writeValueAsString(userService.findAll());
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return UserState.ERROR.toString();
+	}
+	//获取一页用户
+	@GetMapping("/manage/getPageUsers")
+	public @ResponseBody String getPageUser(Integer pageIndex, Integer pageSize, HttpSession session) {
+		if(null!=pageIndex&&null!=pageSize) {
+			User user=(User) session.getAttribute("user");
+			if(null==user) {
+				return UserState.NOT_LOGIN.toString();
+			}
+			if(0!=user.getType()&&1!=user.getType()) {
+				//没有权限
+				return UserState.PERMISSION_DENIED.toString();
+			}
+			try {
+				return jackson.writeValueAsString(userService.findAll(pageIndex,pageSize));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		}
+		return UserState.ERROR.toString();
+	}
 
-		return UserState.CHANGE_FAILED.toString();
+	// 获取一个用户
+	@GetMapping("/manage/getUser")
+	public @ResponseBody String getOneUser(Long uid, HttpSession session) {
+		if(null!=uid) {
+			User user=(User) session.getAttribute("user");
+			if(null==user) {
+				return UserState.NOT_LOGIN.toString();
+			}
+			if(0!=user.getType()&&1!=user.getType()) {
+				//没有权限
+				return UserState.PERMISSION_DENIED.toString();
+			}
+			try {
+				return jackson.writeValueAsString(userService.findById(uid));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		}
+		return UserState.ERROR.toString();
 	}
 }
