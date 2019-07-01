@@ -1,10 +1,20 @@
 package com.booking.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /*
  * 房间实体类
@@ -21,6 +31,10 @@ public class Room {
 	private String type;			//房间类型
 	private String info;			//简介
 	private String equipment;		//设备
+	
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="room",cascade=CascadeType.ALL)
+	@JsonBackReference
+	private Set<Picture> pictures = new HashSet<Picture>();//房间图片
 	
 	public Long getRid() {
 		return rid;
@@ -59,6 +73,12 @@ public class Room {
 		this.equipment = equipment;
 	}
 	
+	public Set<Picture> getPictures() {
+		return pictures;
+	}
+	public void setPictures(Set<Picture> pictures) {
+		this.pictures = pictures;
+	}
 	@Override
 	public String toString() {
 		return "Room [rid=" + rid + ", rname=" + rname + ", price=" + price + ", type=" + type + ", info=" + info

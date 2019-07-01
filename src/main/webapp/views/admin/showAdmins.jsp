@@ -158,37 +158,38 @@
             <div class="modal-body">
             	<div class="form-horizontal">
 	                <div class="form-group">
-	                  <label for="uname" class="col-sm-2 control-label">用户名：</label>
+	                  <label for="newUname" class="col-sm-2 control-label">用户名：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="uname" type="text">
+	                    <input class="form-control" id="newUname" type="text">
 	                  </div>
 	                </div>
 					<br>          			
 	                <div class="form-group">
-	                  <label for="uicon" class="col-sm-2 control-label">用户头像：</label>
+	                  <label for="newUicon" class="col-sm-2 control-label">用户头像：</label>
 	                  <div class="col-sm-10">
-	                  	<input class="form-control" id="upload" type="file">
+	                  	<input class="form-control" id="newUpload" type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" style="display:none">
+	                  	<img src="#" id="newUicon" width="100px" height="80px" style="cursor:pointer">
 	                  </div>
 	                </div>
 	                <br>
 	                <div class="form-group">
-	                  <label for="telephone" class="col-sm-2 control-label">联系电话：</label>
+	                  <label for="newTelephone" class="col-sm-2 control-label">联系电话：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="telephone" type="text">
+	                    <input class="form-control" id="newTelephone" type="text">
 	                  </div>
 	                </div>
 					<br>
 					<div class="form-group">
-	                  <label for="email" class="col-sm-2 control-label">邮箱：</label>
+	                  <label for="newEmail" class="col-sm-2 control-label">邮箱：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="email" type="text">
+	                    <input class="form-control" id="newEmail" type="text">
 	                  </div>
 	                </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">添加</button>
+                <button id="addUser" type="button" class="btn btn-primary">添加</button>
             </div>
         </div>
     </div>

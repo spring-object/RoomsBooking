@@ -107,7 +107,9 @@ $(function() {
         "aLengthMenu": [[1, 2, 10], [1, 2, 10]],//设置每页显示数据条数的下拉选项
         'iDisplayLength': 1, //每页初始显示5条记录
         'bFilter': false,  //是否使用内置的过滤功能（是否去掉搜索框）
-        "bSort": false, //是否可排序 
+        "bSort": false, //是否可排序
+        //"aoColumnDefs": [ { "bSortable": false, "aTargets": [ 0 ] }],//进制某列排序
+       // "aaSorting": [[1, "asc"]],//指定某列按照什么规则排序
         "oLanguage":{  //语言转换
             "sProcessing": "处理中...",
             "sLengthMenu": "显示 _MENU_ 项结果",
@@ -152,7 +154,7 @@ $(function() {
         table.search(key).draw();//将查询关键字写进datatable的key中
     });
     /**
-     * 实现点击图片上传图片，同时能先预览
+     * 编辑用户时实现点击图片上传图片，同时能先预览
      */
     $("#uicon").click(function(){
     	$("#upload").click();
@@ -163,6 +165,58 @@ $(function() {
     		}
     	})
     });
+    /**
+     * 添加用户时实现点击图片上传图片，同时能先预览
+     */
+    $("#newUicon").click(function(){
+    	$("#newUpload").click();
+    	$("#newUpload").change(function(){
+    		var url = getImageUrl(this.files[0]);
+    		if(url){
+    			$("#newUicon").attr("src",url);
+    		}
+    	})
+    });
+    
+    /**
+     * 添加用户后与后台进行交互
+     */
+    $("#addUser").click(function(){
+    	var uname = $("#newUname").val();
+    	var file = $("#newUpload")[0].files[0];
+    	var telephone = $("#newTelephone").val();
+    	var email = $("#newEmail").val();
+    	var data = new FormData();//通过formdata封装数据
+    	data.append("uname",uname);
+    	data.append("telephone",telephone);
+    	data.append("email",email);
+    	//判断是否有文件上传
+    	if(file){
+    		data.append("isMultipart",true);
+    	}else{
+    		data.append("isMultipart",false);
+    	}
+    	data.append("file",file);
+    	$.ajax({
+    		url: "/booking/user/register",
+    		type: "POST",
+    		data: data,
+    		dataType: "json",
+    		processData: false,//使用formdata传递数据时必须设置processData: false
+    		contentType: false,//使用formdata传递数据时必须设置contentType: false
+    		success: function(data) {
+    			if(data.result=="success"){
+    				alert("添加用户成功!");
+    				$('#editorWindow').modal('hide');
+    			}else{
+    				alert("添加用户失败!");
+    			}
+    			var table = $('#myDatatable').DataTable();
+    			table.draw(false);
+    		}
+    	});
+    });
+    
     /**
      * 编辑用户后与后台进行交互
      */

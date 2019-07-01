@@ -1,5 +1,6 @@
 package com.booking.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +55,15 @@ public class AdminController {
             MultipartFile file = multipartRequest.getFile("file");//获取上传文件
             String path = request.getSession().getServletContext().getRealPath("/views/admin/images/userIcon/");//文件存放路径
     		uicon = UploadFile.uploadImage(file,path);//保存文件
+    		//判断当前是否有头像，旧头像是否存在本地，是就删除本地图片
+    		if(user.getUicon()!=null) {
+    			String realPath = "/views/admin/images/userIcon/"+user.getUicon();
+        		String uiconPath = request.getSession().getServletContext().getRealPath(realPath);//图片存放路径
+        		File uiconFile = new File(uiconPath);
+        		if(uiconFile.exists()) {
+        			uiconFile.delete();//删除旧头像图片
+        		}
+    		}
 		}
 		if(user!=null) {
 			user.setUname(uname);
