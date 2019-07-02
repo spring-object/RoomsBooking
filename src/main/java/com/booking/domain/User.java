@@ -1,17 +1,23 @@
 package com.booking.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 //CREATE TABLE `t_user` (
@@ -48,6 +54,19 @@ public class User {
 	@Column(columnDefinition="timestamp default current_timestamp comment '创建时间'") 
 	private Date create_time=new Date();
 	private Integer type=0;//0管理员 1用户管理员 2普通用户
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
+	private Set<Order> orders = new HashSet<>();//设置双向关联订单
+	
+	public Set<Order> getOrders() {
+		return orders;
+	}
+	
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+	
 	public Long getUid() {
 		return uid;
 	}

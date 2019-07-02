@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -142,8 +143,15 @@ public class UserController {
 	//返回枚举UserState
 	@PostMapping("/registerManageUser")
 	public @ResponseBody String registerManageUser(@RequestParam String email,@RequestParam String passwd,HttpSession session) {
-		UserState temp=UserState.GET_USER_INFO_FAILED;
-		temp = userService.register(email, passwd, session,1);
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		if(0!=user.getType()&&1!=user.getType()) {
+			//没有权限
+			return UserState.PERMISSION_DENIED.toString();
+		}
+		UserState temp = userService.register(email, passwd, session,1);
 		session.removeAttribute("rsa");
 		return temp.toString();
 	}
@@ -152,8 +160,15 @@ public class UserController {
 	//返回枚举UserState
 	@PostMapping("/registerAdmin")
 	public @ResponseBody String registerAdmin(@RequestParam String email,@RequestParam String passwd,HttpSession session) {
-		UserState temp=UserState.GET_USER_INFO_FAILED;
-		temp = userService.register(email, passwd, session,0);
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN.toString();
+		}
+		if(0!=user.getType()&&1!=user.getType()) {
+			//没有权限
+			return UserState.PERMISSION_DENIED.toString();
+		}
+		UserState temp = userService.register(email, passwd, session,0);
 		session.removeAttribute("rsa");
 		return temp.toString();
 	}
@@ -172,6 +187,11 @@ public class UserController {
 	@GetMapping("/logup")
 	public String logup() {
 		return "manageUser/sign_up";
+	}
+	//转到用户管理员注册用户
+	@GetMapping("/logupByAdmin")
+	public String logupByAdmin() {
+		return "manageUser/sign_upByAdmin";
 	}
 	//转到忘记密码
 	@GetMapping("/forgetPasswd")
@@ -207,12 +227,16 @@ public class UserController {
 	}
 	//切换状态
 	@PostMapping("/change/state")
-	public @ResponseBody String changeState(HttpSession session) {
+	public @ResponseBody String changeState(@RequestParam Long id, @RequestParam Boolean state,HttpSession session) {
 		User user=(User) session.getAttribute("user");
 		if(null==user) {
 			return UserState.NOT_LOGIN.toString();
 		}
-		return userService.changeState(user).toString();
+		if(0!=user.getType()&&1!=user.getType()) {
+			//没有权限
+			return UserState.PERMISSION_DENIED.toString();
+		}
+		return userService.changeState(id,state).toString();
 	}
 	//修改手机号
 	@PostMapping("/change/phone")
@@ -249,11 +273,14 @@ public class UserController {
 		if(null==user) {
 			return UserState.NOT_LOGIN.toString();
 		}
-		if(0!=user.getType()||1!=user.getType()) {
+		if(0!=user.getType()&&1!=user.getType()) {
 			//没有权限
 			return UserState.PERMISSION_DENIED.toString();
 		}
-		return userService.deleteAll(ids).toString();
+		if(null==ids) {
+			return UserState.ERROR.toString();
+		}
+		return userService.deleteAllById(ids).toString();
 	}
 	//获取所有用户
 	@GetMapping("/manage/getUsers")
@@ -267,7 +294,7 @@ public class UserController {
 			return UserState.PERMISSION_DENIED.toString();
 		}
 		try {
-			return jackson.writeValueAsString(userService.findAll());
+			return jackson.writeValueAsString(userService.findAllPaging());
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -275,8 +302,8 @@ public class UserController {
 	}
 	//获取一页用户
 	@GetMapping("/manage/getPageUsers")
-	public @ResponseBody String getPageUser(Integer pageIndex, Integer pageSize, HttpSession session) {
-		if(null!=pageIndex&&null!=pageSize) {
+	public @ResponseBody String getPageUser(Integer page, Integer limit, HttpSession session) {
+		if(null!=page&&null!=limit) {
 			User user=(User) session.getAttribute("user");
 			if(null==user) {
 				return UserState.NOT_LOGIN.toString();
@@ -285,25 +312,27 @@ public class UserController {
 				//没有权限
 				return UserState.PERMISSION_DENIED.toString();
 			}
+			if(page<1) {
+				return UserState.ERROR.toString();
+			}
 			try {
-				return jackson.writeValueAsString(userService.findAll(pageIndex,pageSize));
+				return jackson.writeValueAsString(userService.findAllPaging(page-1,limit));
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
 		}
 		return UserState.ERROR.toString();
 	}
-
 	// 获取一个用户
 	@GetMapping("/manage/getUser")
-	public @ResponseBody String getOneUser(Long uid, HttpSession session) {
-		if(null!=uid) {
-			User user=(User) session.getAttribute("user");
-			if(null==user) {
+	public @ResponseBody String showUser(Long uid, HttpSession session) {
+		if (null != uid) {
+			User user = (User) session.getAttribute("user");
+			if (null == user) {
 				return UserState.NOT_LOGIN.toString();
 			}
-			if(0!=user.getType()&&1!=user.getType()) {
-				//没有权限
+			if (0 != user.getType() && 1 != user.getType()) {
+				// 没有权限
 				return UserState.PERMISSION_DENIED.toString();
 			}
 			try {
@@ -313,5 +342,26 @@ public class UserController {
 			}
 		}
 		return UserState.ERROR.toString();
+	}
+	//显示一个用户的信息
+	@GetMapping("/manage/showUser")
+	public String getOneUser(Long uid, HttpSession session,Model model) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			model.addAttribute("error", UserState.NOT_LOGIN.toString());
+			return "manageUser/error";
+		}
+		if(0!=user.getType()&&1!=user.getType()) {
+			//没有权限
+			model.addAttribute("error", UserState.PERMISSION_DENIED.toString());
+			return "manageUser/error";
+		}
+		User showUser=userService.findById(uid);
+		if(null==showUser) {
+			model.addAttribute("error", UserState.USER_NOT_EXIST.toString());
+			return "manageUser/error";
+		}
+		model.addAttribute("showUser", showUser);
+		return "manageUser/showUser";
 	}
 }

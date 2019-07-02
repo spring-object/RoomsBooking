@@ -67,7 +67,7 @@ public class TestUserService {
 		if (null == user) {
 			System.out.println(UserState.NOT_LOGIN.toString());
 		}
-		System.out.println(userService.changeState(user).toString());
+		System.out.println(userService.changeState(user.getUid(),true).toString());
 	}
 
 	// 修改手机号

@@ -60,7 +60,7 @@
 <div id="wrapper">
     <div class="application">
         <div class="application-content">
-            <a href="${pageContext.request.contextPath }/user/signin"><div class="icon-heart"></div>
+            <a href="${pageContext.request.contextPath }/user/signin">
                 <span>客房预订系统</span>
             </a>
         </div>

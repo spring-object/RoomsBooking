@@ -60,7 +60,7 @@
 <div id="wrapper">
     <div class="application">
         <div class="application-content">
-            <a href="${pageContext.request.contextPath }/user/logup"><div class="icon-heart"></div>
+            <a href="${pageContext.request.contextPath }/user/logup">
                 <span>客房预订系统</span>
             </a>
         </div>
@@ -69,7 +69,6 @@
         <div class="caret"></div>
         <div class="form-wrapper">
             <h1 class="text-center">注册</h1>
-            <form accept-charset="UTF-8" action="javascript:void(0);" method="GET" />
             <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
                 <div class="row-fluid">
                     <div class="span12 icon-over-input">
@@ -94,7 +93,6 @@
                     <a href="javascript:void(0);" class="text-contrast">用户服务条款</a>
                 </label>
                 <button class="btn btn-block" name="button" type="button" id="registerBtn">注册</button>
-            </form>
             <div class="text-center">
                 <hr class="hr-normal" />
                 <a href="${pageContext.request.contextPath }/user/signin"><i class="icon-chevron-left"></i>

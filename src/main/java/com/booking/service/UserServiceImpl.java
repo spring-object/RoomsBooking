@@ -25,6 +25,7 @@ import com.booking.dao.UserDTO;
 import com.booking.dao.UserDao;
 import com.booking.domain.User;
 import com.booking.domain.enums.UserState;
+import com.booking.utils.Paging;
 import com.booking.utils.RSA;
 import com.booking.utils.SHA2;
 import com.booking.utils.Salt;
@@ -84,11 +85,11 @@ public class UserServiceImpl implements UserService{
 		userDao.delete(entity);
 	}
 
-//	@Override
-//	public void deleteAll(List<User> entities) {
-//		userDao.deleteAll(entities);
-//	}
-//
+	@Override
+	public void deleteAll(List<User> entities) {
+		userDao.deleteAll(entities);
+	}
+
 	@Override
 	public void deleteAll(Long[] ids) {
 		ArrayList<Long> idList = new ArrayList<Long>(Arrays.asList(ids));
@@ -130,16 +131,33 @@ public class UserServiceImpl implements UserService{
 		return UserState.USER_NOT_EXIST;
 	}
 	@Override
-	public List<User> findAll(Integer pageIndex,Integer pageSize) {//pageIndex页索引，0开始
+	public Paging<User> findAllPaging() {//pageIndex页索引，0开始
 		Sort sort=Sort.by(Direction.DESC, "uid");
-		PageRequest pageable=PageRequest.of(pageIndex, pageSize, sort);
-		Page<User> page=(Page<User>) userDao.findAll(pageable);
+		ArrayList<User> users=(ArrayList<User>) userDao.findAll(sort);
+		Paging<User> page=new Paging<User>();
+		page.setData(users);
+		page.setCount(users.size());
 //		System.out.println("PageNumber:"+page.getNumber());//第几页0开始
 //		System.out.println("CurrentPageCount:"+page.getNumberOfElements());//当前页条数
 //		System.out.println("PerPageCount:"+page.getSize());//每页多少条
 //		System.out.println("TotalCount:"+page.getTotalElements());
 //		System.out.println("TotalPage:"+page.getTotalPages());
-		return page.getContent();
+		return page;
+	}
+	@Override
+	public Paging<User> findAllPaging(Integer pageIndex,Integer pageSize) {//pageIndex页索引，0开始
+		Sort sort=Sort.by(Direction.DESC, "uid");
+		PageRequest pageable=PageRequest.of(pageIndex, pageSize, sort);
+		Page<User> page=(Page<User>) userDao.findAll(pageable);
+		Paging<User> p=new Paging<User>();
+		p.setData(page.getContent());
+		p.setCount(page.getTotalElements());
+//		System.out.println("PageNumber:"+page.getNumber());//第几页0开始
+//		System.out.println("CurrentPageCount:"+page.getNumberOfElements());//当前页条数
+//		System.out.println("PerPageCount:"+page.getSize());//每页多少条
+//		System.out.println("TotalCount:"+page.getTotalElements());
+//		System.out.println("TotalPage:"+page.getTotalPages());
+		return p;
 	}
 	@Override
 	public UserState login(String email,String passwd,HttpSession session) {
@@ -265,8 +283,16 @@ public class UserServiceImpl implements UserService{
 		return UserState.SECCESS;
 	}
 	@Override
-	public UserState changeState(User user){
-		user.setEnable(user.getEnable()?false:true);
+	public UserState changeState(Long id,Boolean state){
+		if(null==id||null==state) {
+			return UserState.FAILED;
+		}
+		Optional<User> optional=userDao.findById(id);
+		if(!optional.isPresent()) {
+			return UserState.FAILED;
+		}
+		User user=optional.get();
+		user.setEnable(state);
 		userDao.save(user);
 		return UserState.SECCESS;
 	}
@@ -315,7 +341,7 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	@Override
-	public UserState deleteAll(List<Long> ids) {
+	public UserState deleteAllById(List<Long> ids) {
 		List<User> users = (List<User>) userDao.findAllById(ids);
 		if(users!=null) {
 			userDao.deleteAll(users);
