@@ -3,20 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>管理员管理</title>
+<title>酒店房间管理</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport' />
 
 <!--  自定义css-->
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/plugins/font-awesome/css/font-awesome.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/plugins/webuploader/webuploader.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/jquery.dataTables.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap-responsive.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/buttons.dataTables.min.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/editor.dataTables.min.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/showAdmins.css">
-
+ <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/showRooms.css">
 
 <!--[if lt IE 9]>
     <script src='${pageContext.request.contextPath }/views/assets/javascripts/html5shiv.js' type='text/javascript'></script>
@@ -274,10 +273,10 @@
 					<li class=''><a href='index.html'> <i
 							class='icon-dashboard'></i> <span>Dashboard</span>
 					</a></li>
-					<li class='active'><a href='/booking/views/admin/showAdmins.jsp'> <i
+					<li class=''><a href='/booking/views/admin/showAdmins.jsp'> <i
 							class='icon-user'></i> <span>管理员管理</span>
 					</a></li>
-					<li class=''><a href='/booking/views/admin/showRooms.jsp'> <i
+					<li class='active'><a href='/booking/views/admin/showRooms.jsp'> <i
 							class='icon-home'></i> <span>房间管理</span>
 					</a></li>
 					<li class=''><a href='#'> <i
@@ -295,7 +294,7 @@
                                 <div class='page-header'>
                                     <h1 class='pull-left'>
                                         <i class='icon-user'></i>
-                                        <span>管理员列表</span>
+                                        <span>酒店房间列表</span>
                                     </h1>
                                     <div class='pull-right'>
                                         <ul class='breadcrumb'>
@@ -306,7 +305,7 @@
                                             <li class='separator'>
                                                 <i class='icon-angle-right'></i>
                                             </li>
-                                            <li class='active'>管理员管理</li>
+                                            <li class='active'>酒店房间管理</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -327,7 +326,7 @@
                                   <button type="button" class="btn btn-primary" id="searchBtn">查询</button>
                               </div>   
                           </form>
-                          <table id="myDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
+                          <table id="roomDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
                               <thead>
                                   <tr>
                                       <th><input type="checkbox" id="checkAll" name="checkAll" class='group-checkable' /></th>
@@ -335,22 +334,22 @@
                                           ID
                                       </th>
                                       <th>
-                                          用户名
+                                          房间名称
                                       </th>
                                       <th>
-                                          用户头像
+                                          房间类型
                                       </th>
                                       <th>
-                                          联系电话
+                                          房间简介
                                       </th>
                                       <th>
-                                          邮箱
+                                          房间设备
                                       </th>
                                       <th>
-                                          创建时间
+                                          价格(单位:元)
                                       </th>
                                       <th>
-                                          状态
+                                          房间图片
                                       </th>
                                       <th>
                                           操作
@@ -365,65 +364,89 @@
                   </div>
               </div>
           </div>
+      </div>
+
+
+<div class="modal fade hid" id="pictureWindow"  style="width:1000px" tabindex="0" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="pointer-events：auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">查看/更新图片</h4>
+            </div>
+            <div class="modal-body">
+            	已上传图片
+            	<hr>
+            	<div id="pictures">
+            		 
+            	</div>
+            	<hr>
+            	上传图片
+            	<hr>
+            	<div id="uploader" class="wu-example">
+				    <!--用来存放文件信息-->
+				    <div id="thelist" class="uploader-list"></div>
+				    <div class="btns">
+				        <div id="filePicker" style="display:inline-block">选择文件</div>
+				        <button type="button" id="ctlBtn" class="upload btn btn-default">开始上传</button>
+				    </div>
+				</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
 </div>
-      
-      
- <div class="modal fade hid" id="editorWindow" tabindex="0" role="dialog" aria-hidden="true">
+
+<div class="modal fade hid" id="editWindow" tabindex="0" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">编辑用户</h4>
+                <h4 class="modal-title" id="myModalLabel">编辑房间</h4>
             </div>
             <div class="modal-body">
             	<div class="form-horizontal">
             		<div class="form-group">
-	                  <label for="uid" class="col-sm-2 control-label">ID：</label>
+	                  <label for="rid" class="col-sm-2 control-label">ID：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="uid" type="text" readonly="readonly">
+	                    <input class="form-control" id="rid" type="text" readonly="readonly">
 	                  </div>
 	                </div>
 	                <br>
 	                <div class="form-group">
-	                  <label for="uname" class="col-sm-2 control-label">用户名：</label>
+	                  <label for="rname" class="col-sm-2 control-label">房间名称：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="uname" type="text">
+	                    <input class="form-control" id="rname" type="text">
 	                  </div>
 	                </div>
 					<br>          			
 	                <div class="form-group">
-	                  <label for="uicon" class="col-sm-2 control-label">用户头像：</label>
+	                  <label for="type" class="col-sm-2 control-label">房间类型：</label>
 	                  <div class="col-sm-10">
-	                  	<input class="form-control" id="upload" type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" style="display:none">
-	                  	<img src="#" id="uicon" width="100px" height="80px" style="cursor:pointer">
+	                  	<input class="form-control" id="type" type="text">
 	                  </div>
 	                </div>
 	                <br>
 	                <div class="form-group">
-	                  <label for="telephone" class="col-sm-2 control-label">联系电话：</label>
+	                  <label for="info" class="col-sm-2 control-label">房间信息：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="telephone" type="text">
+	                     <textarea  class="form-control" id="info" rows="3"></textarea>
 	                  </div>
 	                </div>
 					<br>
 					<div class="form-group">
-	                  <label for="email" class="col-sm-2 control-label">邮箱：</label>
+	                  <label for="equipment" class="col-sm-2 control-label">房间设备：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="email" type="text">
+	                     <textarea  class="form-control" id="equipment" rows="3"></textarea>
 	                  </div>
 	                </div>
 	                <br>
 					<div class="form-group">
-	                  <label for="create_time" class="col-sm-2 control-label">创建时间：</label>
+	                  <label for="price" class="col-sm-2 control-label">价格：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="create_time" type="text" readonly="readonly">
-	                  </div>
-	                </div>
-	                <br>
-					<div class="form-group">
-	                  <label for="enable" class="col-sm-2 control-label">状态：</label>
-	                  <div class="col-sm-10">
-	                    <input class="form-control" id="enable" type="text" readonly="readonly">
+	                    <input class="form-control" id="price" type="text">
 	                  </div>
 	                </div>
                 </div>
@@ -441,43 +464,54 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+                <h4 class="modal-title" id="myModalLabel">添加房间</h4>
             </div>
             <div class="modal-body">
             	<div class="form-horizontal">
 	                <div class="form-group">
-	                  <label for="newUname" class="col-sm-2 control-label">用户名：</label>
+	                  <label for="newRname" class="col-sm-2 control-label">房间名称：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="newUname" type="text">
+	                    <input class="form-control" id="newRname" type="text">
 	                  </div>
 	                </div>
 					<br>          			
 	                <div class="form-group">
-	                  <label for="newUicon" class="col-sm-2 control-label">用户头像：</label>
+	                  <label for="newType" class="col-sm-2 control-label">房间类型：</label>
 	                  <div class="col-sm-10">
-	                  	<input class="form-control" id="newUpload" type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" style="display:none">
-	                  	<img src="#" id="newUicon" width="100px" height="80px" style="cursor:pointer">
+	                  	<select class="form-control" id="newType">
+		                    <option value="大床房">大床房</option>
+		                    <option value="亲子房">亲子房</option>
+		                    <option value="情侣房">情侣房</option>
+		                    <option value="商务房">商务房</option>
+		                </select>
 	                  </div>
 	                </div>
 	                <br>
 	                <div class="form-group">
-	                  <label for="newTelephone" class="col-sm-2 control-label">联系电话：</label>
+	                  <label for="newInfo" class="col-sm-2 control-label">房间信息：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="newTelephone" type="text">
+	                    <textarea  class="form-control" id="newInfo" rows="3"></textarea>
 	                  </div>
 	                </div>
 					<br>
 					<div class="form-group">
-	                  <label for="newEmail" class="col-sm-2 control-label">邮箱：</label>
+	                  <label for="newEquipment" class="col-sm-2 control-label">房间设备：</label>
 	                  <div class="col-sm-10">
-	                    <input class="form-control" id="newEmail" type="text">
+	                    <textarea  class="form-control" id="newEquipment" rows="3"></textarea>
+	                  </div>
+	                </div>
+	                <br>
+					<div class="form-group">
+	                  <label for="newPrice" class="col-sm-2 control-label">价格：</label>
+	                  <div class="col-sm-10">
+	                    <input class="form-control" id="newPrice" type="text">
 	                  </div>
 	                </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="addUser" type="button" class="btn btn-primary">添加</button>
+                <button id="addRoom" type="button" class="btn btn-primary">添加</button>
             </div>
         </div>
     </div>
@@ -670,7 +704,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/dataTables.editor.min.js"></script>
-<script type='text/javascript' src='${pageContext.request.contextPath}/views/admin/js/adminDataTable.js'></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/views/plugins/webuploader/webuploader.js"></script>
+<script type='text/javascript' src='${pageContext.request.contextPath}/views/admin/js/roomDataTable.js'></script>
 </body>
 </html>

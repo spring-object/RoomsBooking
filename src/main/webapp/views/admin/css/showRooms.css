@@ -1,0 +1,27 @@
+.right{
+	float:right;
+}
+.hid{
+	display:none;
+}
+.file-div{
+	display: inline-block !important;
+	width:110px;
+	height:120px;
+}
+.img-item{
+	display:block !important;
+	margin:auto;
+	width:85px;
+}
+.upload{
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	background: #eee;
+	padding: 9px 15px;
+	text-align: center;
+	border-radius: 3px;
+	overflow: hidden;
+	margin-top:-32px;
+}
