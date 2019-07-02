@@ -31,6 +31,7 @@ import com.booking.domain.RoomQueryDto;
 import com.booking.domain.User;
 import com.booking.service.PictureService;
 import com.booking.service.RoomService;
+import com.booking.utils.DeleteFile;
 import com.booking.utils.UploadFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonWriteContext;
@@ -56,16 +57,13 @@ public class RoomController {
 			pid = Long.parseLong(map.get("pid"));
 		}
 		Picture picture = pictureService.findById(pid);
-		String src = picture.getSrc();
 		Long rid = picture.getRoom().getRid();
 		picture.setRoom(null);//解除关联关系，还要保存到数据库才生效，不然删不了图片
 		pictureService.save(picture);
-		String realPath = "/views/admin/images/rooms/"+src;
-		String picturePath = request.getSession().getServletContext().getRealPath(realPath);//图片存放路径
-		File file = new File(picturePath);
-		if(file.exists()) {
-			file.delete();//删除本地图片
-		}
+		ArrayList<Picture> pictures = new ArrayList<Picture>();
+		pictures.add(picture);
+		String path = request.getSession().getServletContext().getRealPath("/views/admin/images/rooms/");//图片存放路径
+		DeleteFile.deleteFile(pictures, path);//删除本地图片
 		pictureService.deleteById(pid);//删除数据库的图片
 		HashMap<String, Object> data = new HashMap<String,Object>();
         data.put("rid", rid);//返回房间id重新加载删除后的已上传图片
@@ -234,7 +232,7 @@ public class RoomController {
 	 * @param map 接受前台json数据
 	 */
 	@PostMapping(value="deleteByIds")
-	public @ResponseBody void deleteByUids(@RequestBody Map<String,String> map) {
+	public @ResponseBody void deleteByUids(@RequestBody Map<String,String> map,HttpServletRequest request) {
 		String[] strIds = map.get("ids").split(",");//将数据ids转换成string数组
 		Long[] ids = new Long[strIds.length];
 		//将ids的string数组转换成Long数组，方便直接调用系统函数
@@ -242,8 +240,13 @@ public class RoomController {
 			ids[i] = Long.parseLong(strIds[i]);
 		}
 		if(ids!=null) {
-			roomService.deleteAll(ids);
-			pictureService.deleteAll(ids);
+			List<Picture> pictures = new ArrayList<Picture>();
+			String path = request.getSession().getServletContext().getRealPath("/views/admin/images/rooms/");//图片存放文件夹路径
+			for(int i=0;i<ids.length;i++) {
+				pictures = pictureService.findRoomPictures(ids[i]);
+				DeleteFile.deleteFile(pictures, path);//删除本地图片
+			}
+			roomService.deleteAll(ids);//设置关联关系时设置级联删除，所以不用手动删除图片
 		}
 	}
 	
@@ -252,11 +255,14 @@ public class RoomController {
 	 * @param map
 	 */
 	@PostMapping(value="/delete")
-	public @ResponseBody void deleteByRid(@RequestBody Map<String,Long> map) {
+	public @ResponseBody void deleteByRid(@RequestBody Map<String,Long> map,HttpServletRequest request) {
 		Long rid = map.get("rid");
 		if(rid!=null) {
-			roomService.deleteById(rid);
-			pictureService.deleteById(rid);
+			List<Picture> pictures = new ArrayList<Picture>();
+			pictures = pictureService.findRoomPictures(rid);
+			String path = request.getSession().getServletContext().getRealPath("/views/admin/images/rooms/");//图片存放路径
+			DeleteFile.deleteFile(pictures, path);//删除本地图片
+			roomService.deleteById(rid);//设置关联关系时设置级联删除，所以不用手动删除图片
 		}
 	}
 	

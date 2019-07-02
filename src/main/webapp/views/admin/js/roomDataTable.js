@@ -264,6 +264,7 @@ function fnDelete(obj){
 			contentType: "application/json",
 			data: JSON.stringify(data),
 			success: function(data){
+				alert("123");
 				var table = $('#roomDatatable').DataTable();
 				table.draw(false);//刷新当前页面
 			}
