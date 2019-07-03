@@ -129,7 +129,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath }/user/logout">
+                                <a href="${pageContext.request.contextPath }/user/signout">
                                     <i class="icon-signout"></i>
                                     退出登录
                                 </a>

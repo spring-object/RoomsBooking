@@ -178,13 +178,13 @@ public class UserController {
 		return "manageUser/sign_in";
 	}
 	//退出登陆
-	@GetMapping("/logout")
+	@GetMapping("/signout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");
 		return "manageUser/sign_in";
 	}
 	//转到注册
-	@GetMapping("/logup")
+	@GetMapping("/signup")
 	public String logup() {
 		return "manageUser/sign_up";
 	}
@@ -201,6 +201,9 @@ public class UserController {
 	//发送临时密码到邮箱
 	@PostMapping("/sendEmailForPasswd")
 	public @ResponseBody String sendEmailForPasswd(@RequestParam String email) {
+		if(null==email||email.trim().length()<1) {
+			return UserState.ERROR.toString();
+		}
 		return userService.sendEmailForPasswd(email).toString();
 	}
 	

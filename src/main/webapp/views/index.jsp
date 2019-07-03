@@ -1,488 +1,812 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="" lang="zh">
+<!--<![endif]-->
 <head>
-<title>后台首页</title>
-<meta
-	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-	name='viewport' />
+	<title>首页——酒店预订</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--[if lt IE 9]>
-    <script src='assets/javascripts/html5shiv.js' type='text/javascript'></script>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<meta charset="UTF-8">
+	<!-- Standard Favicon -->
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath }/views/template/images/hotel.png" />
+	
+	<!-- For iPhone 4 Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-114x114-precomposed.png">
+	
+	<!-- For iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-72x72-precomposed.png">
+	
+	<!-- For iPhone: -->
+	<link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-57x57-precomposed.png">
+
+	<!-- Library - Google Font Familys -->	
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Vollkorn:400,400i,700,700i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/revolution/css/settings.css">
+ 
+	<!-- RS5.0 Layers and Navigation Styles -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/revolution/css/layers.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/revolution/css/navigation.css">
+	
+	<!-- Library - Bootstrap v3.3.5 -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/libraries/lib.css">
+	
+	<!-- Custom - Common CSS -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/css/plugins.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/css/navigation-menu.css">	
+	
+	<!-- Custom - Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/style.css">
+	
+	<!--[if lt IE 9]>
+		<script src="js/html5/respond.min.js"></script>
     <![endif]-->
-<link href='assets/stylesheets/bootstrap/bootstrap.css' media='all'
-	rel='stylesheet' type='text/css' />
-<link href='assets/stylesheets/bootstrap/bootstrap-responsive.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / jquery ui -->
-<link href='assets/stylesheets/jquery_ui/jquery-ui-1.10.0.custom.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='assets/stylesheets/jquery_ui/jquery.ui.1.10.0.ie.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / switch buttons -->
-<link
-	href='assets/stylesheets/plugins/bootstrap_switch/bootstrap-switch.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / xeditable -->
-<link href='assets/stylesheets/plugins/xeditable/bootstrap-editable.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='assets/stylesheets/plugins/common/bootstrap-wysihtml5.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / wysihtml5 (wysywig) -->
-<link href='assets/stylesheets/plugins/common/bootstrap-wysihtml5.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / jquery file upload -->
-<link
-	href='assets/stylesheets/plugins/jquery_fileupload/jquery.fileupload-ui.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / full calendar -->
-<link href='assets/stylesheets/plugins/fullcalendar/fullcalendar.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / select2 -->
-<link href='assets/stylesheets/plugins/select2/select2.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / mention -->
-<link href='assets/stylesheets/plugins/mention/mention.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / tabdrop (responsive tabs) -->
-<link href='assets/stylesheets/plugins/tabdrop/tabdrop.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / jgrowl notifications -->
-<link href='assets/stylesheets/plugins/jgrowl/jquery.jgrowl.min.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / datatables -->
-<link
-	href='assets/stylesheets/plugins/datatables/bootstrap-datatable.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / dynatrees (file trees) -->
-<link href='assets/stylesheets/plugins/dynatree/ui.dynatree.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / color picker -->
-<link
-	href='assets/stylesheets/plugins/bootstrap_colorpicker/bootstrap-colorpicker.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / datetime picker -->
-<link
-	href='assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / daterange picker) -->
-<link
-	href='assets/stylesheets/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / flags (country flags) -->
-<link href='assets/stylesheets/plugins/flags/flags.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / slider nav (address book) -->
-<link href='assets/stylesheets/plugins/slider_nav/slidernav.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / fuelux (wizard) -->
-<link href='assets/stylesheets/plugins/fuelux/wizard.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / flatty theme -->
-<link href='assets/stylesheets/light-theme.css'
-	id='color-settings-body-color' media='all' rel='stylesheet'
-	type='text/css' />
-<!-- / demo -->
-<link href='assets/stylesheets/demo.css' media='all' rel='stylesheet'
-	type='text/css' />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
 </head>
-<body class='contrast-red '>
-	<header>
-		<div class='navbar'>
-			<div class='navbar-inner'>
-				<div class='container-fluid'>
-					<a class='brand' href='index.html'> <i class='icon-heart-empty'></i>
-						<span class='hidden-phone'>Flatty</span>
-					</a> <a class='toggle-nav btn pull-left' href='#'> <i
-						class='icon-reorder'></i>
-					</a>
-					<ul class='nav pull-right'>
-						<li class='dropdown light only-icon'><a
-							class='dropdown-toggle' data-toggle='dropdown' href='#'> <i
-								class='icon-adjust'></i>
-						</a>
-							<ul class='dropdown-menu color-settings'>
-								<li class='color-settings-body-color'>
-									<div class='color-title'>Body color</div> <a
-									data-change-to='assets/stylesheets/light-theme.css' href='#'>
-										Light <small>(default)</small>
-								</a> <a data-change-to='assets/stylesheets/dark-theme.css' href='#'>
-										Dark </a> <a
-									data-change-to='assets/stylesheets/dark-blue-theme.css'
-									href='#'> Dark blue </a>
-								</li>
-								<li class='divider'></li>
-								<li class='color-settings-contrast-color'>
-									<div class='color-title'>Contrast color</div> <a href="#"
-									data-change-to="contrast-red"><i
-										class='icon-adjust text-red'></i> Red <small>(default)</small>
-								</a> <a href="#" data-change-to="contrast-blue"><i
-										class='icon-adjust text-blue'></i> Blue </a> <a href="#"
-									data-change-to="contrast-orange"><i
-										class='icon-adjust text-orange'></i> Orange </a> <a href="#"
-									data-change-to="contrast-purple"><i
-										class='icon-adjust text-purple'></i> Purple </a> <a href="#"
-									data-change-to="contrast-green"><i
-										class='icon-adjust text-green'></i> Green </a> <a href="#"
-									data-change-to="contrast-muted"><i
-										class='icon-adjust text-muted'></i> Muted </a> <a href="#"
-									data-change-to="contrast-fb"><i class='icon-adjust text-fb'></i>
-										Facebook </a> <a href="#" data-change-to="contrast-dark"><i
-										class='icon-adjust text-dark'></i> Dark </a> <a href="#"
-									data-change-to="contrast-pink"><i
-										class='icon-adjust text-pink'></i> Pink </a> <a href="#"
-									data-change-to="contrast-grass-green"><i
-										class='icon-adjust text-grass-green'></i> Grass green </a> <a
-									href="#" data-change-to="contrast-sea-blue"><i
-										class='icon-adjust text-sea-blue'></i> Sea blue </a> <a href="#"
-									data-change-to="contrast-banana"><i
-										class='icon-adjust text-banana'></i> Banana </a> <a href="#"
-									data-change-to="contrast-dark-orange"><i
-										class='icon-adjust text-dark-orange'></i> Dark orange </a> <a
-									href="#" data-change-to="contrast-brown"><i
-										class='icon-adjust text-brown'></i> Brown </a>
-								</li>
-							</ul></li>
-						<li class='dropdown medium only-icon widget'><a
-							class='dropdown-toggle' data-toggle='dropdown' href='#'> <i
-								class='icon-rss'></i>
-								<div class='label'>5</div>
-						</a>
-							<ul class='dropdown-menu'>
-								<li><a href='#'>
-										<div class='widget-body'>
-											<div class='pull-left icon'>
-												<i class='icon-user text-success'></i>
-											</div>
-											<div class='pull-left text'>
-												John Doe signed up <small class='muted'>just now</small>
-											</div>
-										</div>
-								</a></li>
-								<li class='divider'></li>
-								<li><a href='#'>
-										<div class='widget-body'>
-											<div class='pull-left icon'>
-												<i class='icon-inbox text-error'></i>
-											</div>
-											<div class='pull-left text'>
-												New Order #002 <small class='muted'>3 minutes ago</small>
-											</div>
-										</div>
-								</a></li>
-								<li class='divider'></li>
-								<li><a href='#'>
-										<div class='widget-body'>
-											<div class='pull-left icon'>
-												<i class='icon-comment text-warning'></i>
-											</div>
-											<div class='pull-left text'>
-												America Leannon commented Flatty with veeery long text. <small
-													class='muted'>1 hour ago</small>
-											</div>
-										</div>
-								</a></li>
-								<li class='divider'></li>
-								<li><a href='#'>
-										<div class='widget-body'>
-											<div class='pull-left icon'>
-												<i class='icon-user text-success'></i>
-											</div>
-											<div class='pull-left text'>
-												Jane Doe signed up <small class='muted'>last week</small>
-											</div>
-										</div>
-								</a></li>
-								<li class='divider'></li>
-								<li><a href='#'>
-										<div class='widget-body'>
-											<div class='pull-left icon'>
-												<i class='icon-inbox text-error'></i>
-											</div>
-											<div class='pull-left text'>
-												New Order #001 <small class='muted'>1 year ago</small>
-											</div>
-										</div>
-								</a></li>
-								<li class='widget-footer'><a href='#'>All notifications</a>
-								</li>
-							</ul></li>
-						<li class='dropdown dark user-menu'><a
-							class='dropdown-toggle' data-toggle='dropdown' href='#'> <img
-								alt='Mila Kunis' height='23' src='assets/images/avatar.jpg'
-								width='23' /> <span class='user-name hidden-phone'>Mila
-									Kunis</span> <b class='caret'></b>
-						</a>
-							<ul class='dropdown-menu'>
-								<li><a href='user_profile.html'> <i class='icon-user'></i>
-										Profile
-								</a></li>
-								<li><a href='user_profile.html'> <i class='icon-cog'></i>
-										Settings
-								</a></li>
-								<li class='divider'></li>
-								<li><a href='sign_in.html'> <i class='icon-signout'></i>
-										Sign out
-								</a></li>
-							</ul></li>
-					</ul>
-					<form accept-charset="UTF-8" action="search_results.html"
-						class="navbar-search pull-right hidden-phone" method="get" />
-					<div style="margin: 0; padding: 0; display: inline">
-						<input name="utf8" type="hidden" value="&#x2713;" />
-					</div>
-					<button class="btn btn-link icon-search" name="button"
-						type="submit"></button>
-					<input autocomplete="off" class="search-query span2" id="q_header"
-						name="q" placeholder="Search..." type="text" value="" />
-					</form>
-				</div>
+
+<body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+	<!-- Loader -->
+	<!--div id="site-loader" class="load-complete">
+		<div class="loader">
+			<div class="loader-inner ball-clip-rotate">
+				<div></div>
 			</div>
 		</div>
-	</header>
-	<div id='wrapper'>
-		<div id='main-nav-bg'></div>
-		<nav class='' id='main-nav'>
-			<div class='navigation'>
-				<div class='search'>
-					<form accept-charset="UTF-8" action="search_results.html"
-						method="get" />
-					<div style="margin: 0; padding: 0; display: inline">
-						<input name="utf8" type="hidden" value="&#x2713;" />
-					</div>
-					<div class='search-wrapper'>
-						<input autocomplete="off" class="search-query" id="q" name="q"
-							placeholder="Search..." type="text" value="" />
-						<button class="btn btn-link icon-search" name="button"
-							type="submit"></button>
-					</div>
-					</form>
-				</div>
-				<ul class='nav nav-stacked'>
-					<li class='active'><a href='index.html'> <i
-							class='icon-dashboard'></i> <span>Dashboard</span>
-					</a></li>
-					<li class=''><a href='adminManage.html'> <i
-							class='icon-user'></i> <span>管理员管理</span>
-					</a></li>
-					<li><a class='dropdown-collapse ' href='#'> <i
-							class='icon-home'></i> <span>酒店管理</span> <i
-							class='icon-angle-down angle-down'></i>
-					</a>
-						<ul class='nav nav-stacked'>
-							<li class=''><a href='#'> <i class='icon-caret-right'></i>
-									<span>房间管理</span>
-							</a></li>
-							<li class=''><a href='#'> <i class='icon-caret-right'></i>
-									<span>首页维护</span>
-							</a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</nav>
-		<section id='content'>
-			<div class='container-fluid'>
-				<div class='row-fluid' id='content-wrapper'>
-					<div class='span12'>
-						<div class='page-header'>
-							<h1 class='pull-left'>
-								<i class='icon-dashboard'></i> <span>Dashboard</span>
-							</h1>
-						</div>
-						<div class='alert alert-info'>
-							Welcome to <strong>Booking System！</strong> - 我希望你会喜欢它。
-							如果你要更换颜色，别忘了 - 您可以在右上角更改主题颜色 <i class='icon-adjust'></i>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	</section>
-	</div>
-	<!-- / jquery -->
-	<script src='assets/javascripts/jquery/jquery.min.js'
-		type='text/javascript'></script>
-	<!-- / jquery mobile events (for touch and slide) -->
-	<script
-		src='assets/javascripts/plugins/mobile_events/jquery.mobile-events.min.js'
-		type='text/javascript'></script>
-	<!-- / jquery migrate (for compatibility with new jquery) -->
-	<script src='assets/javascripts/jquery/jquery-migrate.min.js'
-		type='text/javascript'></script>
-	<!-- / jquery ui -->
-	<script src='assets/javascripts/jquery_ui/jquery-ui.min.js'
-		type='text/javascript'></script>
-	<!-- / bootstrap -->
-	<script src='assets/javascripts/bootstrap/bootstrap.min.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/plugins/flot/excanvas.js'
-		type='text/javascript'></script>
-	<!-- / sparklines -->
-	<script
-		src='assets/javascripts/plugins/sparklines/jquery.sparkline.min.js'
-		type='text/javascript'></script>
-	<!-- / flot charts -->
-	<script src='assets/javascripts/plugins/flot/flot.min.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/plugins/flot/flot.resize.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/plugins/flot/flot.pie.js'
-		type='text/javascript'></script>
-	<!-- / bootstrap switch -->
-	<script
-		src='assets/javascripts/plugins/bootstrap_switch/bootstrapSwitch.min.js'
-		type='text/javascript'></script>
-	<!-- / fullcalendar -->
-	<script
-		src='assets/javascripts/plugins/fullcalendar/fullcalendar.min.js'
-		type='text/javascript'></script>
-	<!-- / datatables -->
-	<script
-		src='assets/javascripts/plugins/datatables/jquery.dataTables.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/datatables/jquery.dataTables.columnFilter.js'
-		type='text/javascript'></script>
-	<!-- / wysihtml5 -->
-	<script src='assets/javascripts/plugins/common/wysihtml5.min.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/plugins/common/bootstrap-wysihtml5.js'
-		type='text/javascript'></script>
-	<!-- / select2 -->
-	<script src='assets/javascripts/plugins/select2/select2.js'
-		type='text/javascript'></script>
-	<!-- / color picker -->
-	<script
-		src='assets/javascripts/plugins/bootstrap_colorpicker/bootstrap-colorpicker.min.js'
-		type='text/javascript'></script>
-	<!-- / mention -->
-	<script src='assets/javascripts/plugins/mention/mention.min.js'
-		type='text/javascript'></script>
-	<!-- / input mask -->
-	<script
-		src='assets/javascripts/plugins/input_mask/bootstrap-inputmask.min.js'
-		type='text/javascript'></script>
-	<!-- / fileinput -->
-	<script
-		src='assets/javascripts/plugins/fileinput/bootstrap-fileinput.js'
-		type='text/javascript'></script>
-	<!-- / modernizr -->
-	<script src='assets/javascripts/plugins/modernizr/modernizr.min.js'
-		type='text/javascript'></script>
-	<!-- / retina -->
-	<script src='assets/javascripts/plugins/retina/retina.js'
-		type='text/javascript'></script>
-	<!-- / fileupload -->
-	<script src='assets/javascripts/plugins/fileupload/tmpl.min.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/plugins/fileupload/load-image.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/fileupload/canvas-to-blob.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/fileupload/jquery.iframe-transport.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/fileupload/jquery.fileupload.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/fileupload/jquery.fileupload-fp.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/fileupload/jquery.fileupload-ui.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/fileupload/jquery.fileupload-init.js'
-		type='text/javascript'></script>
-	<!-- / timeago -->
-	<script src='assets/javascripts/plugins/timeago/jquery.timeago.js'
-		type='text/javascript'></script>
-	<!-- / slimscroll -->
-	<script
-		src='assets/javascripts/plugins/slimscroll/jquery.slimscroll.min.js'
-		type='text/javascript'></script>
-	<!-- / autosize (for textareas) -->
-	<script
-		src='assets/javascripts/plugins/autosize/jquery.autosize-min.js'
-		type='text/javascript'></script>
-	<!-- / charCount -->
-	<script src='assets/javascripts/plugins/charCount/charCount.js'
-		type='text/javascript'></script>
-	<!-- / validate -->
-	<script
-		src='assets/javascripts/plugins/validate/jquery.validate.min.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/plugins/validate/additional-methods.js'
-		type='text/javascript'></script>
-	<!-- / naked password -->
-	<script
-		src='assets/javascripts/plugins/naked_password/naked_password-0.2.4.min.js'
-		type='text/javascript'></script>
-	<!-- / nestable -->
-	<script src='assets/javascripts/plugins/nestable/jquery.nestable.js'
-		type='text/javascript'></script>
-	<!-- / tabdrop -->
-	<script src='assets/javascripts/plugins/tabdrop/bootstrap-tabdrop.js'
-		type='text/javascript'></script>
-	<!-- / jgrowl -->
-	<script src='assets/javascripts/plugins/jgrowl/jquery.jgrowl.min.js'
-		type='text/javascript'></script>
-	<!-- / bootbox -->
-	<script src='assets/javascripts/plugins/bootbox/bootbox.min.js'
-		type='text/javascript'></script>
-	<!-- / inplace editing -->
-	<script
-		src='assets/javascripts/plugins/xeditable/bootstrap-editable.min.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/plugins/xeditable/wysihtml5.js'
-		type='text/javascript'></script>
-	<!-- / ckeditor -->
-	<script src='assets/javascripts/plugins/ckeditor/ckeditor.js'
-		type='text/javascript'></script>
-	<!-- / filetrees -->
-	<script
-		src='assets/javascripts/plugins/dynatree/jquery.dynatree.min.js'
-		type='text/javascript'></script>
-	<!-- / datetime picker -->
-	<script
-		src='assets/javascripts/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.js'
-		type='text/javascript'></script>
-	<!-- / daterange picker -->
-	<script
-		src='assets/javascripts/plugins/bootstrap_daterangepicker/moment.min.js'
-		type='text/javascript'></script>
-	<script
-		src='assets/javascripts/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.js'
-		type='text/javascript'></script>
-	<!-- / max length -->
-	<script
-		src='assets/javascripts/plugins/bootstrap_maxlength/bootstrap-maxlength.min.js'
-		type='text/javascript'></script>
-	<!-- / dropdown hover -->
-	<script
-		src='assets/javascripts/plugins/bootstrap_hover_dropdown/twitter-bootstrap-hover-dropdown.min.js'
-		type='text/javascript'></script>
-	<!-- / slider nav (address book) -->
-	<script src='assets/javascripts/plugins/slider_nav/slidernav-min.js'
-		type='text/javascript'></script>
-	<!-- / fuelux -->
-	<script src='assets/javascripts/plugins/fuelux/wizard.js'
-		type='text/javascript'></script>
-	<!-- / flatty theme -->
-	<script src='assets/javascripts/nav.js' type='text/javascript'></script>
-	<script src='assets/javascripts/tables.js' type='text/javascript'></script>
-	<script src='assets/javascripts/theme.js' type='text/javascript'></script>
-	<!-- / demo -->
-	<script src='assets/javascripts/demo/jquery.mockjax.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/demo/inplace_editing.js'
-		type='text/javascript'></script>
-	<script src='assets/javascripts/demo/charts.js' type='text/javascript'></script>
-	<script src='assets/javascripts/demo/demo.js' type='text/javascript'></script>
+	</div--><!-- Loader /- -->
+	
 
+	<!-- Header -->
+	<header class="header-section container-fluid no-padding">
+		<!-- Top Header -->
+		<div class="top-header container-fluid no-padding">
+			<!-- Container -->
+			<div class="container">
+				<!-- Social -->
+				<div class="col-md-7 col-sm-6 col-xs-12 info">
+					<p><i class="icon icon-Pointer"></i>松山湖大学路1号, 东莞, 广东</p>
+					<p><i class="icon icon-Phone2"></i><a href="tel:(+01)1234567890" title="Phone" class="phone">(+01) 123 456 7890</a></p>
+				</div>
+				<div>
+					<ol>
+					</ol>
+				</div>
+				<div id="top_list" class="col-md-5 col-sm-6 col-xs-12 header-social"> 
+					<a href="${pageContext.request.contextPath }/user/">个人中心</a>
+					<a href="${pageContext.request.contextPath }/user/signin">登录</a>
+					<a  href="${pageContext.request.contextPath }/user/signup">注册</a>
+				</div><!-- Social /- -->
+			</div><!-- Container /- -->
+		</div><!-- Top Header /- -->
+		
+		<!-- Menu Block -->
+		<div class="menu-block container-fluid">
+			<!-- Container -->
+			<div class="container">
+				<!-- Navigation -->
+				<nav class="navbar ow-navigation">
+					<div class="navbar-header">
+						<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a title="Logo1" href="index.html" class="navbar-brand"><img src="${pageContext.request.contextPath }/views/template/images/logo.png"></a>
+					</div>
+					<div class="navbar-collapse collapse" id="navbar">
+						<ul class="nav navbar-nav">
+							<li class="dropdown active">
+								<a href="index.html" title="Pages" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">首页</a>
+								<i class="ddl-switch fa fa-angle-down"></i>
+							
+							</li>
+							<li class="dropdown">
+								<a href="gallery.html" title="Gallery" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">酒店</a>
+								<i class="ddl-switch fa fa-angle-down"></i>
+	
+							</li>
+							<li><a title="Rooms" href="rooms.html">房间</a></li>
+							<li><a title="Services" href="services.html">服务</a></li>
+							
+							
+							<li><a title="About Us" href="about.html">关于我们</a></li>
+
+							<li><a title="Contact" href="contact-us.html">联系我们</a></li>
+						</ul>						
+					</div>
+				</nav><!-- Navigation -->
+			</div>
+		</div><!-- Menu Block /- -->
+	</header><!-- Header /- -->
+	
+	<main>
+		<!-- Slider Section 2 -->
+		<div id="home-revslider" class="slider-section container-fluid no-padding">
+			<!-- START REVOLUTION SLIDER 5.0 -->
+			<div class="rev_slider_wrapper">
+				<div id="home-slider1" class="rev_slider" data-version="5.0">
+					<ul>
+						<li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
+							<img src="${pageContext.request.contextPath }/views/template/images/slider-1.jpg" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+							<!-- LAYERS -->
+							<!-- LAYER NR. 1 -->
+							<div class="tp-caption tp-shape tp-shapewrapper" id="slide-layer-0"
+								data-x="['center','center','center','center']" 
+								data-y="['middle','middle','middle','middle']" 
+								data-basealign="slide" 
+								data-height="full" 
+								data-hoffset="['0','0','0','0']" 
+								data-responsive="off" 
+								data-responsive_offset="off" 
+								data-start="0" 
+								data-transform_idle="o:1;" 
+								data-transform_in="opacity:0;s:2000;e:Power2.easeInOut;" 
+								data-transform_out="opacity:0;s:500;s:500;" 
+								data-voffset="['0','0','0','0']" 
+								data-whitespace="nowrap" 
+								data-width="full"
+								style="z-index: 5;background-color:rgba(0, 0, 0, 0.502);">
+							</div>
+							<!-- LAYER NR. 2 -->
+							<div class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0" id="slide-layer-1" 
+								data-x="['left','left','left','left']" data-hoffset="['400','125','100','70']" 
+								data-y="['middle','middle','middle','middle']" data-voffset="['-200','-80','-100','-100']" 
+								data-fontsize="['54','40','30','20']"
+								data-lineheight="['70','60','60','60']"
+								data-fontweight="['600','600','600','600']"
+								data-width="none"
+								data-height="none"
+								data-whitespace="nowrap"
+								data-transform_idle="o:1;"
+								data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+								data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+								data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+								data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+								data-start="1000" 
+								data-splitin="chars" 
+								data-splitout="none" 
+								data-responsive_offset="on"
+								data-elementdelay="0.05" 
+								style="z-index: 5; white-space: nowrap; color:#fff; font-family: 'Open Sans', sans-serif; text-transform: uppercase">我们给您提供最舒适的家
+							</div>
+							<!-- LAYER NR. 3 -->
+							<div class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0" id="slide-layer-2" 
+								data-x="['left','left','left','left']" data-hoffset="['400','125','100','70']" 
+								data-y="['top','top','top','top']" data-voffset="['275','300','215','150']" 
+								data-fontsize="['54','45','30','20']"
+								data-fontweight="['400','400','400','400']"
+								data-lineheight="['76','24','24','24']"
+								data-width="none"
+								data-height="none"
+								data-whitespace="nowrap"
+								data-transform_idle="o:1;"
+								data-transform_in="y:-50px;opacity:0;s:1000;e:Power4.easeOut;" 
+								data-transform_out="opacity:0;s:3000;e:Power4.easeIn;s:3000;e:Power4.easeIn;"
+								data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+								data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+								data-start="1000" 
+								data-splitin="none" 
+								data-splitout="none" 
+								data-responsive_offset="on"
+								data-elementdelay="0.05" 
+								style="z-index: 5; color:#fff; font-family: 'Open Sans', sans-serif; text-transform:uppercase;">轻奢式服务
+							</div>
+							<!-- LAYER NR. 4 -->
+							<div class="tp-caption NotGeneric-Button rev-btn  rs-parallaxlevel-0" id="slide-layer-3" 
+								data-x="['left','left','left','left']" data-hoffset="['400','125','100','70']" 
+								data-y="['top','top','top','top']" data-voffset="['400','375','280','215']" 
+								data-fontsize="['16','12','12','12']"
+								data-fontweight="['600','600','600','600']"
+								data-lineheight="['28','20','20','20']"
+								data-width="none"
+								data-height="none"
+								data-whitespace="nowrap"
+								data-transform_idle="o:1;"
+								data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:100;e:Power1.easeInOut;"
+								data-style_hover="c:rgba(162, 144, 97, 1.00);bg:rgba(255, 255, 255, 1.00);"
+								data-transform_in="x:[-100%];z:0;rX:0deg;rY:0deg;rZ:0deg;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2500;e:Power3.easeInOut;" 
+								data-transform_out="auto:auto;s:1000;e:Power2.easeInOut;" 
+								data-start="2000" 
+								data-splitin="none" 
+								data-splitout="none" 
+								data-actions='[{"event":"click","action":"scrollbelow","offset":"0px"}]'
+								data-responsive_offset="on" 
+								data-responsive="off"
+								style="z-index: 10; padding:8px 33px; letter-spacing:0.16px; color: #fff; font-family: 'Open Sans', sans-serif; text-transform:uppercase; background-color:transparent; white-space: nowrap;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;">马上预订
+							</div>
+						</li>
+						
+						<li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
+							<img src="images/slider-3.jpg" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+							<div class="tp-caption tp-shape tp-shapewrapper" id="slide-layer-4"
+								data-x="['center','center','center','center']" 
+								data-y="['middle','middle','middle','middle']" 
+								data-basealign="slide" 
+								data-height="full" 
+								data-hoffset="['0','0','0','0']" 
+								data-responsive="off" 
+								data-responsive_offset="off" 
+								data-start="0" 
+								data-transform_idle="o:1;" 
+								data-transform_in="opacity:0;s:2000;e:Power2.easeInOut;" 
+								data-transform_out="opacity:0;s:500;s:500;" 
+								data-voffset="['0','0','0','0']" 
+								data-whitespace="nowrap" 
+								data-width="full"
+								style="z-index: 5;background-color:rgba(0, 0, 0, 0.702);">
+							</div>
+							<div class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0" id="slide-layer-5" 
+								data-x="['left','left','left','left']" data-hoffset="['550','125','100','35']" 
+								data-y="['middle','middle','middle','middle']" data-voffset="['-215','-80','-100','-100']" 
+								data-fontsize="['50','30','25','15']"
+								data-lineheight="['72','45','35','25']"
+								data-fontweight="['600','600','600','600']"
+								data-width="none"
+								data-height="none"
+								data-whitespace="nowrap"
+								data-transform_idle="o:1;"
+								data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+								data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+								data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+								data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+								data-start="1000" 
+								data-splitin="chars" 
+								data-splitout="none" 
+								data-responsive_offset="on"
+								data-elementdelay="0.05" 
+								style="z-index: 5; white-space: nowrap; color:#fff; font-family: 'Open Sans', sans-serif;">各式公寓<br>满足您各种需求<br> 
+							</div>
+							<div class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0" id="slide-layer-6" 
+								data-x="['left','left','left','left']" data-hoffset="['550','125','100','35']" 
+								data-y="['middle','middle','middle','middle']" data-voffset="['-50','40','10','10']" 
+								data-fontsize="['18','18','20','16']"
+								data-lineheight="['24','24','24','24']"
+								data-fontweight="['300','300','300','300']"
+								data-width="['1920','1024','768','400']"
+								data-height="none"
+								data-whitespace="normal"
+								data-transform_idle="o:1;"
+								data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+								data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+								data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+								data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+								data-start="1000" 
+								data-splitin="none" 
+								data-splitout="none" 
+								data-responsive_offset="on"
+								data-elementdelay="0.05" 
+								style="z-index: 5; white-space: normal; letter-spacing: 0.45px; word-wrap: break-word; min-width: 1920px; max-width: 1920px; color:#fff; font-family: 'Open Sans', sans-serif; font-style:italic;">联系我们 <br>在线预订<br>旅途无忧
+							</div>
+							<div class="tp-caption NotGeneric-Button rev-btn  rs-parallaxlevel-0" id="slide-layer-7" 
+								data-x="['left','left','left','left']" data-hoffset="['550','125','100','35']" 
+								data-y="['top','top','top','top']" data-voffset="['480','454','375','330']" 
+								data-fontsize="['16.2','12','12','12']"
+								data-fontweight="['600','600','600','600']"
+								data-lineheight="['28','20','20','20']"
+								data-width="none"
+								data-height="none"
+								data-whitespace="nowrap"
+								data-transform_idle="o:1;"
+								data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:100;e:Power1.easeInOut;"
+								data-style_hover="c:rgba(162, 144, 97, 1.00);bg:rgba(255, 255, 255, 1.00);"
+								data-transform_in="x:[-100%];z:0;rX:0deg;rY:0deg;rZ:0deg;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2500;e:Power3.easeInOut;" 
+								data-transform_out="auto:auto;s:1000;e:Power2.easeInOut;" 
+								data-start="2000" 
+								data-splitin="none" 
+								data-splitout="none" 
+								data-actions='[{"event":"click","action":"scrollbelow","offset":"0px"}]'
+								data-responsive_offset="on" 
+								data-responsive="off"
+								style="z-index: 10; padding:8px 33px; letter-spacing:0.405px; color: #fff; font-family: 'Open Sans', sans-serif; text-transform:uppercase; background-color:transparent; white-space: nowrap;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;">联系我们
+							</div>
+						</li>
+						
+						<li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
+							<img src="images/slider-4.jpg" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+							<!-- LAYERS -->
+							<!-- LAYER NR. 1 -->
+							<div class="tp-caption tp-shape tp-shapewrapper" id="slide-layer-8"
+								data-x="['center','center','center','center']" 
+								data-y="['middle','middle','middle','middle']" 
+								data-basealign="slide" 
+								data-height="full" 
+								data-hoffset="['0','0','0','0']" 
+								data-responsive="off" 
+								data-responsive_offset="off" 
+								data-start="0" 
+								data-transform_idle="o:1;" 
+								data-transform_in="opacity:0;s:2000;e:Power2.easeInOut;" 
+								data-transform_out="opacity:0;s:500;s:500;" 
+								data-voffset="['0','0','0','0']" 
+								data-whitespace="nowrap" 
+								data-width="full"
+								style="z-index: 5;background-color:rgba(0, 0, 0, 0.6);">
+							</div>
+							<div class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0" id="slide-layer-9" 
+								data-x="['left','left','left','left']" data-hoffset="['550','125','100','55']" 
+								data-y="['middle','middle','middle','middle']" data-voffset="['-135','-80','-100','-100']" 
+								data-fontsize="['50','30','25','20']"
+								data-lineheight="['72','45','35','25']"
+								data-fontweight="['600','600','600','600']"
+								data-width="none"
+								data-height="none"
+								data-whitespace="nowrap"
+								data-transform_idle="o:1;"
+								data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+								data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+								data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+								data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+								data-start="1000" 
+								data-splitin="chars" 
+								data-splitout="none" 
+								data-responsive_offset="on"
+								data-elementdelay="0.05" 
+								style="z-index: 5; white-space: nowrap; color:#fff; font-family: 'Open Sans', sans-serif;">纵享美好出行时光<br>行程珍贵房要选对   
+							</div>
+							<div class="tp-caption NotGeneric-Button rev-btn  rs-parallaxlevel-0" id="slide-layer-10" 
+								data-x="['left','left','left','left']" data-hoffset="['550','125','100','55']" 
+								data-y="['top','top','top','top']" data-voffset="['430','330','250','200']" 
+								data-fontsize="['16.2','12','12','12']"
+								data-fontweight="['600','600','600','600']"
+								data-lineheight="['28','20','20','20']"
+								data-width="none"
+								data-height="none"
+								data-whitespace="nowrap"
+								data-transform_idle="o:1;"
+								data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:100;e:Power1.easeInOut;"
+								data-style_hover="c:rgba(162, 144, 97, 1.00);bg:rgba(255, 255, 255, 1.00);"
+								data-transform_in="x:[-100%];z:0;rX:0deg;rY:0deg;rZ:0deg;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2500;e:Power3.easeInOut;" 
+								data-transform_out="auto:auto;s:1000;e:Power2.easeInOut;" 
+								data-start="2000" 
+								data-splitin="none" 
+								data-splitout="none" 
+								data-actions='[{"event":"click","action":"scrollbelow","offset":"0px"}]'
+								data-responsive_offset="on" 
+								data-responsive="off"
+								style="z-index: 10; padding:8px 33px; letter-spacing:0.405px; color: #fff; font-family: 'Open Sans', sans-serif; text-transform:uppercase; background-color:transparent; white-space: nowrap;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;">联系我们							</div>
+						</li>
+					</ul>
+				</div><!-- END REVOLUTION SLIDER -->
+			</div><!-- END OF SLIDER WRAPPER -->
+			<!-- Booking Section 1 -->
+			<div class="booking-section-1 container-fluid">
+				<!-- Container -->
+				<div class="container">
+					<div class="col-md-4 col-sm-4 col-xs-6">
+						<div class="booking-content-block">
+							<h5>预订 <span>您的房间</span></h5>
+						</div>
+					</div>
+					<div class="col-md-8 col-sm-8 col-xs-6">
+						<form action="search.html" method="post" id="formId">
+
+
+						<div id="datepicker3" class="input-group col-md-3 col-sm-3 col-xs-12">
+							<input name='date_in' class="form-control datepicker" placeholder="入住" type="text">
+							<span class="input-group-addon add-on">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+						<div id="datepicker4" class="input-group col-md-3 col-sm-3 col-xs-12">
+							<input name='date_out' class="form-control datepicker" placeholder="退房" type="text">
+							<span class="input-group-addon add-on">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+						<div class="form-group col-md-3 col-sm-3 col-xs-12">
+							<select name='type'>
+								<option>单人房</option>
+								<option>双人房</option>
+								<option>豪华大床房</option>
+							</select>
+						</div>
+						<a class="book-now" onclick="document:formId.submit()" >马上预订</a>
+
+						<!-- <a type="submit" href="#" title="Book Now" class="book-now">马上预订</a>
+						<button type="submit" href="#" title="Book Now" class="book-now">马上预订</button> -->
+					</div>
+				</div><!-- Container /- -->
+			</div><!-- Booking Section 1 -->
+		</div><!-- Slider Section 2 /- -->
+		
+		<!-- Welcome Section -->
+		<div class="welcome-section container-fluid">
+			<!-- Container -->
+			<div style="height:1px;" class="container">
+				<!-- Section Header -->
+				<div class="section-header section-header-2">
+					<h3>欢迎来到 <span>酒店公寓</span>在线预订平台</h3>
+				</div><!-- Section Header /- -->
+				<div class="welcome-content">
+					<p>我们将用最好的服务提供给您</p>
+				</div>
+				
+			</div><!-- Container / -->
+		</div><!-- Welcome Section /- -->
+		
+		<!-- Whychooseus Section -->
+		<div class="whychooseus-section container-fluid">
+			<!-- Container -->
+			<div class="container">
+				<!-- Section Header -->
+				<div class="section-header section-header-2">
+					<h3>为什么选择我们</h3>
+				</div><!-- Section Header /- -->
+				<div class="col-md-6 col-sm-12 col-xs-6">
+					<div class="choose-us-box">
+						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
+							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
+								<i><img src="images/choose-us-1.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="images/choose-us-1.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+							</div>
+							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
+								<h5>世界一流的酒店</h5>
+								<p>我们平台汇聚了世界上一流的酒店，在这里您可以享受到世界级的服务</p>
+								<a href="#" title="read-more">了解更多</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-sm-12 col-xs-6">
+					<div class="choose-us-box">
+						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
+							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
+								<i><img src="images/choose-us-2.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="images/choose-us-2.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+							</div>
+							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
+								<h5>奢华舒适的房间</h5>
+								<p>世界级的酒店有着其独到奢华舒适的酒店，给您非凡的享受</p>
+								<a href="#" title="read-more">了解更多</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-sm-12 col-xs-6">
+					<div class="choose-us-box">
+						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
+							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
+								<i><img src="images/choose-us-3.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="images/choose-us-3.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+							</div>
+							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
+								<h5>美味独特的食物</h5>
+								<p>每一个酒店都可以提供给您来自世界各地的美食</p>
+								<a href="#" title="read-more">了解更多</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-sm-12 col-xs-6">
+					<div class="choose-us-box">
+						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
+							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
+								<i><img src="images/choose-us-4.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="images/choose-us-4.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+							</div>
+							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
+								<h5>国际的信誉</h5>
+								<p>经过多年的经营，我们的平台接待了来自世界各地的出行人士，得到了广泛的认可和信任</p>
+								<a href="#" title="read-more">了解更多</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- Container /- -->
+		</div><!-- Whychooseus Section /- -->
+		
+		<!-- Offer Section -->
+		<div style="margin-top: -250px;" class="offer-section container-fluid">
+			<!-- Container -->
+			<div class="container">
+				<!-- Section Header -->
+				<div class="section-header section-header-2">
+					<h3>我们提供的房间</h3>
+				</div><!-- Section Header /- -->
+				<div class="offer-carousel">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="offer-box">
+							<i><img src="images/offer-2.jpg" alt="offer"></i>
+							<div class="offer-content">
+								<h5>豪华双人房</h5>
+								<p>舒适的大床、精致的装修、美味的食物<br>落地窗与独立卫浴</p>
+								<span>500￥ /晚起</span>
+								<a class="zoom" href="images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
+								<a href="order.html?id=3" title="Book Now" class="book-now">马上预订</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="offer-box">
+							<i><img src="images/offer-1.jpg" alt="offer"></i>
+							<div class="offer-content">
+								<h5>豪华大床房</h5>
+								<p>舒适的大床、精致的装修、美味的食物<br>落地窗与独立卫浴</p>
+								<span>300￥ /晚起</span>
+								<a class="zoom" href="images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
+								<a href="#" title="Book Now" class="book-now">马上预订</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="offer-box">
+							<i><img src="images/offer-3.jpg" alt="offer"></i>
+							<div class="offer-content">
+								<h5>标准大床房</h5>
+								<p>舒适的大床、精致的装修、美味的食物<br>落地窗与独立卫浴</p>
+								<span>200￥ /晚起</span>
+								<a class="zoom" href="images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
+								<a href="#" title="Book Now" class="book-now">马上预订</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- Container /- -->
+		</div><!-- Offer Section /- -->
+		
+		<!-- Counter Section -->
+		<div class="counter-section container-fluid">
+			<!-- Container -->
+			<div class="container">
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="counter-box">
+						<i class="icon icon-Users"></i>
+						<h3><span class="count" id="statistics_count-1" data-statistics_percent="1434"> &nbsp;</span></h3>
+						<p>服务人次</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="counter-box">
+						<i class="icon icon-House"></i>
+						<h3><span class="count" id="statistics_count-2" data-statistics_percent="74"> &nbsp;</span></h3>
+						<p>合作酒店</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="counter-box">
+						<i class="icon icon-Tie"></i>
+						<h3><span class="count" id="statistics_count-3" data-statistics_percent="726"> &nbsp;</span></h3>
+						<p>公司雇员</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="counter-box">
+						<i class="icon icon-Cup"></i>
+						<h3><span class="count" id="statistics_count-4" data-statistics_percent="46"> &nbsp;</span></h3>
+						<p>荣誉奖励</p>
+					</div>
+				</div>
+			</div><!-- Container /- -->
+		</div><!-- Counter Section /- -->
+		
+		<!-- Gallery Section -->
+		<div style="margin-top:-100px;" class="gallery-section container-fluid">
+			<!-- Container -->
+			<div class="container">
+				<!-- Section Header -->
+				<div class="section-header">
+					<h3>我们的特级服务</h3>
+				</div><!-- Section Header /- -->
+				<ul id="filters" class="portfolio-categories no-left-padding">
+					<li><a data-filter="*" class="active" href="#">全部</a></li>
+					<li><a data-filter=".design" href="#">目的地</a></li>
+					<li><a data-filter=".video" href="#">度假</a></li>
+					<li><a data-filter=".photography" href="#">饭店</a></li>
+					<li><a data-filter=".web" href="#">spa & 游泳</a></li>
+				</ul>
+				<ul class="portfolio-list no-left-padding">
+					<li class="col-md-4 col-sm-4 col-xs-6 design">
+						<div class="content-image-block">
+							<img src="images/gallery-1.jpg" alt="gallery">
+							<div class="content-block-hover">
+								<h5>绝佳海景</h5>
+								<p>私人享有</p>
+								<a class="zoom" href="images/gallery-1.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
+							</div>
+						</div>
+					</li>
+					<li class="col-md-4 col-sm-4 col-xs-6 video">
+						<div class="content-image-block">
+							<img src="images/gallery-2.jpg" alt="gallery">
+							<div class="content-block-hover">
+								<h5>绝佳海景</h5>
+								<p>私人享有</p>
+								<a class="zoom" href="images/gallery-2.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
+							</div>
+						</div>
+					</li>
+					<li class="col-md-4 col-sm-4 col-xs-6 photography">
+						<div class="content-image-block">
+							<img src="images/gallery-3.jpg" alt="gallery">
+							<div class="content-block-hover">
+								<h5>绝佳海景</h5>
+								<p>私人享有</p>
+								<a class="zoom" href="images/gallery-3.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
+							</div>
+						</div>
+					</li>
+					<li class="col-md-4 col-sm-4 col-xs-6 design">
+						<div class="content-image-block">
+							<img src="images/gallery-4.jpg" alt="gallery">
+							<div class="content-block-hover">
+								<h5>绝佳海景</h5>
+								<p>私人享有</p>
+								<a class="zoom" href="images/gallery-4.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
+							</div>
+						</div>
+					</li>
+					<li class="col-md-4 col-sm-4 col-xs-6 photography">
+						<div class="content-image-block">
+							<img src="images/gallery-5.jpg" alt="gallery">
+							<div class="content-block-hover">
+								<h5>绝佳海景</h5>
+								<p>私人享有</p>
+								<a class="zoom" href="images/gallery-5.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
+							</div>
+						</div>
+					</li>
+					<li class="col-md-4 col-sm-4 col-xs-6 web">
+						<div class="content-image-block">
+							<img src="images/gallery-6.jpg" alt="gallery">
+							<div class="content-block-hover">
+								<h5>绝佳海景</h5>
+								<p>私人享有</p>
+								<a class="zoom" href="images/gallery-6.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div><!-- Container /- -->
+		</div><!-- Gallery Section /- -->
+		
+		<!-- Callout -->
+		<div class="callout container-fluid">
+			<!-- Container -->
+			<div class="container">
+				<div class="call-out-content">
+					<h3>我们是酒店公寓在线预订平台</h3>
+					<p>感谢一路有您相伴，使得我们平台更好得成长 </p>
+					<a href="#" title="Book Now">马上预订</a>
+				</div>
+			</div><!-- Container /- -->
+		</div><!-- Callout /- -->
+		
+		
+		
+	
+	</main>
+	
+	<!-- Footer Main -->
+	<footer id="footer-main" class="footer-main container-fluid no-padding">
+		<!-- Top Footer -->
+		<div class="top-footer">
+			<!-- Container -->
+			<div class="container">
+				<!-- Widget About -->
+				<aside class="col-md-3 col-sm-6 col-xs-6 ftr-widget widget_about">
+					<h3 class="widget-title">关于我们 <span></span></h3>
+					<p>做最好的酒店公寓在线预订平台</p>
+					<ul>
+						<li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#" title="Google"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="#" title="linkedin"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</aside><!-- Widget About /- -->
+				<!-- Widget Links -->
+				<aside class="col-md-2 col-sm-6 col-xs-6 ftr-widget widget_links">
+					<h3 class="widget-title">相关 <span>链接</span></h3>
+					<ul>
+						<li><a href="#" title="About Us">关于我们</a></li>
+						<li><a href="#" title="Our Packages">首页</a></li>
+						<li><a href="#" title="Popular Destination">热门景点</a></li>
+						<li><a href="#" title="Top Destination">顶级景点</a></li>
+						<li><a href="#" title="Latest News">最新新闻</a></li>
+					</ul>
+				</aside><!-- Widget Links -->
+				<!-- Widget Hours -->
+				<aside class="col-md-3 col-sm-6 col-xs-6 ftr-widget widget_hours">
+					<h3 class="widget-title">开放 <span>时间</span></h3>
+					<p>周一 <span>-</span> 9:00AM to 6:00PM</p>
+					<p>周二 <span>-</span> 9:00AM to 6:00PM</p>
+					<p>周三 <span>-</span> 9:00AM to 6:00PM</p>
+					<p>周四 <span>-</span> 9:00AM to 6:00PM</p>
+					<p>周五 <span>-</span> 9:00AM to 6:00PM</p>
+					<p>周六 <span>-</span> 9:00AM to 6:00PM</p>
+				</aside><!-- Widget Hours /- -->
+				<!-- Widget Destination -->
+				<aside class="col-md-4 col-sm-6 col-xs-6 ftr-widget widget_destination">
+					<h3 class="widget-title">热门<span>景点</span></h3>
+					<ul>
+						<li><a href="#" title=""><img src="images/desti-1.jpg" alt="desti"></a></li>
+						<li><a href="#" title=""><img src="images/desti-2.jpg" alt="desti"></a></li>
+						<li><a href="#" title=""><img src="images/desti-3.jpg" alt="desti"></a></li>
+						<li><a href="#" title=""><img src="images/desti-4.jpg" alt="desti"></a></li>
+					</ul>
+				</aside><!-- Widget Destination /- -->
+			</div><!-- Container /- -->
+		</div><!-- Top Footer /- -->
+		
+		<div class="bottom-footer container-fluid">
+			<!-- Container -->
+			<div class="container">
+				<div class="col-md-3 col-sm-12 col-xs-12 coyright-content">
+					
+				</div>
+				<div class="col-md-9 col-sm-12 col-xs-12">
+					<!-- nav -->
+					<nav class="navbar navbar-default ow-navigation">
+						<div class="navbar-header">
+							<button aria-controls="ftr-navbar" aria-expanded="false" data-target="#ftr-navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="navbar-collapse collapse" id="ftr-navbar">
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="index.html" title="Home">首页</a></li>
+								<li><a href="rooms.html" title="Rooms">房间</a></li>
+								<li><a href="services.html" title="Services">服务</a></li>
+								<li><a href="gallery.html" title="Gallery">酒店</a></li>
+								<li><a href="about.html" title="About Us">关于我们</a></li>
+								
+								<li><a href="contact-us.html" title="Contact">联系我们</a></li>
+							</ul>
+						</div><!--/.nav-collapse -->
+					</nav><!-- nav /- -->
+				</div>
+			</div><!-- Container -->
+		</div>
+	</footer><!-- Footer Main /- -->
+
+	<!-- JQuery v1.11.3 -->
+	<script src="${pageContext.request.contextPath }/views/template/js/jquery.min.js"></script>
+
+	<!-- Library - Js -->
+	<script src="${pageContext.request.contextPath }/views/template/libraries/lib.js"></script><!-- Bootstrap JS File v3.3.5 -->
+	
+	<!-- RS5.0 Core JS Files -->
+	<script type="text/javascript" src="${pageContext.request.contextPath }/views/template/revolution/js/jquery.themepunch.tools.min.js?rev=5.0"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/views/template/revolution/js/jquery.themepunch.revolution.min.js?rev=5.0"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/views/template/revolution/js/extensions/revolution.extension.video.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/views/template/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/views/template/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/views/template/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/views/template/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+
+	<!-- Library - Google Map API -->
+	<!---<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyDW40y4kdsjsz714OVTvrw7woVCpD8EbLE"></script>--->
+	
+	<!-- Library - Theme JS -->
+	<script src="${pageContext.request.contextPath }/views/template/js/functions.js"></script>
+	<script src="${pageContext.request.contextPath }/views/template/js/jquery-3.2.1.js"></script>
+	<script src="${pageContext.request.contextPath }/views/template/js/jquery-3.2.1.min.js"></script>
+
+	
 </body>
 </html>

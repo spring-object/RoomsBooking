@@ -85,7 +85,7 @@
         </div>
     </div>
     <div class="login-action text-center">
-        <a href="${pageContext.request.contextPath }/user/logup"><i class="icon-user"></i>
+        <a href="${pageContext.request.contextPath }/user/signup"><i class="icon-user"></i>
             新用户?
             <strong>注册</strong>
         </a>
