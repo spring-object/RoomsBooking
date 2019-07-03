@@ -1,5 +1,3 @@
-
-
 var projectName;
 $(document).ready(load);
 function load(){

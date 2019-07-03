@@ -198,6 +198,11 @@ public class UserController {
 	public String forgetPasswd() {
 		return "manageUser/forgetPasswd";
 	}
+	//到更改个人信息
+	@GetMapping("/changeUserInfo")
+	public String test() {
+		return "user/changeUserInfo";
+	}
 	//发送临时密码到邮箱
 	@PostMapping("/sendEmailForPasswd")
 	public @ResponseBody String sendEmailForPasswd(@RequestParam String email) {
@@ -367,4 +372,5 @@ public class UserController {
 		model.addAttribute("showUser", showUser);
 		return "manageUser/showUser";
 	}
+	
 }

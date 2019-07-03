@@ -45,7 +45,7 @@ public class User {
 	private String upassword;
 	private String salt;
 	private Boolean enable=false;
-	private String uicon="/views/manageUser/images/default_avatar.png";
+	private String uicon="/views/images/avatar/default_avatar.png";
 	@Size(min=11,max=11)
 	private String telephone;
 	private String email;
@@ -57,7 +57,7 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonBackReference
-	private Set<Order> orders = new HashSet<>();//设置双向关联订单
+	private Set<Order> orders = new HashSet<Order>();//设置双向关联订单
 	
 	public Set<Order> getOrders() {
 		return orders;

@@ -312,10 +312,13 @@ public class UserServiceImpl implements UserService{
 	}
 	@Override
 	public UserState changeAvatar(MultipartFile avatar,HttpSession session){
-		String path="views\\manageUser\\images";
+		String path="views\\images\\avatar";
 		String originalFilename=avatar.getOriginalFilename();
 		String suffix="";
 		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			return UserState.NOT_LOGIN;
+		}
 		int lastIndex=originalFilename.lastIndexOf(".");
 		if(lastIndex>-1) {
 			suffix=originalFilename.substring(lastIndex);

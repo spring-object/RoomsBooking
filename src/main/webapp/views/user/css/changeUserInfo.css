@@ -1,0 +1,23 @@
+.box{
+	width:800px;height:450px;
+}
+.left{
+	height:100%;width:50%;float:left;margin-top:10px;margin-left:10px;
+}
+.right{
+	height:100%;width:45%;float:right;margin-top:20px;
+}
+.title{
+	margin-top:10px;
+}
+.inputItem{
+	width:85%;height:20px;margin-top:10px;
+}
+.btm{
+	margin-top:5px;background-color:#49bf67;color:#ffffff;border-width:0;
+	padding-top:5px;padding-bottom:5px;padding-left:10px;padding-right:10px;
+}
+.btm:hover{
+	cursor:pointer;
+	background-color:#5bb75b;
+}

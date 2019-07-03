@@ -1,7 +1,10 @@
 package com.booking.dao;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +19,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.booking.domain.Hotel;
+import com.booking.domain.Order;
+import com.booking.domain.Picture;
+import com.booking.domain.Room;
 import com.booking.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,12 +36,139 @@ public class TestUserDao {
 	private UserDao userDao;
 	@Autowired
 	private UserDTO userDTO;
+	//Comment
+//	private Long cid;               //评论id
+//	private User user;				//用户id
+//	private Hotel hotel;			//酒店id
+//	private Order order;			//订单id
+//	private String msg;				//评论内容
+//	private Date create_time;		//评论时间
+//	private Set<Picture> pictures = new HashSet<Picture>();//评论图片
+	
+	//Picture
+//	private Long pid;				//图片id
+//	private Hotel hotel;			//酒店id
+//	private Comment comment;        //评论id
+//	private Room room;          	//房间id
+//	private String src;       		//资源地址
+	
+	//Hotel
+//	private Long hid;               //酒店id
+//	private String hname;			//酒店名称
+//	private String address;			//地址
+//	private String info;			//简介
+//	private String equipment;		//设备
+//	private Set<Picture> pictures = new HashSet<Picture>();//酒店图片
+	
+	//Room
+//	private Long rid;				//房间id
+//	private String rname;			//房间名称
+//	private float price;			//房间价格
+//	private String type;			//房间类型
+//	private String info;			//简介
+//	private String equipment;		//设备
+	
+	//Order
+//	private User user;          //用户id
+//	private Hotel hotel;        //酒店id
+//	private Room room;          //房间id
+//	private Date create_time;   //下单时间
+//	private Date start_time;    //入住时间
+//	private Date end_time;      //离开时间
+//	private float rprice;       //房间价格
+//	private int rcount;        	//房间数量
+//	private int status;			//0为已完成（可评价）、1为未使用（已付款）、2为待付款（可取消）
+	@Test
+	@Rollback(false)
+	public void testSaveUserOrder() {
+		Optional<User> user=userDao.findById(16L);
+		if(user.isPresent()) {
+				
+			Set<Order> order=user.get().getOrders();
+			
+			//Picture cp1=new Picture();
+			//cp1.setSrc("/views/manageUser/images/default_avatar.png");
+//			Comment c1=new Comment();
+//			c1.setCreate_time(new Date());
+//			c1.setMsg("评论1");
+//			c1.getPictures().add(cp1);
+//			c1.setPictures(c1.getPictures());
+			
+			Picture hp1=new Picture();
+			hp1.setSrc("/views/images/hotel/hotel_1.jpg");
+			Hotel h1=new Hotel();
+			h1.setAddress("酒店1地址");
+			h1.setEquipment("酒店1设备");
+			h1.setHname("酒店1名字");
+			h1.setInfo("酒店1信息");
+			hp1.setHotel(h1);
+			h1.getPictures().add(hp1);
+			h1.setPictures(h1.getPictures());
+			
+			Picture rp1=new Picture();
+			rp1.setSrc("/views/images/rooms/room_1.jpg");
+			Room r1=new Room();
+			r1.setRname("room1");
+			r1.setPrice(20.5f);
+			r1.setType("大床房");
+			r1.setInfo("大床房简介");
+			r1.setEquipment("大床房设备");
+			rp1.setRoom(r1);
+			r1.getPictures().add(rp1);
+			r1.setPictures(r1.getPictures());
+			
+			Order o1=new Order();
+			o1.setUser(user.get());
+			o1.setHotel(h1);
+			o1.setRoom(r1);
+			o1.setCreate_time(new Date());
+			o1.setStart_time(new Date());
+			o1.setEnd_time(new Date());
+			o1.setRprice(50.0f);
+			o1.setRcount(2);
+			o1.setStatus(0);
+			
+//			hp1.setComment(c1);
+//			hp1.setHotel(h1);
+//			hp1.setRoom(r1);
+//			cp1.setComment(c1);
+//			cp1.setHotel(h1);
+//			cp1.setRoom(r1);
+			
+			order.add(o1);
+			
+			user.get().setOrders(order);
+			
+			userDao.save(user.get());
+		}
+	}
+	
+	@Test
+	public void testSet() {
+		Set<String> set=new HashSet<String>();
+		set.add("1");
+		set.add("2");
+		set.add("3");
+		Object[] objects=set.toArray();
+		System.out.println(objects[0]); 
+	}
+	
+	@Test
+	@Rollback(true)
+	public void testGetUserOrder() {
+		Optional<User> user=userDao.findById(16L);
+		Set<Order> order=user.get().getOrders();
+		for (Order o : order) {  
+		      System.out.println(o);  
+		}
+	}
 	
 	@Test
 	@Rollback(false)
 	public void testDeleteOneUser() {
 		userDao.deleteById(10L);
 	}
+	
 	@Test
 	@Rollback(true)
 	public void testDelete() {
