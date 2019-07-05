@@ -283,6 +283,9 @@
 					<li class=''><a href='#'> <i
 							class='icon-desktop'></i> <span>酒店管理</span>
 					</a></li>	
+					<li class=''><a href='/booking/views/admin/listOrder.jsp'> <i
+							class='icon-tasks'></i> <span>订单管理</span>
+					</a></li>
 				</ul>
 			</div>
 		</nav>

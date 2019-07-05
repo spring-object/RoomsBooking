@@ -104,8 +104,8 @@ $(function() {
         "paging":   true,
         "pagingType":   "full_numbers",
         "bLengthChange": true, //开关，是否显示每页显示多少条数据的下拉框
-        "aLengthMenu": [[1, 2, 10], [1, 2, 10]],//设置每页显示数据条数的下拉选项
-        'iDisplayLength': 1, //每页初始显示5条记录
+        "aLengthMenu": [[5, 10, 20], [5, 10, 20]],//设置每页显示数据条数的下拉选项
+        'iDisplayLength': 10, //每页初始显示5条记录
         'bFilter': false,  //是否使用内置的过滤功能（是否去掉搜索框）
         "bSort": false, //是否可排序
         //"aoColumnDefs": [ { "bSortable": false, "aTargets": [ 0 ] }],//进制某列排序

@@ -35,6 +35,18 @@ public class Hotel {
 	@JsonBackReference
 	private Set<Picture> pictures = new HashSet<Picture>();//酒店图片
 	
+	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
+	private Set<Order> orders = new HashSet<Order>();//设置双向关联订单
+	
+	public Set<Order> getOrders() {
+		return orders;
+	}
+	
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+	
 	public Long getHid() {
 		return hid;
 	}

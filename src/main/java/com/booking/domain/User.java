@@ -20,20 +20,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-//CREATE TABLE `t_user` (
-//`uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-//`uname` varchar(255) DEFAULT NULL,
-//`upassword` varchar(255) NOT NULL,
-//`salt` varchar(255) NOT NULL,
-//`enable` int(1) NOT NULL DEFAULT '0',
-//`uicon` varchar(255) DEFAULT NULL,
-//`telephone` varchar(11) DEFAULT NULL,
-//`email` varchar(255) DEFAULT NULL,
-//`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-//`type` int(11) NOT NULL,
-//PRIMARY KEY (`uid`)
-//) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 @Entity
 @Table(name="t_user")
 public class User {

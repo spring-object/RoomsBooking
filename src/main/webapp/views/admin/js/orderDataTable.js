@@ -5,7 +5,7 @@ $(function() {
     $('#myDatatable').DataTable({
     	"select": true,
         "processing": true,//数据加载时显示进度条
-        "searching": true,//启用搜索功能
+        "searching": false,//启用搜索功能
         "serverSide": true,//启用服务端分页（这是使用Ajax服务端的必须配置）
         "ajax": {
 	        "url": "/booking/order/listOrder",
@@ -142,7 +142,7 @@ $(function() {
         table.search(key).draw();//将查询关键字写进datatable的key中
     });
     /**
-     * 编辑用户后与后台进行交互
+     * 编辑订单后与后台进行交互
      */
     $("#update").click(function(){
     	var oid = $("#oid").val();
@@ -184,14 +184,14 @@ $(function() {
 });
 
 /**
- * 编辑用户信息时显示当前用户信息
+ * 编辑订单信息时显示当前用户信息
  * @param obj
  * @returns
  */
 function fnEdit(obj){
 	var row = $(obj).parents("tr")[0];
 	var rowData = $("#myDatatable").dataTable().fnGetData(row);//获取datatable指定行的所有数据
-	$("#editorWindow").modal();//初始化模态框
+	$("#editWindow").modal();//初始化模态框
 	$("#oid").val(rowData.oid);
 	$("#hname").val(rowData.hotel.hname);
 	$("#rname").val(rowData.room.rname);

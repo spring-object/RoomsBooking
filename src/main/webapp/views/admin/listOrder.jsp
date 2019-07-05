@@ -3,102 +3,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>酒店房间管理</title>
-<meta
-	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-	name='viewport' />
+	<meta charset="UTF-8">
+	<title>订单管理</title>
 
-<!--  自定义css-->
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/plugins/font-awesome/css/font-awesome.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/plugins/webuploader/webuploader.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/jquery.dataTables.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/bootstrap-responsive.css">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/buttons.dataTables.min.css">
- <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/showRooms.css">
-
-<!--[if lt IE 9]>
+	<link href="${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap-responsive.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/views/assets/stylesheets/jquery_ui/jquery-ui-1.10.0.custom.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/views/assets/stylesheets/jquery_ui/jquery.ui.1.10.0.ie.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_switch/bootstrap-switch.css" media="all" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/plugins/font-awesome/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/jquery.dataTables.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/buttons.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/editor.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/admin/css/showAdmins.css">
+    
+    <!--[if lt IE 9]>
     <script src='${pageContext.request.contextPath }/views/assets/javascripts/html5shiv.js' type='text/javascript'></script>
     <![endif]-->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap.css' media='all'
-	rel='stylesheet' type='text/css' />
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap-responsive.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / jquery ui -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/jquery_ui/jquery-ui-1.10.0.custom.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/jquery_ui/jquery.ui.1.10.0.ie.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / switch buttons -->
-<link
-	href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_switch/bootstrap-switch.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / xeditable -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/xeditable/bootstrap-editable.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/common/bootstrap-wysihtml5.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / wysihtml5 (wysywig) -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/common/bootstrap-wysihtml5.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / jquery file upload -->
-<link
-	href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/jquery_fileupload/jquery.fileupload-ui.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / full calendar -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/fullcalendar/fullcalendar.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / select2 -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/select2/select2.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / mention -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/mention/mention.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / tabdrop (responsive tabs) -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/tabdrop/tabdrop.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / jgrowl notifications -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/jgrowl/jquery.jgrowl.min.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / datatables -->
-<link
-	href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/datatables/bootstrap-datatable.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / dynatrees (file trees) -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/dynatree/ui.dynatree.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / color picker -->
-<link
-	href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_colorpicker/bootstrap-colorpicker.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / datetime picker -->
-<link
-	href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / daterange picker) -->
-<link
-	href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / flags (country flags) -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/flags/flags.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / slider nav (address book) -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/slider_nav/slidernav.css'
-	media='all' rel='stylesheet' type='text/css' />
-<!-- / fuelux (wizard) -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/fuelux/wizard.css' media='all'
-	rel='stylesheet' type='text/css' />
-<!-- / flatty theme -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/light-theme.css'
-	id='color-settings-body-color' media='all' rel='stylesheet'
-	type='text/css' />
-<!-- / demo -->
-<link href='${pageContext.request.contextPath }/views/assets/stylesheets/demo.css' media='all' rel='stylesheet'
-	type='text/css' />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap.css' media='all'
+		rel='stylesheet' type='text/css' />
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/bootstrap/bootstrap-responsive.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / jquery ui -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/jquery_ui/jquery-ui-1.10.0.custom.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/jquery_ui/jquery.ui.1.10.0.ie.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / switch buttons -->
+	<link
+		href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_switch/bootstrap-switch.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / xeditable -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/xeditable/bootstrap-editable.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/common/bootstrap-wysihtml5.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / wysihtml5 (wysywig) -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/common/bootstrap-wysihtml5.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / jquery file upload -->
+	<link
+		href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/jquery_fileupload/jquery.fileupload-ui.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / full calendar -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/fullcalendar/fullcalendar.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / select2 -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/select2/select2.css' media='all'
+		rel='stylesheet' type='text/css' />
+	<!-- / mention -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/mention/mention.css' media='all'
+		rel='stylesheet' type='text/css' />
+	<!-- / tabdrop (responsive tabs) -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/tabdrop/tabdrop.css' media='all'
+		rel='stylesheet' type='text/css' />
+	<!-- / jgrowl notifications -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/jgrowl/jquery.jgrowl.min.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / datatables -->
+	<link
+		href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/datatables/bootstrap-datatable.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / dynatrees (file trees) -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/dynatree/ui.dynatree.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / color picker -->
+	<link
+		href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_colorpicker/bootstrap-colorpicker.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / datetime picker -->
+	<link
+		href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / daterange picker) -->
+	<link
+		href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / flags (country flags) -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/flags/flags.css' media='all'
+		rel='stylesheet' type='text/css' />
+	<!-- / slider nav (address book) -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/slider_nav/slidernav.css'
+		media='all' rel='stylesheet' type='text/css' />
+	<!-- / fuelux (wizard) -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/plugins/fuelux/wizard.css' media='all'
+		rel='stylesheet' type='text/css' />
+	<!-- / flatty theme -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/light-theme.css'
+		id='color-settings-body-color' media='all' rel='stylesheet'
+		type='text/css' />
+	<!-- / demo -->
+	<link href='${pageContext.request.contextPath }/views/assets/stylesheets/demo.css' media='all' rel='stylesheet'
+		type='text/css' />
+	
+    
 </head>
-<body class='contrast-red '>
-	<header>
+<body>
+<header>
 		<div class='navbar'>
 			<div class='navbar-inner'>
 				<div class='container-fluid'>
@@ -251,8 +252,8 @@
 			</div>
 		</div>
 	</header>
-	<div id='wrapper'>
-		<div id='main-nav-bg'></div>
+<div id="wrapper">
+	<div id='main-nav-bg'></div>
 		<nav class='' id='main-nav'>
 			<div class='navigation'>
 				<div class='search'>
@@ -276,19 +277,19 @@
 					<li class=''><a href='/booking/views/admin/showAdmins.jsp'> <i
 							class='icon-user'></i> <span>管理员管理</span>
 					</a></li>
-					<li class='active'><a href='/booking/views/admin/showRooms.jsp'> <i
+					<li class=''><a href='/booking/views/admin/showRooms.jsp'> <i
 							class='icon-home'></i> <span>房间管理</span>
 					</a></li>
 					<li class=''><a href='#'> <i
 							class='icon-desktop'></i> <span>酒店管理</span>
 					</a></li>	
-					<li class=''><a href='/booking/views/admin/listOrder.jsp'> <i
+					<li class='active'><a href='/booking/views/admin/listOrder.jsp'> <i
 							class='icon-tasks'></i> <span>订单管理</span>
 					</a></li>
 				</ul>
 			</div>
 		</nav>
-		<section id='content'>
+		<section id="content">
 		<div class='container-fluid'>
                 <div class='row-fluid' id='content-wrapper'>
                     <div class='span12'>
@@ -296,8 +297,8 @@
                             <div class='span12'>
                                 <div class='page-header'>
                                     <h1 class='pull-left'>
-                                        <i class='icon-home'></i>
-                                        <span>酒店房间列表</span>
+                                        <i class='icon-tasks'></i>
+                                        <span>订单列表</span>
                                     </h1>
                                     <div class='pull-right'>
                                         <ul class='breadcrumb'>
@@ -308,7 +309,7 @@
                                             <li class='separator'>
                                                 <i class='icon-angle-right'></i>
                                             </li>
-                                            <li class='active'>酒店房间管理</li>
+                                            <li class='active'>订单管理</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -318,209 +319,146 @@
                </div>
          </div>
 		<div class='row-fluid'>
-          <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
-              <div class='box-content box-no-padding'>
-                  <div class='responsive-table'>
-                      <div class='scrollable-area'>
-                      	<form class="form-inline form-horizontal">
-                              <div class="form-group text-center" style="padding-top:20px">
-                                  <label for="search">关键字</label>
-                                  <input type="text" id="search" name="search">
-                                  <button type="button" class="btn btn-primary" id="searchBtn">查询</button>
-                              </div>   
-                          </form>
-                          <table id="roomDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
-                              <thead>
-                                  <tr>
-                                      <th><input type="checkbox" id="checkAll" name="checkAll" class='group-checkable' /></th>
-                                      <th>
-                                          ID
-                                      </th>
-                                      <th>
-                                          房间名称
-                                      </th>
-                                      <th>
-                                          房间类型
-                                      </th>
-                                      <th>
-                                          房间简介
-                                      </th>
-                                      <th>
-                                          房间设备
-                                      </th>
-                                      <th>
-                                          价格(单位:元)
-                                      </th>
-                                      <th>
-                                          房间图片
-                                      </th>
-                                      <th>
-                                          操作
-                                      </th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                       
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-<div class="modal fade hid" id="pictureWindow"  style="width:1000px" tabindex="0" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" style="pointer-events：auto;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">查看/更新图片</h4>
-            </div>
-            <div class="modal-body">
-            	已上传图片
-            	<hr>
-            	<div id="pictures">
-            		 
-            	</div>
-            	<hr>
-            	上传图片
-            	<hr>
-            	<div id="uploader" class="wu-example">
-				    <!--用来存放文件信息-->
-				    <div id="thelist" class="uploader-list"></div>
-				    <div class="btns">
-				        <div id="filePicker" style="display:inline-block">选择文件</div>
-				        <button type="button" id="ctlBtn" class="upload btn btn-default">开始上传</button>
-				    </div>
-				</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade hid" id="editWindow" tabindex="0" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">编辑房间</h4>
-            </div>
-            <div class="modal-body">
-            	<div class="form-horizontal">
-            		<div class="form-group">
-	                  <label for="rid" class="col-sm-2 control-label">ID：</label>
-	                  <div class="col-sm-10">
-	                    <input class="form-control" id="rid" type="text" readonly="readonly">
+	          <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
+	              <div class='box-content box-no-padding'>
+	                  <div class='responsive-table'>
+	                      <div class='scrollable-area'>
+	                      	<form class="form-inline form-horizontal">
+	                              <div class="form-group text-center" style="padding-top:20px">
+	                                  <label for="search">关键字</label>
+	                                  <input type="text" id="search" name="search">
+	                                  <button type="button" class="btn btn-primary" id="searchBtn">查询</button>
+	                              </div>   
+	                          </form>
+	                          <table id="myDatatable" class='table table-bordered table-striped' style='margin-bottom:0;'>
+	                              <thead>
+	                                  <tr>
+	                                      <th><input type="checkbox" id="checkAll" name="checkAll" class='group-checkable' /></th>
+	                                      <th>订单ID</th>
+	                                      <th>酒店</th>
+	                                      <th>房间名</th>
+	                                      <th>数量</th>
+	                                      <th>单价(元)</th>
+	                                      <th>下单时间</th>
+	                                      <th>总价(元)</th>
+	                                      <th>状态</th>
+	                                      <th>操作</th>
+	                                  </tr>
+	                              </thead>
+	                              <tbody>
+	                                       
+	                              </tbody>
+	                          </table>
+	                      </div>
 	                  </div>
-	                </div>
-	                <br>
-	                <div class="form-group">
-	                  <label for="rname" class="col-sm-2 control-label">房间名称：</label>
-	                  <div class="col-sm-10">
-	                    <input class="form-control" id="rname" type="text">
-	                  </div>
-	                </div>
-					<br>          			
-	                <div class="form-group">
-	                  <label for="type" class="col-sm-2 control-label">房间类型：</label>
-	                  <div class="col-sm-10">
-	                  	<input class="form-control" id="type" type="text">
-	                  </div>
-	                </div>
-	                <br>
-	                <div class="form-group">
-	                  <label for="info" class="col-sm-2 control-label">房间信息：</label>
-	                  <div class="col-sm-10">
-	                     <textarea  class="form-control" id="info" rows="3"></textarea>
-	                  </div>
-	                </div>
-					<br>
-					<div class="form-group">
-	                  <label for="equipment" class="col-sm-2 control-label">房间设备：</label>
-	                  <div class="col-sm-10">
-	                     <textarea  class="form-control" id="equipment" rows="3"></textarea>
-	                  </div>
-	                </div>
-	                <br>
-					<div class="form-group">
-	                  <label for="price" class="col-sm-2 control-label">价格：</label>
-	                  <div class="col-sm-10">
-	                    <input class="form-control" id="price" type="text">
-	                  </div>
-	                </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="update" type="button" class="btn btn-primary">更新</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade hid" id="addWindow" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">添加房间</h4>
-            </div>
-            <div class="modal-body">
-            	<div class="form-horizontal">
-	                <div class="form-group">
-	                  <label for="newRname" class="col-sm-2 control-label">房间名称：</label>
-	                  <div class="col-sm-10">
-	                    <input class="form-control" id="newRname" type="text">
-	                  </div>
-	                </div>
-					<br>          			
-	                <div class="form-group">
-	                  <label for="newType" class="col-sm-2 control-label">房间类型：</label>
-	                  <div class="col-sm-10">
-	                  	<select class="form-control" id="newType">
-		                    <option value="大床房">大床房</option>
-		                    <option value="亲子房">亲子房</option>
-		                    <option value="情侣房">情侣房</option>
-		                    <option value="商务房">商务房</option>
-		                </select>
-	                  </div>
-	                </div>
-	                <br>
-	                <div class="form-group">
-	                  <label for="newInfo" class="col-sm-2 control-label">房间信息：</label>
-	                  <div class="col-sm-10">
-	                    <textarea  class="form-control" id="newInfo" rows="3"></textarea>
-	                  </div>
-	                </div>
-					<br>
-					<div class="form-group">
-	                  <label for="newEquipment" class="col-sm-2 control-label">房间设备：</label>
-	                  <div class="col-sm-10">
-	                    <textarea  class="form-control" id="newEquipment" rows="3"></textarea>
-	                  </div>
-	                </div>
-	                <br>
-					<div class="form-group">
-	                  <label for="newPrice" class="col-sm-2 control-label">价格：</label>
-	                  <div class="col-sm-10">
-	                    <input class="form-control" id="newPrice" type="text">
-	                  </div>
-	                </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="addRoom" type="button" class="btn btn-primary">添加</button>
-            </div>
-        </div>
-    </div>
-</div>
+	              </div>
+	          </div>
+		</div>
+		
+		<!-- 编辑订单模态框 -->
+		<div class="modal fade hid" id="editWindow" tabindex="0" role="dialog" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">编辑订单</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="form-horizontal">
+		            		<div class="form-group">
+			                  <label for="oid" class="col-sm-2 control-label">ID：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="oid" type="text" readonly="readonly">
+			                  </div>
+			                </div>
+			                <br>
+			                <div class="form-group">
+			                  <label for="hname" class="col-sm-2 control-label">酒店：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="hname" type="text" readonly="readonly">
+			                  </div>
+			                </div>	
+			                <br>
+			                <div class="form-group">
+			                  <label for="rname" class="col-sm-2 control-label" readonly="readonly">房间名：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="rname" type="text" readonly="readonly">
+			                  </div>
+			                  
+			                  <label for="rtype" class="col-sm-2 control-label" readonly="readonly">房型：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="rtype" type="text" readonly="readonly">
+			                  </div>
+			                  
+			                  <label for="rcount" class="col-sm-2 control-label">数量：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="rcount" type="number" min="1" max="50">
+			                  </div>
+			                  
+			                  <label for="rprice" class="col-sm-2 control-label">单价：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="rprice" type="text" readonly="readonly">
+			                  </div>
+			                </div>						
+			                <br>
+			                <div class="form-group">
+			                  <label for="uname" class="col-sm-2 control-label">用户名：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="uname" type="text" readonly="readonly">
+			                  </div>
+			                </div>
+							<br>
+							<div class="form-group">
+			                  <label for="telephone" class="col-sm-2 control-label">联系电话：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="telephone" type="text">
+			                  </div>
+			                </div>
+			                <br>
+							<div class="form-group">
+			                  <label for="create_time" class="col-sm-2 control-label">创建时间：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="create_time" type="text" readonly="readonly">
+			                  </div>
+			                </div>
+			                <br>
+			                <div class="form-group">
+			                  <label for="start_time" class="col-sm-2 control-label">入住时间：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="start_time" type="text" readonly="readonly">
+			                  </div>
+			                </div>
+			                <br>
+			                <div class="form-group">
+			                  <label for="end_time" class="col-sm-2 control-label">离开时间：</label>
+			                  <div class="col-sm-10">
+			                    <input class="form-control" id="end_time" type="text" readonly="readonly">
+			                  </div>
+			                </div>
+			                <br>
+							<div class="form-group">
+							  <label for="status" class="col-sm-2 control-label">状态：</label>
+			                  <select id="status" class="form-control">
+			                  	<option value="0">已完成</option>
+			                  	<option value="1">未使用</option>
+			                  	<option value="2">待付款</option>
+			                  </select>
+			                </div>
+			                
+		                </div>
+		            </div>
+		            <div class="modal-footer">
+		                	总价：<span id="totalPrice" style="font-size: 36px"></span>
+		                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		                <button id="update" type="button" class="btn btn-primary">保存</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
 	</section>
-	</div>
+</div>
+
 	<!-- / jquery -->
 	<script src='${pageContext.request.contextPath }/views/assets/javascripts/jquery/jquery.min.js'
 		type='text/javascript'></script>
@@ -703,11 +641,13 @@
 	<script src='${pageContext.request.contextPath }/views/assets/javascripts/demo/charts.js' type='text/javascript'></script>
 	<script src='${pageContext.request.contextPath }/views/assets/javascripts/demo/demo.js' type='text/javascript'></script>
 <!--  自定义js-->
-<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/views/plugins/webuploader/webuploader.js"></script>
-<script type='text/javascript' src='${pageContext.request.contextPath}/views/admin/js/roomDataTable.js'></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/views/admin/js/dataTables.editor.min.js"></script>
+	<script type='text/javascript' src='${pageContext.request.contextPath}/views/admin/js/orderDataTable.js'></script>
+	
+	
 </body>
 </html>

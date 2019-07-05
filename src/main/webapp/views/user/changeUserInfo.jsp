@@ -38,11 +38,11 @@
 		<div class="title">
 			<strong class="title">修改信息</strong>
 			<div>
-				<input class="inputItem" placeholder="昵称" type="password" id="nick"/><br/>
+				<input class="inputItem" placeholder="昵称" type="text" id="nick"/><br/>
 				<button id="subNick" class="btm" type="button">修改昵称</button><br/>
-				<input class="inputItem" placeholder="电话" type="password" id="phone"/><br/>
+				<input class="inputItem" placeholder="电话" type="tel" id="phone"/><br/>
 				<button id="subPhone" class="btm" type="button">修改电话</button><br/>
-				<input class="inputItem" placeholder="邮箱" type="password" id="email"/><br/>
+				<input class="inputItem" placeholder="邮箱" type="email" id="email"/><br/>
 				<button id="subEmail" class="btm" type="button">修改邮箱</button>
 			</div>
 		</div>
