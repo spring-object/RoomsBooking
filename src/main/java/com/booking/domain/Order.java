@@ -1,8 +1,9 @@
 package com.booking.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,24 +22,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * */
 @Entity
 @Table(name="t_order")
-public class Order {
+public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long oid;           //订单id
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="uid") 	//设置外键
 	private User user;          //用户id
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="hid") 	//设置外键
 	private Hotel hotel;        //酒店id
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="rid") 	//设置外键
 	private Room room;          //房间id
 	
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@Column(columnDefinition="timestamp default current_timestamp comment '创建时间'")
 	private Date create_time;   //下单时间
 	
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
@@ -49,6 +51,7 @@ public class Order {
 
 	private float rprice;       //房间价格
 	private int rcount;        	//房间数量
+	private float totalPrice;   //订单总价
 	private int status;      	//订单状态，共3个：0为已完成（可评价）、1为未使用（已付款）、2为待付款（可取消）
 	
 	public Long getOid() {
@@ -117,6 +120,14 @@ public class Order {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	public float getTotalPrice() {
+		return totalPrice;
+	}
+	
+	public void setTotalPrice() {
+		this.totalPrice = this.rprice * this.rcount;
 	}
 	
 	@Override

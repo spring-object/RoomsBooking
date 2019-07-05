@@ -96,6 +96,7 @@ function changePasswd(oldPasswd,newPasswd){
 		"success":function(resultCode){
 			if("SECCESS"===resultCode){
 				alert("修改成功");
+				window.location.href=projectName+"/user/signout";
 			}
 			else if("NOT_LOGIN"===resultCode){
 				alert("账号未登陆");
@@ -172,7 +173,13 @@ function subEmail(){
 	"use strict";
 	var url=projectName+"/user/change/email";
 	var jsonData={};
-	var phone=$("#email").val();
+	var email=$("#email").val();
+	var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+	if(!reg.test(email))
+	{
+		alert("邮箱格式不正确");
+		return;
+	}
 	jsonData.email=encodeURIComponent(email);
 	$.ajax({
 		"url":url,
@@ -183,6 +190,7 @@ function subEmail(){
 		"success":function(resultCode){
 			if("SECCESS"===resultCode){
 				alert("修改成功");
+				window.location.href=projectName+"/user/signout";
 			}
 			else if("NOT_LOGIN"===resultCode){
 				alert("账号未登陆");
