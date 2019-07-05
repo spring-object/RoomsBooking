@@ -135,7 +135,6 @@
 							<c:if test="${null!=sessionScope.user.telephone }">${sessionScope.user.telephone }</c:if>
 						</p>
 						<span></span> <a class="zoom" href="${pageContext.request.contextPath }/views/template/images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
-						<!-- <p id="claa">我要改变这句话</p> -->
 						<a style="display: block; width: 140px; padding: 10px 26px;cursor:pointer"  data-method="setTop" id="popUpChangeWin" title="change info" class="book-now">修改个人信息</a>
 					</div>
 				</div>
@@ -148,43 +147,90 @@
 			<div class="section-header section-header-2">
 				<h3>我预订过的房间</h3>
 			</div>
-			
-			<!-- Section Header /- -->
-			<!-- <div style="height: 350px;" class="col-md-12 col-sm-12 col-xs-12">
-				<div class="offer-box">
-					<i>
-						<img src="${pageContext.request.contextPath }/views/template/images/offer-2.jpg" alt="offer">
-					</i>
-					<div style="width: 750px; height: 315px; float: right" class="offer-content">
-						<h5>豪华双人房</h5>
-						<p>舒适的大床、精致的装修、美味的食物<br>落地窗与独立卫浴</p>
-						<p>入住时间：2019-6-30 &nbsp &nbsp退房时间：2019-6-31&nbsp&nbsp共1晚</p>
-						<span>500￥ /晚</span> 
-						<a class="zoom" href="images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
-						<a id='nopay' style="display: block; width: 108px; padding: 10px 26px;" onclick="pay()" title="Book Now" class="book-now">去评价</a>
+			<div class="layui-tab">
+				<ul class="layui-tab-title">
+					<li class="layui-this">已完成</li>
+					<li>未使用</li>
+					<li>待付款</li>
+				</ul>
+				<div class="layui-tab-content">
+					<div class="layui-tab-item layui-show">
+						<c:forEach var="order" items="${sessionScope.user.orders }">
+						<c:if test="${0==order.status }">
+							<div style="height: 350px;" class="col-md-12 col-sm-12 col-xs-12">
+								<div class="offer-box">
+									<i> 
+										<c:if test="${order.room.pictures.size()>0 }">
+											<img src="${pageContext.request.contextPath }${order.room.pictures.toArray()[0].src }" alt="picture">
+										</c:if>
+									</i>
+									<div style="width: 735px; height: 315px; float: right" class="offer-content">
+										<h5>${order.room.rname }</h5>
+										<p>${order.room.info }</p>
+										<p>
+											入住时间：${order.start_time } &nbsp &nbsp<br />
+											退房时间：${order.end_time }&nbsp&nbsp
+										</p>
+										<span>共${order.totalPrice }￥ </span> 
+										<a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去评价</a>
+									</div>
+								</div>
+							</div>
+						</c:if>
+						</c:forEach>
 					</div>
-				</div>
-			</div> -->
-			<c:forEach var="order" items="${sessionScope.user.orders }">
-				<div style="height: 350px;" class="col-md-12 col-sm-12 col-xs-12">
-					<div class="offer-box">
-						<i>
-							<c:if test="${order.room.pictures.size()>0 }">
-								<img src="${pageContext.request.contextPath }${order.room.pictures.toArray()[0].src }" alt="picture">
+					<div class="layui-tab-item">
+						<c:forEach var="order" items="${sessionScope.user.orders }">
+							<c:if test="${1==order.status }">
+								<div style="height: 350px;" class="col-md-12 col-sm-12 col-xs-12">
+									<div class="offer-box">
+										<i> 
+											<c:if test="${order.room.pictures.size()>0 }">
+												<img src="${pageContext.request.contextPath }${order.room.pictures.toArray()[0].src }" alt="picture">
+											</c:if>
+										</i>
+										<div style="width: 735px; height: 315px; float: right" class="offer-content">
+											<h5>${order.room.rname }</h5>
+											<p>${order.room.info }</p>
+											<p>
+												入住时间：${order.start_time } &nbsp &nbsp<br />
+												退房时间：${order.end_time }&nbsp&nbsp
+											</p>
+											<span>共${order.totalPrice }￥ </span> <a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去评价</a>
+										</div>
+									</div>
+								</div>
 							</c:if>
-						</i>
-						<div style="width: 750px; height: 315px; float: right" class="offer-content">
-							<h5>${order.room.rname }</h5>
-							<p>${order.room.info }</p>
-							<p>入住时间：${order.start_time } &nbsp &nbsp<br/>退房时间：${order.end_time }&nbsp&nbsp</p>
-							<span>${order.room.price }￥ /晚</span> 
-							<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
-							<a id='nopay' style="display: block; width: 108px; padding: 10px 26px;" onclick="pay()" title="Book Now" class="book-now">去评价</a>
-						</div>
+						</c:forEach>
+					</div>
+					<div class="layui-tab-item">
+						<c:forEach var="order" items="${sessionScope.user.orders }">
+							<c:if test="${2==order.status }">
+								<div style="height: 350px;"
+									class="col-md-12 col-sm-12 col-xs-12">
+									<div class="offer-box">
+										<i> 
+											<c:if test="${order.room.pictures.size()>0 }">
+												<img src="${pageContext.request.contextPath }${order.room.pictures.toArray()[0].src }" alt="picture">
+											</c:if>
+										</i>
+										<div style="width: 735px; height: 315px; float: right"
+											class="offer-content">
+											<h5>${order.room.rname }</h5>
+											<p>${order.room.info }</p>
+											<p>
+												入住时间：${order.start_time } &nbsp &nbsp<br />
+												退房时间：${order.end_time }&nbsp&nbsp
+											</p>
+											<span>共${order.totalPrice }￥ </span> <a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去评价</a>
+										</div>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
-			</c:forEach>
-			
+			</div>
 		</div>
 	</div>
 	<!-- Offer Section /- --> </main>
@@ -210,13 +256,8 @@
 				</div>
 				<div class="navbar-collapse collapse" id="ftr-navbar">
 					<ul class="nav navbar-nav">
-						<li class="active"><a
-							href="${pageContext.request.contextPath }/" title="Home">首页</a></li>
-						<li><a href="rooms.html" title="Rooms">房间</a></li>
-						<li><a href="services.html" title="Services">服务</a></li>
-						<li><a href="gallery.html" title="Gallery">酒店</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath }/" title="Home">首页</a></li>
 						<li><a href="about.html" title="About Us">关于我们</a></li>
-
 						<li><a href="contact-us.html" title="Contact">联系我们</a></li>
 					</ul>
 				</div>

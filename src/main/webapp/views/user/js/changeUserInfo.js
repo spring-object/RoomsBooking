@@ -80,7 +80,7 @@ function getPUBEXEP_MODULUS(){
 	});
 }
 
-//登陆
+//修改密码
 function changePasswd(oldPasswd,newPasswd){
 	"use strict";
 	var url=projectName+"/user/change/passwd";
@@ -96,7 +96,6 @@ function changePasswd(oldPasswd,newPasswd){
 		"success":function(resultCode){
 			if("SECCESS"===resultCode){
 				alert("修改成功");
-				window.location.href=projectName+"/user/signout";
 			}
 			else if("NOT_LOGIN"===resultCode){
 				alert("账号未登陆");
@@ -124,6 +123,10 @@ function subNick(){
 	var url=projectName+"/user/change/nick";
 	var jsonData={};
 	var nick=$("#nick").val();
+	if(nick.length<1){
+		alert("请输入昵称");
+		return;
+	}
 	jsonData.nick=nick;
 	$.ajax({
 		"url":url,
@@ -149,6 +152,10 @@ function subPhone(){
 	var url=projectName+"/user/change/phone";
 	var jsonData={};
 	var phone=$("#phone").val();
+	if(phone.length<1){
+		alert("请输入手机号");
+		return;
+	}
 	jsonData.phone=phone;
 	$.ajax({
 		"url":url,

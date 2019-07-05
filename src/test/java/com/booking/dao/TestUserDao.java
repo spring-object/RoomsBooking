@@ -1,10 +1,11 @@
 package com.booking.dao;
 
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,12 @@ import com.booking.domain.User;
 public class TestUserDao {
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private HotelDao hotelDao;
+	@Autowired
+	private RoomDao roomDao;
+	@Autowired
+	private OrderDao orderDao;
 	@Autowired
 	private UserDTO userDTO;
 	//Comment
@@ -69,6 +76,7 @@ public class TestUserDao {
 //	private String equipment;		//设备
 	
 	//Order
+//	private Long oid;           //订单id
 //	private User user;          //用户id
 //	private Hotel hotel;        //酒店id
 //	private Room room;          //房间id
@@ -77,69 +85,61 @@ public class TestUserDao {
 //	private Date end_time;      //离开时间
 //	private float rprice;       //房间价格
 //	private int rcount;        	//房间数量
-//	private int status;			//0为已完成（可评价）、1为未使用（已付款）、2为待付款（可取消）
+//	private float totalPrice;   //订单总价
+//	private int status;      	//订单状态，共3个：0为已完成（可评价）、1为未使用（已付款）、2为待付款（可取消）
 	@Test
 	@Rollback(false)
 	public void testSaveUserOrder() {
-		Optional<User> user=userDao.findById(16L);
-		if(user.isPresent()) {
-				
-			Set<Order> order=user.get().getOrders();
+		//保存酒店
+		Picture hp1=new Picture();
+		hp1.setSrc("/views/images/hotel/hotel_1.jpg");
+		Hotel hotel=new Hotel();
+		hotel.setAddress("酒店1地址");
+		hotel.setEquipment("酒店1设备");
+		hotel.setHname("酒店1名字");
+		hotel.setInfo("酒店1信息");
+		hp1.setHotel(hotel);
+		hotel.getPictures().add(hp1);
+		hotel.setPictures(hotel.getPictures());
+		hotelDao.save(hotel);
+		
+		//保存房间
+		Picture rp1=new Picture();
+		rp1.setSrc("/views/images/rooms/room_1.jpg");
+		Room room=new Room();
+		room.setRname("room1");
+		room.setPrice(20.5f);
+		room.setType("大床房");
+		room.setInfo("大床房简介");
+		room.setEquipment("大床房设备");
+		rp1.setRoom(room);
+		room.getPictures().add(rp1);
+		room.setPictures(room.getPictures());
+		roomDao.save(room);
+		
+		Optional<Hotel> hotelOptional=hotelDao.findById(1L);
+		Optional<Room> roomOptional=roomDao.findById(1L);
+		Optional<User> userOptional=userDao.findById(16L);
+		//保存订单
+		if(userOptional.isPresent()&&hotelOptional.isPresent()&&roomOptional.isPresent()) {
+			Order order=new Order();
+			order.setUser(userOptional.get());
+			order.setHotel(hotelOptional.get());
+			order.setRoom(roomOptional.get());
 			
-			//Picture cp1=new Picture();
-			//cp1.setSrc("/views/manageUser/images/default_avatar.png");
-//			Comment c1=new Comment();
-//			c1.setCreate_time(new Date());
-//			c1.setMsg("评论1");
-//			c1.getPictures().add(cp1);
-//			c1.setPictures(c1.getPictures());
+			Calendar rightNow = Calendar.getInstance();
+		    rightNow.setTime(new Date());
+			order.setCreate_time(rightNow.getTime());
+			rightNow.add(Calendar.DAY_OF_YEAR,2);
+			order.setStart_time(rightNow.getTime());
+			rightNow.add(Calendar.DAY_OF_YEAR,10);
+			order.setEnd_time(rightNow.getTime());
 			
-			Picture hp1=new Picture();
-			hp1.setSrc("/views/images/hotel/hotel_1.jpg");
-			Hotel h1=new Hotel();
-			h1.setAddress("酒店1地址");
-			h1.setEquipment("酒店1设备");
-			h1.setHname("酒店1名字");
-			h1.setInfo("酒店1信息");
-			hp1.setHotel(h1);
-			h1.getPictures().add(hp1);
-			h1.setPictures(h1.getPictures());
-			
-			Picture rp1=new Picture();
-			rp1.setSrc("/views/images/rooms/room_1.jpg");
-			Room r1=new Room();
-			r1.setRname("room1");
-			r1.setPrice(20.5f);
-			r1.setType("大床房");
-			r1.setInfo("大床房简介");
-			r1.setEquipment("大床房设备");
-			rp1.setRoom(r1);
-			r1.getPictures().add(rp1);
-			r1.setPictures(r1.getPictures());
-			
-			Order o1=new Order();
-			o1.setUser(user.get());
-			o1.setHotel(h1);
-			o1.setRoom(r1);
-			o1.setCreate_time(new Date());
-			o1.setStart_time(new Date());
-			o1.setEnd_time(new Date());
-			o1.setRprice(50.0f);
-			o1.setRcount(2);
-			o1.setStatus(0);
-			
-//			hp1.setComment(c1);
-//			hp1.setHotel(h1);
-//			hp1.setRoom(r1);
-//			cp1.setComment(c1);
-//			cp1.setHotel(h1);
-//			cp1.setRoom(r1);
-			
-			order.add(o1);
-			
-			user.get().setOrders(order);
-			
-			userDao.save(user.get());
+			order.setRprice(20.5f);
+			order.setRcount(2);
+			order.setStatus(2);
+			order.setTotalPrice();
+			orderDao.save(order);
 		}
 	}
 	
