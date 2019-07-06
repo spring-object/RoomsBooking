@@ -1,4 +1,6 @@
+var projectName;
 $(function(){
+	projectName=$("#projectContextPath").val();
 	$("#book-now").on("click",function(){
 		book();
 	})
@@ -16,7 +18,7 @@ function book(){
 	if(start_time == '' || end_time == '')
 		return alert("请选择时间");
 	
-	window.location.href = "/booking/order/checkout?rid=" + rid + "&startTime=" + start_time + "&endTime=" + end_time;
+	window.location.href = projectName+"/order/checkout?rid=" + rid + "&startTime=" + start_time + "&endTime=" + end_time;
 	
 //	$.ajax({
 //		url: "/booking/order/checkout?rid=" + rid + "&startTime=" + start_time + "&endTime=" + end_time,

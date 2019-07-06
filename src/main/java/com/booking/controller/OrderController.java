@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.booking.domain.Hotel;
 import com.booking.domain.Order;
@@ -63,8 +65,10 @@ public class OrderController {
 		Order order = orderServiceImpl.findById(oid);
 		order.setStatus(1);
 		orderServiceImpl.save(order);
-		
-		return "user/index";
+		//重定向到/booking/user/更新用户信息
+		UriComponents redirectUri = UriComponentsBuilder.fromPath("/user/").build().encode();
+		return "redirect:" + redirectUri.toUriString();
+		//return "user/index";
 	}
 	
 	/*

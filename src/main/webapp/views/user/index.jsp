@@ -157,11 +157,11 @@
 					<div class="layui-tab-item layui-show">
 						<c:forEach var="order" items="${sessionScope.user.orders }">
 						<c:if test="${0==order.status }">
-							<div style="height: 350px;" class="col-md-12 col-sm-12 col-xs-12">
+							<div style="height: 450px;" class="col-md-12 col-sm-12 col-xs-12">
 								<div class="offer-box">
 									<i> 
 										<c:if test="${order.room.pictures.size()>0 }">
-											<img src="${pageContext.request.contextPath }${order.room.pictures.toArray()[0].src }" alt="picture">
+											<img src="${pageContext.request.contextPath }/views/images/rooms/${order.room.pictures.toArray()[0].src }" alt="picture">
 										</c:if>
 									</i>
 									<div style="width: 735px; height: 315px; float: right" class="offer-content">
@@ -182,11 +182,11 @@
 					<div class="layui-tab-item">
 						<c:forEach var="order" items="${sessionScope.user.orders }">
 							<c:if test="${1==order.status }">
-								<div style="height: 350px;" class="col-md-12 col-sm-12 col-xs-12">
+								<div style="height: 450px;" class="col-md-12 col-sm-12 col-xs-12">
 									<div class="offer-box">
 										<i> 
 											<c:if test="${order.room.pictures.size()>0 }">
-												<img src="${pageContext.request.contextPath }${order.room.pictures.toArray()[0].src }" alt="picture">
+												<img src="${pageContext.request.contextPath }/views/images/rooms/${order.room.pictures.toArray()[0].src }" alt="picture">
 											</c:if>
 										</i>
 										<div style="width: 735px; height: 315px; float: right" class="offer-content">
@@ -206,12 +206,12 @@
 					<div class="layui-tab-item">
 						<c:forEach var="order" items="${sessionScope.user.orders }">
 							<c:if test="${2==order.status }">
-								<div style="height: 350px;"
+								<div style="height: 450px;"
 									class="col-md-12 col-sm-12 col-xs-12">
 									<div class="offer-box">
 										<i> 
 											<c:if test="${order.room.pictures.size()>0 }">
-												<img src="${pageContext.request.contextPath }${order.room.pictures.toArray()[0].src }" alt="picture">
+												<img src="${pageContext.request.contextPath }/views/images/rooms/${order.room.pictures.toArray()[0].src }" alt="picture">
 											</c:if>
 										</i>
 										<div style="width: 735px; height: 315px; float: right"
@@ -222,7 +222,7 @@
 												入住时间：${order.start_time } &nbsp &nbsp<br />
 												退房时间：${order.end_time }&nbsp&nbsp
 											</p>
-											<span>共${order.totalPrice }￥ </span> <a href="/booking/order/pay?oid=${order.oid }" style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">马上支付</a>
+											<span>共${order.totalPrice }￥ </span> <a href="${pageContext.request.contextPath }/order/pay?oid=${order.oid }" style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">马上支付</a>
 										</div>
 									</div>
 								</div>

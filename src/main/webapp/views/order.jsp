@@ -61,6 +61,7 @@
 </head>
 
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+<input type="hidden" id="projectContextPath" value="${pageContext.request.contextPath }"/>
 	<!-- Loader -->
 	<!--div id="site-loader" class="load-complete">
 		<div class="loader">
@@ -304,6 +305,7 @@
 	<script src="${pageContext.request.contextPath }/views/template/js/jquery-3.2.1.min.js"></script>
 	
 	<script type="text/javascript">
+	var projectName=$("#projectContextPath").val();
 		$(document).ready(function(){
 			var startTime = $("#start_time").html();
 			var endTime = $("#end_time").html();
@@ -314,14 +316,14 @@
 			
 			$("#payNow").click(function(){
 				$.ajax({
-					url: "/booking/order/confirmOrder?rid=" + $("#rid").val() + "&status=1" + "&startTime=" + startTime + "&endTime=" + endTime + "&rcount=" + count,
+					url: projectName+"/order/confirmOrder?rid=" + $("#rid").val() + "&status=1" + "&startTime=" + startTime + "&endTime=" + endTime + "&rcount=" + count,
 					type: "POST",
 					data: {},
 					dataType: "json",
 					success: function(data) {
 						if(data.result == "success") {
 							alert("支付成功，可在个人中心查看订单");
-							window.location.href = "/booking/views/user/index.jsp";
+							window.location.href = projectName+"/user/";
 						}else {
 							alert("系统繁忙，请稍后再试");
 						}
@@ -331,14 +333,14 @@
 			
 			$("#payAfter").click(function(){
 				$.ajax({
-					url: "/booking/order/confirmOrder?rid=" + $("#rid").val() + "&status=2" + "&startTime=" + startTime + "&endTime=" + endTime + "&rcount=" + count,
+					url: projectName+"/order/confirmOrder?rid=" + $("#rid").val() + "&status=2" + "&startTime=" + startTime + "&endTime=" + endTime + "&rcount=" + count,
 					type: "POST",
 					data: {},
 					dataType: "json",
 					success: function(data) {
 						if(data.result == "success") {
 							alert("下单成功，请尽快前往个人中心支付");
-							window.location.href = "/booking/views/user/index.jsp";
+							window.location.href = projectName+"/user/";
 						}else {
 							alert("系统繁忙，请稍后再试");
 						}

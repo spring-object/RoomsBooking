@@ -60,6 +60,7 @@
 </head>
 
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+<input type="hidden" id="projectContextPath" value="${pageContext.request.contextPath }"/>
 	<!-- Loader -->
 	<!--div id="site-loader" class="load-complete">
 		<div class="loader">
