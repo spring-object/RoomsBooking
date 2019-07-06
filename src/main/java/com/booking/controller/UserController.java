@@ -67,9 +67,11 @@ public class UserController {
 	//转到到个人中心
 	@GetMapping("/")
 	public String index(HttpSession session) {
-		if(null==session.getAttribute("user")) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
 			return "manageUser/sign_in";
 		}
+		session.setAttribute("user", userService.findById(user.getUid()));
 		return "user/index";
 	}
 	//转到用户管理中心
