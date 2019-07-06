@@ -370,7 +370,7 @@
       </div>
 
 
-<div class="modal fade hid" id="pictureWindow"  style="width:1000px" tabindex="0" role="dialog" aria-hidden="true">
+<div class="modal fade hid" id="pictureWindow"  style="width:800px" tabindex="0" role="dialog" aria-hidden="true">
     <div class="modal-dialog" style="pointer-events：auto;">
         <div class="modal-content">
             <div class="modal-header">

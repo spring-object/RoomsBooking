@@ -25,3 +25,8 @@
 	overflow: hidden;
 	margin-top:-32px;
 }
+#roomDatatable td {
+  overflow: hidden; /* this is what fixes the expansion */
+  text-overflow: ellipsis; /* not supported in all browsers, but I accepted the tradeoff */
+  white-space: nowrap;
+}
