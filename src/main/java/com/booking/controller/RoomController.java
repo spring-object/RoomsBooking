@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +47,63 @@ public class RoomController {
 	private PictureService pictureService;
 	
 	/**
+	 * 跳转到roomDetail.jsp页面，数据存放在model
+	 * @param rid
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(value="showOneRoom")
+	public String showOneRoom(@RequestParam Long rid,Model model) {
+		Room room = roomService.findById(rid);
+		List<Picture> pictures = pictureService.findRoomPictures(rid);
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		if(room!=null) {
+			room.getEquipment();
+			model.addAttribute("room", room);
+			model.addAttribute("pictures", pictures);
+			model.addAttribute("result", "success");
+		}else {
+			model.addAttribute("result", "fail");
+			data.put("result", "fail");
+		}
+		return "roomDetail";
+	}
+	
+	/**
+	 * 获取所有房间展示
+	 * @return
+	 */
+	@GetMapping(value="showRooms")
+	public @ResponseBody String showRooms() {
+		List<Room> rooms = roomService.findAll();
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		List<String> picturesSrc = new ArrayList<String>();
+		if(rooms!=null) {
+			for(int i=0;i<rooms.size();i++) {
+				List<Picture> pictures = pictureService.findRoomPictures(rooms.get(i).getRid());
+				if(pictures!=null&&pictures.size()!=0) {
+					String pictureUrl = pictures.get(0).getSrc();
+					picturesSrc.add(pictureUrl);
+				}
+			}
+			data.put("rooms", rooms);
+			data.put("picturesSrc", picturesSrc);
+			data.put("result","success");
+		}else {
+			data.put("result", "fail");
+		}
+		ObjectMapper om = new ObjectMapper();
+		String json=null;
+		 try {
+			json = om.writeValueAsString(data);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	
+	/**
 	 * 根据pid删除已上传的图片并返回房间id重新加载已上传图片
 	 * @param map
 	 * @return
@@ -62,7 +120,7 @@ public class RoomController {
 		pictureService.save(picture);
 		ArrayList<Picture> pictures = new ArrayList<Picture>();
 		pictures.add(picture);
-		String path = request.getSession().getServletContext().getRealPath("/views/admin/images/rooms/");//图片存放路径
+		String path = request.getSession().getServletContext().getRealPath("/views/images/rooms/");//图片存放路径
 		DeleteFile.deleteFile(pictures, path);//删除本地图片
 		pictureService.deleteById(pid);//删除数据库的图片
 		HashMap<String, Object> data = new HashMap<String,Object>();
@@ -119,7 +177,7 @@ public class RoomController {
 		System.out.println("更新rid="+rid+"的图片");
         MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
         Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
-        String path = request.getSession().getServletContext().getRealPath("/views/admin/images/rooms/");//文件存放路径
+        String path = request.getSession().getServletContext().getRealPath("/views/images/rooms/");//文件存放路径
         File dir = new File(path);
         System.out.println(path);
         if(!dir.exists()) {//目录不存在则创建
@@ -241,7 +299,7 @@ public class RoomController {
 		}
 		if(ids!=null) {
 			List<Picture> pictures = new ArrayList<Picture>();
-			String path = request.getSession().getServletContext().getRealPath("/views/admin/images/rooms/");//图片存放文件夹路径
+			String path = request.getSession().getServletContext().getRealPath("/views/images/rooms/");//图片存放文件夹路径
 			for(int i=0;i<ids.length;i++) {
 				pictures = pictureService.findRoomPictures(ids[i]);
 				DeleteFile.deleteFile(pictures, path);//删除本地图片
@@ -260,7 +318,7 @@ public class RoomController {
 		if(rid!=null) {
 			List<Picture> pictures = new ArrayList<Picture>();
 			pictures = pictureService.findRoomPictures(rid);
-			String path = request.getSession().getServletContext().getRealPath("/views/admin/images/rooms/");//图片存放路径
+			String path = request.getSession().getServletContext().getRealPath("/views/images/rooms/");//图片存放路径
 			DeleteFile.deleteFile(pictures, path);//删除本地图片
 			roomService.deleteById(rid);//设置关联关系时设置级联删除，所以不用手动删除图片
 		}

@@ -19,16 +19,16 @@
 
 	<meta charset="UTF-8">
 	<!-- Standard Favicon -->
-	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath }/views/template/images/hotel.png" />
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images/hotel.png" />
 	
 	<!-- For iPhone 4 Retina display: -->
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-114x114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images//apple-touch-icon-114x114-precomposed.png">
 	
 	<!-- For iPad: -->
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-72x72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images//apple-touch-icon-72x72-precomposed.png">
 	
 	<!-- For iPhone: -->
-	<link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-57x57-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images//apple-touch-icon-57x57-precomposed.png">
 
 	<!-- Library - Google Font Familys -->	
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -50,6 +50,8 @@
 	
 	<!-- Custom - Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/views/template/style.css">
+	<!-- 图标库 -->
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/views/plugins/font-awesome/css/font-awesome.css">
 	
 	<!--[if lt IE 9]>
 		<script src="js/html5/respond.min.js"></script>
@@ -108,27 +110,27 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a title="Logo1" href="index.html" class="navbar-brand"><img src="${pageContext.request.contextPath }/views/template/images/logo.png"></a>
+						<a title="Logo1" href="${pageContext.request.contextPath }/views/index.jsp" class="navbar-brand"><img src="${pageContext.request.contextPath }/views/template/images/logo.png"></a>
 					</div>
 					<div class="navbar-collapse collapse" id="navbar">
 						<ul class="nav navbar-nav">
 							<li class="dropdown active">
-								<a href="index.html" title="Pages" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">首页</a>
+								<a href="${pageContext.request.contextPath }/views/index.jsp" title="Pages" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">首页</a>
 								<i class="ddl-switch fa fa-angle-down"></i>
 							
 							</li>
 							<li class="dropdown">
-								<a href="gallery.html" title="Gallery" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">酒店</a>
+								<a href="${pageContext.request.contextPath }/views/gallery.jsp" title="Gallery" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">酒店</a>
 								<i class="ddl-switch fa fa-angle-down"></i>
 	
 							</li>
-							<li><a title="Rooms" href="rooms.html">房间</a></li>
-							<li><a title="Services" href="services.html">服务</a></li>
+							<li><a title="Rooms" href="${pageContext.request.contextPath }/views/rooms.jsp">房间</a></li>
+							<li><a title="Services" href="${pageContext.request.contextPath }/views/services.jsp">服务</a></li>
 							
 							
-							<li><a title="About Us" href="about.html">关于我们</a></li>
+							<li><a title="About Us" href="${pageContext.request.contextPath }/views/about.jsp">关于我们</a></li>
 
-							<li><a title="Contact" href="contact-us.html">联系我们</a></li>
+							<li><a title="Contact" href="${pageContext.request.contextPath }/views/contact-us.jsp">联系我们</a></li>
 						</ul>						
 					</div>
 				</nav><!-- Navigation -->
@@ -234,7 +236,7 @@
 						</li>
 						
 						<li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
-							<img src="images/slider-3.jpg" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+							<img src="${pageContext.request.contextPath }/views/template/images/slider-3.jpg" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
 							<div class="tp-caption tp-shape tp-shapewrapper" id="slide-layer-4"
 								data-x="['center','center','center','center']" 
 								data-y="['middle','middle','middle','middle']" 
@@ -319,7 +321,7 @@
 						</li>
 						
 						<li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
-							<img src="images/slider-4.jpg" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+							<img src="${pageContext.request.contextPath }/views/template/images/slider-4.jpg" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
 							<!-- LAYERS -->
 							<!-- LAYER NR. 1 -->
 							<div class="tp-caption tp-shape tp-shapewrapper" id="slide-layer-8"
@@ -453,8 +455,8 @@
 					<div class="choose-us-box">
 						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
 							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
-								<i><img src="images/choose-us-1.jpg" alt="choose-us" /></i>
-								<a class="zoom" href="images/choose-us-1.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+								<i><img src="${pageContext.request.contextPath }/views/template/images/choose-us-1.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/choose-us-1.jpg" title="offer"><i class="icon icon-Linked"></i></a>
 							</div>
 							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
 								<h5>世界一流的酒店</h5>
@@ -469,8 +471,8 @@
 					<div class="choose-us-box">
 						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
 							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
-								<i><img src="images/choose-us-2.jpg" alt="choose-us" /></i>
-								<a class="zoom" href="images/choose-us-2.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+								<i><img src="${pageContext.request.contextPath }/views/template/images/choose-us-2.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/choose-us-2.jpg" title="offer"><i class="icon icon-Linked"></i></a>
 							</div>
 							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
 								<h5>奢华舒适的房间</h5>
@@ -485,8 +487,8 @@
 					<div class="choose-us-box">
 						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
 							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
-								<i><img src="images/choose-us-3.jpg" alt="choose-us" /></i>
-								<a class="zoom" href="images/choose-us-3.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+								<i><img src="${pageContext.request.contextPath }/views/template/images/choose-us-3.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/choose-us-3.jpg" title="offer"><i class="icon icon-Linked"></i></a>
 							</div>
 							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
 								<h5>美味独特的食物</h5>
@@ -501,8 +503,8 @@
 					<div class="choose-us-box">
 						<div class="col-md-12 col-sm-12 col-xs-12 no-padding choose-us-block">
 							<div class="col-md-5 col-sm-4 col-xs-12 choose-us-cover">
-								<i><img src="images/choose-us-4.jpg" alt="choose-us" /></i>
-								<a class="zoom" href="images/choose-us-4.jpg" title="offer"><i class="icon icon-Linked"></i></a>
+								<i><img src="${pageContext.request.contextPath }/views/template/images/choose-us-4.jpg" alt="choose-us" /></i>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/choose-us-4.jpg" title="offer"><i class="icon icon-Linked"></i></a>
 							</div>
 							<div class="col-md-7 col-sm-8 col-xs-12 choose-us-content">
 								<h5>国际的信誉</h5>
@@ -523,45 +525,10 @@
 				<div class="section-header section-header-2">
 					<h3>我们提供的房间</h3>
 				</div><!-- Section Header /- -->
-				<div class="offer-carousel">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="offer-box">
-							<i><img src="images/offer-2.jpg" alt="offer"></i>
-							<div class="offer-content">
-								<h5>豪华双人房</h5>
-								<p>舒适的大床、精致的装修、美味的食物<br>落地窗与独立卫浴</p>
-								<span>500￥ /晚起</span>
-								<a class="zoom" href="images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
-								<a href="order.html?id=3" title="Book Now" class="book-now">马上预订</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="offer-box">
-							<i><img src="images/offer-1.jpg" alt="offer"></i>
-							<div class="offer-content">
-								<h5>豪华大床房</h5>
-								<p>舒适的大床、精致的装修、美味的食物<br>落地窗与独立卫浴</p>
-								<span>300￥ /晚起</span>
-								<a class="zoom" href="images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
-								<a href="#" title="Book Now" class="book-now">马上预订</a>
-							</div>
-						</div>
-					</div>
+				<div class="offer-carousel" id="showRooms">
+				<!-- 展示房间 -->
 					
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<div class="offer-box">
-							<i><img src="images/offer-3.jpg" alt="offer"></i>
-							<div class="offer-content">
-								<h5>标准大床房</h5>
-								<p>舒适的大床、精致的装修、美味的食物<br>落地窗与独立卫浴</p>
-								<span>200￥ /晚起</span>
-								<a class="zoom" href="images/offer-1.jpg" title="offer"><i class="fa fa-plus"></i></a>
-								<a href="#" title="Book Now" class="book-now">马上预订</a>
-							</div>
-						</div>
-					</div>
-				</div>
+				</div>		
 			</div><!-- Container /- -->
 		</div><!-- Offer Section /- -->
 		
@@ -618,66 +585,66 @@
 				<ul class="portfolio-list no-left-padding">
 					<li class="col-md-4 col-sm-4 col-xs-6 design">
 						<div class="content-image-block">
-							<img src="images/gallery-1.jpg" alt="gallery">
+							<img src="${pageContext.request.contextPath }/views/template/images/gallery-1.jpg" alt="gallery">
 							<div class="content-block-hover">
 								<h5>绝佳海景</h5>
 								<p>私人享有</p>
-								<a class="zoom" href="images/gallery-1.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/gallery-1.jpg" title="Expand"><i class="fa fa-search"></i></a>
 								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
 							</div>
 						</div>
 					</li>
 					<li class="col-md-4 col-sm-4 col-xs-6 video">
 						<div class="content-image-block">
-							<img src="images/gallery-2.jpg" alt="gallery">
+							<img src="${pageContext.request.contextPath }/views/template/images/gallery-2.jpg" alt="gallery">
 							<div class="content-block-hover">
 								<h5>绝佳海景</h5>
 								<p>私人享有</p>
-								<a class="zoom" href="images/gallery-2.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/gallery-2.jpg" title="Expand"><i class="fa fa-search"></i></a>
 								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
 							</div>
 						</div>
 					</li>
 					<li class="col-md-4 col-sm-4 col-xs-6 photography">
 						<div class="content-image-block">
-							<img src="images/gallery-3.jpg" alt="gallery">
+							<img src="${pageContext.request.contextPath }/views/template/images/gallery-3.jpg" alt="gallery">
 							<div class="content-block-hover">
 								<h5>绝佳海景</h5>
 								<p>私人享有</p>
-								<a class="zoom" href="images/gallery-3.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/gallery-3.jpg" title="Expand"><i class="fa fa-search"></i></a>
 								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
 							</div>
 						</div>
 					</li>
 					<li class="col-md-4 col-sm-4 col-xs-6 design">
 						<div class="content-image-block">
-							<img src="images/gallery-4.jpg" alt="gallery">
+							<img src="${pageContext.request.contextPath }/views/template/images/gallery-4.jpg" alt="gallery">
 							<div class="content-block-hover">
 								<h5>绝佳海景</h5>
 								<p>私人享有</p>
-								<a class="zoom" href="images/gallery-4.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/gallery-4.jpg" title="Expand"><i class="fa fa-search"></i></a>
 								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
 							</div>
 						</div>
 					</li>
 					<li class="col-md-4 col-sm-4 col-xs-6 photography">
 						<div class="content-image-block">
-							<img src="images/gallery-5.jpg" alt="gallery">
+							<img src="${pageContext.request.contextPath }/views/template/images/gallery-5.jpg" alt="gallery">
 							<div class="content-block-hover">
 								<h5>绝佳海景</h5>
 								<p>私人享有</p>
-								<a class="zoom" href="images/gallery-5.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/gallery-5.jpg" title="Expand"><i class="fa fa-search"></i></a>
 								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
 							</div>
 						</div>
 					</li>
 					<li class="col-md-4 col-sm-4 col-xs-6 web">
 						<div class="content-image-block">
-							<img src="images/gallery-6.jpg" alt="gallery">
+							<img src="${pageContext.request.contextPath }/views/template/images/gallery-6.jpg" alt="gallery">
 							<div class="content-block-hover">
 								<h5>绝佳海景</h5>
 								<p>私人享有</p>
-								<a class="zoom" href="images/gallery-6.jpg" title="Expand"><i class="fa fa-search"></i></a>
+								<a class="zoom" href="${pageContext.request.contextPath }/views/template/images/gallery-6.jpg" title="Expand"><i class="fa fa-search"></i></a>
 								<a href="gallery-single.html" title="Link"><i class="fa fa-external-link"></i></a>
 							</div>
 						</div>
@@ -745,10 +712,10 @@
 				<aside class="col-md-4 col-sm-6 col-xs-6 ftr-widget widget_destination">
 					<h3 class="widget-title">热门<span>景点</span></h3>
 					<ul>
-						<li><a href="#" title=""><img src="images/desti-1.jpg" alt="desti"></a></li>
-						<li><a href="#" title=""><img src="images/desti-2.jpg" alt="desti"></a></li>
-						<li><a href="#" title=""><img src="images/desti-3.jpg" alt="desti"></a></li>
-						<li><a href="#" title=""><img src="images/desti-4.jpg" alt="desti"></a></li>
+						<li><a href="#" title=""><img src="${pageContext.request.contextPath }/views/template/images/desti-1.jpg" alt="desti"></a></li>
+						<li><a href="#" title=""><img src="${pageContext.request.contextPath }/views/template/images/desti-2.jpg" alt="desti"></a></li>
+						<li><a href="#" title=""><img src="${pageContext.request.contextPath }/views/template/images/desti-3.jpg" alt="desti"></a></li>
+						<li><a href="#" title=""><img src="${pageContext.request.contextPath }/views/template/images/desti-4.jpg" alt="desti"></a></li>
 					</ul>
 				</aside><!-- Widget Destination /- -->
 			</div><!-- Container /- -->
@@ -773,13 +740,13 @@
 						</div>
 						<div class="navbar-collapse collapse" id="ftr-navbar">
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="index.html" title="Home">首页</a></li>
-								<li><a href="rooms.html" title="Rooms">房间</a></li>
-								<li><a href="services.html" title="Services">服务</a></li>
-								<li><a href="gallery.html" title="Gallery">酒店</a></li>
-								<li><a href="about.html" title="About Us">关于我们</a></li>
+								<li class="active"><a href="${pageContext.request.contextPath }/views/index.jsp" title="Home">首页</a></li>
+								<li><a href="${pageContext.request.contextPath }/views/rooms.jsp" title="Rooms">房间</a></li>
+								<li><a href="${pageContext.request.contextPath }/views/services.jsp" title="Services">服务</a></li>
+								<li><a href="${pageContext.request.contextPath }/views/gallery.jsp" title="Gallery">酒店</a></li>
+								<li><a href="${pageContext.request.contextPath }/views/about.jsp" title="About Us">关于我们</a></li>
 								
-								<li><a href="contact-us.html" title="Contact">联系我们</a></li>
+								<li><a href="${pageContext.request.contextPath }/views/contact-us.jsp" title="Contact">联系我们</a></li>
 							</ul>
 						</div><!--/.nav-collapse -->
 					</nav><!-- nav /- -->
@@ -807,10 +774,12 @@
 	<!---<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyDW40y4kdsjsz714OVTvrw7woVCpD8EbLE"></script>--->
 	
 	<!-- Library - Theme JS -->
+	
 	<script src="${pageContext.request.contextPath }/views/template/js/functions.js"></script>
 	<script src="${pageContext.request.contextPath }/views/template/js/jquery-3.2.1.js"></script>
 	<script src="${pageContext.request.contextPath }/views/template/js/jquery-3.2.1.min.js"></script>
 
-	
+	<!-- 自定义js -->
+	<script src="${pageContext.request.contextPath }/views/template/js/room.js"></script>
 </body>
 </html>

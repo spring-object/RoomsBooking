@@ -89,8 +89,8 @@ $(function(){
         "paging":   true,
         "pagingType":   "full_numbers",
         "bLengthChange": true, //开关，是否显示每页显示多少条数据的下拉框
-        "aLengthMenu": [[5, 10, 20], [5, 10, 20]],//设置每页显示数据条数的下拉选项
-        'iDisplayLength': 10, //每页初始显示5条记录
+        "aLengthMenu": [[5, 10, 15], [5, 10, 15]],//设置每页显示数据条数的下拉选项
+        'iDisplayLength': 5, //每页初始显示5条记录
         'bFilter': false,  //是否使用内置的过滤功能（是否去掉搜索框）
         "bSort": false, //是否可排序 
         "oLanguage":{  //语言转换
@@ -311,7 +311,7 @@ function fnOldPictures(obj){
 			if(data.result=="success"){
 				for(var i = 0;i<data.pictures.length;i++){
 					$("#pictures").append('<div id="'+data.pictures[i].pid+'" class="file-div file-item thumbnail">' +
-			                '<img src="/booking/views/admin/images/rooms/'+data.pictures[i].src+'" style="width:100px;height:100px">'+
+			                '<img src="/booking/views/images/rooms/'+data.pictures[i].src+'" style="width:100px;height:100px">'+
 			                '<a onclick="deleteOldPicture(this)" class="img-item btn btn-danger  btn-mini"><i class="fa fa-trash" aria-hidden="true">删除</i></a>'+
 		            	'</div>');
 				}
@@ -356,7 +356,7 @@ function initWebuploader(obj){
 	    //去除重复图片
 	    duplicate: true,
 	    //单个文件大小上限
-	    fileSingleSizeLimit: 204800,
+	    fileSingleSizeLimit: 2048000,
 	    // 选择文件的按钮。可选。
 	    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
 	    pick: '#filePicker',
