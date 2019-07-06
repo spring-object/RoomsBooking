@@ -1,11 +1,16 @@
 package com.booking.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,15 +18,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.booking.domain.Hotel;
 import com.booking.domain.Order;
+import com.booking.domain.Picture;
+import com.booking.domain.Room;
+import com.booking.domain.User;
+import com.booking.domain.enums.UserState;
 import com.booking.dao.OrderDTO;
+import com.booking.service.HotelServiceImpl;
 import com.booking.service.OrderServiceImpl;
+import com.booking.service.PictureService;
+import com.booking.service.PictureServiceImpl;
+import com.booking.service.RoomServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +46,91 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class OrderController {
 	@Autowired
 	private OrderServiceImpl orderServiceImpl;
+	@Autowired
+	private RoomServiceImpl roomServiceImpl;
+	@Autowired
+	private PictureServiceImpl pictureServiceImpl;
+	@Autowired
+	private HotelServiceImpl hotelServiceImpl;
+	
+	/*
+	 * 功能：给未付款的订单付款
+	 * 参数：oid:订单id
+	 * 返回值：跳转到/user/index.jsp页面
+	 */
+	@GetMapping(value="pay")
+	public String pay(@RequestParam Long oid) {
+		Order order = orderServiceImpl.findById(oid);
+		order.setStatus(1);
+		orderServiceImpl.save(order);
+		
+		return "user/index";
+	}
+	
+	/*
+	 * 功能：马上支付，确认订单
+	 * 参数：rid: 房间id
+	 * 		 status：订单状态
+	 * 		 startTime：入住时间
+	 * 		 endTime：离开时间
+	 * 返回值：success
+	 */
+	@PostMapping(value="/confirmOrder")
+	public @ResponseBody String confirmOrder(@RequestParam Long rid, int status, String startTime, String endTime, int rcount, HttpSession session) throws ParseException {
+		User user=(User) session.getAttribute("user");
+		Order order = new Order();
+		Room room = roomServiceImpl.findById(rid);
+		Hotel hotel = hotelServiceImpl.findById(5L);      //自定义酒店
+		//转换日期格式，将前端传来的MM/dd/yyyy格式转换成yyyy-MM-dd
+		String[] startTemp = startTime.split("/");
+		String[] endTemp = endTime.split("/");
+		String start = startTemp[2] + "-" + startTemp[0] + "-" + startTemp[1];
+		String end = endTemp[2] + "-" + endTemp[0] + "-" + endTemp[1];
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = formatter.parse(start);
+		Date endDate = formatter.parse(end);
+		//封装order
+		order.setHotel(hotel);
+		order.setStatus(status);
+		order.setRcount(rcount);
+		order.setUser(user);
+		order.setRoom(room);
+		order.setRprice(room.getPrice());
+		order.setTotalPrice();
+		order.setStart_time(startDate);
+		order.setEnd_time(endDate);
+		order.setCreate_time(new Date());
+		orderServiceImpl.save(order);//保存
+		
+		return "{\"result\":\"success\"}";
+	}
+	
+	/*
+	 * 功能：预定房间，付款界面
+	 * 参数：rid: 房间id
+	 * 		startTime: 入住时间
+	 * 		endTime: 离开时间
+	 * 返回值：跳转到order.jsp界面
+	 */
+	@GetMapping(value="/checkout")
+	public String checkout(@RequestParam Long rid, String startTime, String endTime, Model model, HttpSession session) {
+		User user=(User) session.getAttribute("user");
+		
+		if(null == user) {//判断是否登录
+			return "manageUser/sign_in";
+		}else {
+			Room room = roomServiceImpl.findById(rid);
+			List<Picture> pictures = pictureServiceImpl.findRoomPictures(rid);
+			
+			model.addAttribute("room", room);
+			model.addAttribute("pictures", pictures);
+			model.addAttribute("startTime", startTime);
+			model.addAttribute("endTime", endTime);
+			model.addAttribute("result", "success");
+		}
+		
+		return "order";
+	}
 	
 	/*
 	 * 功能：显示一页订单

@@ -18,16 +18,16 @@
 	<title>公寓房间详情——酒店预订</title>
 
 	<!-- Standard Favicon -->
-	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images/hotel.png" />
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath }/views/template/images/hotel.png" />
 	
 	<!-- For iPhone 4 Retina display: -->
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images//apple-touch-icon-114x114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-114x114-precomposed.png">
 	
 	<!-- For iPad: -->
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images//apple-touch-icon-72x72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-72x72-precomposed.png">
 	
 	<!-- For iPhone: -->
-	<link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath }/views/template/${pageContext.request.contextPath }/views/template/images//apple-touch-icon-57x57-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath }/views/template/images//apple-touch-icon-57x57-precomposed.png">
 
 	<!-- Library - Google Font Familys -->	
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>

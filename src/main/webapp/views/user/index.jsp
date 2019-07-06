@@ -196,7 +196,7 @@
 												入住时间：${order.start_time } &nbsp &nbsp<br />
 												退房时间：${order.end_time }&nbsp&nbsp
 											</p>
-											<span>共${order.totalPrice }￥ </span> <a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去评价</a>
+											<span>共${order.totalPrice }￥ </span> <a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去使用</a>
 										</div>
 									</div>
 								</div>
@@ -222,7 +222,7 @@
 												入住时间：${order.start_time } &nbsp &nbsp<br />
 												退房时间：${order.end_time }&nbsp&nbsp
 											</p>
-											<span>共${order.totalPrice }￥ </span> <a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去评价</a>
+											<span>共${order.totalPrice }￥ </span> <a href="/booking/order/pay?oid=${order.oid }" style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">马上支付</a>
 										</div>
 									</div>
 								</div>

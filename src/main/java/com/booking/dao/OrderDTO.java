@@ -36,7 +36,7 @@ public class OrderDTO {
 				
 				if(queryDto.getKey()!=null) {
 					Predicate p1 = criteriaBuilder.like(root.get("rprice").as(String.class), "%"+queryDto.getKey()+"%");
-					Predicate p2 = criteriaBuilder.like(root.get("rcount").as(String.class), "%"+queryDto.getKey()+"%");
+					Predicate p2 = criteriaBuilder.like(root.get("oid").as(String.class), "%"+queryDto.getKey()+"%");
 					Predicate p3 = criteriaBuilder.like(root.get("status").as(String.class), "%"+queryDto.getKey()+"%");
 					Predicate p4 = criteriaBuilder.like(root.get("hotel").get("hname").as(String.class), "%"+queryDto.getKey()+"%");
 					Predicate p5 = criteriaBuilder.like(root.get("room").get("rname").as(String.class), "%"+queryDto.getKey()+"%");
