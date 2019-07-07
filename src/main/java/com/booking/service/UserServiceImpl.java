@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -235,7 +237,13 @@ public class UserServiceImpl implements UserService{
 			return UserState.USER_NOT_EXIST;
 		}
 		User user=optional.get();
-		String newpasswd=Salt.getSalt(33, 16);
+		
+		Random randomObj=new Random();
+		String newpasswd="";
+		for(int len=0;len<16;len++) {
+			newpasswd+=Math.abs(randomObj.nextInt()%10);
+		}
+
 		String salt=Salt.getSalt(33, 94);
 		String passwd=SHA2.getEncryptionText(newpasswd, salt, "SHA-512");
 		user.setUpassword(passwd);
