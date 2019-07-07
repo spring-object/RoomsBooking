@@ -92,6 +92,7 @@
 					</c:if>
 					<c:if test="${null!=sessionScope.user }">
 						<a href="${pageContext.request.contextPath }/user/">个人中心</a>
+						<a href="${pageContext.request.contextPath }/user/signout">退出登录</a>
 					</c:if>
 					<a  href="${pageContext.request.contextPath }/user/signup">注册</a>
 				</div><!-- Social /- -->
