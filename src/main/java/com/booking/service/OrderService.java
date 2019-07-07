@@ -10,6 +10,12 @@ import org.springframework.data.jpa.domain.Specification;
 import com.booking.domain.Order;
 
 public interface OrderService {
+	
+	//自定义查询
+	
+	//根据房间id查询图片
+	public List<Order> findOrders(Long id);
+	
 //	CrudRepository接口：
 	public void save(Order entity);
 	public void saveAll(List<Order> entities);

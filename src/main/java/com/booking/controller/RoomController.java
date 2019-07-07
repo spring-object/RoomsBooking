@@ -26,10 +26,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.booking.domain.Order;
 import com.booking.domain.Picture;
 import com.booking.domain.Room;
 import com.booking.domain.RoomQueryDto;
 import com.booking.domain.User;
+import com.booking.service.OrderService;
 import com.booking.service.PictureService;
 import com.booking.service.RoomService;
 import com.booking.utils.DeleteFile;
@@ -45,6 +47,8 @@ public class RoomController {
 	private RoomService roomService;
 	@Autowired
 	private PictureService pictureService;
+	@Autowired
+	private OrderService orderService;
 	
 	/**
 	 * 跳转到roomDetail.jsp页面，数据存放在model
@@ -296,6 +300,15 @@ public class RoomController {
 		//将ids的string数组转换成Long数组，方便直接调用系统函数
 		for(int i=0;i<strIds.length;i++) {
 			ids[i] = Long.parseLong(strIds[i]);
+			List<Order> orders = orderService.findOrders(ids[i]);
+			if(orders!=null) {
+				for (Order order : orders) {
+					order.setHotel(null);
+					order.setUser(null);
+					order.setRoom(null);
+					orderService.delete(order);
+				}
+			}
 		}
 		if(ids!=null) {
 			List<Picture> pictures = new ArrayList<Picture>();
@@ -316,6 +329,15 @@ public class RoomController {
 	public @ResponseBody void deleteByRid(@RequestBody Map<String,Long> map,HttpServletRequest request) {
 		Long rid = map.get("rid");
 		if(rid!=null) {
+			List<Order> orders = orderService.findOrders(rid);
+			if(orders!=null) {
+				for (Order order : orders) {
+					order.setHotel(null);
+					order.setUser(null);
+					order.setRoom(null);
+					orderService.delete(order);
+				}
+			}
 			List<Picture> pictures = new ArrayList<Picture>();
 			pictures = pictureService.findRoomPictures(rid);
 			String path = request.getSession().getServletContext().getRealPath("/views/images/rooms/");//图片存放路径

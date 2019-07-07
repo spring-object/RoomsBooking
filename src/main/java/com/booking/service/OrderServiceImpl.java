@@ -25,6 +25,11 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDao orderDao;
 	
+	//自定义查询，通过房间id找订单
+	public List<Order> findOrders(Long id){
+		return orderDao.findOrders(id);
+	}
+	
 	@Transactional
 	public void save(Order entity) {
 		// TODO Auto-generated method stub
