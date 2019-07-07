@@ -123,7 +123,7 @@
 								<i class="ddl-switch fa fa-angle-down"></i>
 	
 							</li>
-							<li><a title="Rooms" href="${pageContext.request.contextPath }/views/rooms.jsp">公寓</a></li>
+							<li><a title="Rooms" href="${pageContext.request.contextPath }/views/rooms.jsp">房间</a></li>
 							<li><a title="Services" href="${pageContext.request.contextPath }/views/services.jsp">服务</a></li>
 							
 							

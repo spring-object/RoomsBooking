@@ -271,7 +271,7 @@
 					</form>
 				</div>
 				<ul class='nav nav-stacked'>
-					<li class=''><a href='index.html'> <i
+					<li class=''><a href='#'> <i
 							class='icon-dashboard'></i> <span>Dashboard</span>
 					</a></li>
 					<li class=''><a href='/booking/views/admin/showAdmins.jsp'> <i
@@ -285,6 +285,9 @@
 					</a></li>	
 					<li class='active'><a href='/booking/views/admin/listOrder.jsp'> <i
 							class='icon-tasks'></i> <span>订单管理</span>
+					</a></li>
+					<li class=''><a href='/booking/views/index.jsp'> <i
+							class='icon-reply'></i> <span>返回首页</span>
 					</a></li>
 				</ul>
 			</div>
@@ -303,7 +306,7 @@
                                     <div class='pull-right'>
                                         <ul class='breadcrumb'>
                                             <li>
-                                                <a href="index.html"><i class='icon-dashboard'></i>
+                                                <a href="#"><i class='icon-dashboard'></i>
                                                 </a>
                                             </li>
                                             <li class='separator'>
