@@ -84,10 +84,14 @@
 					</ol>
 				</div>
 				<div id="top_list" class="col-md-5 col-sm-6 col-xs-12 header-social">
-				<a href="selfcenter.jsp">个人中心</a> 
-						
-					<a href="login.jsp">登录</a>
-					<a  href="register.jsp">注册</a>
+					<c:if test="${null==sessionScope.user }">
+						<a href="${pageContext.request.contextPath }/user/signin">登录</a>
+					</c:if>
+					<c:if test="${null!=sessionScope.user }">
+						<a href="${pageContext.request.contextPath }/user/">个人中心</a>
+					</c:if>
+					<a  href="${pageContext.request.contextPath }/user/signup">注册</a>
+					<a  href="${pageContext.request.contextPath }/user/admin">后台</a>
 				</div><!-- Social /- -->
 			</div><!-- Container /- -->
 		</div><!-- Top Header /- -->

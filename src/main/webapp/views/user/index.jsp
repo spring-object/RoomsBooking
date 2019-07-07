@@ -90,6 +90,7 @@
 				<a href="${pageContext.request.contextPath }/user/">个人中心</a>
 				<a href="${pageContext.request.contextPath }/user/signup">注册</a>
 				<a href="${pageContext.request.contextPath }/user/signout">退出登录</a>
+				<a  href="${pageContext.request.contextPath }/user/admin">后台</a>
 			</div>
 			<!-- Social /- -->
 		</div>
