@@ -153,7 +153,7 @@
 					<li>未使用</li>
 					<li>待付款</li>
 				</ul>
-				<div class="layui-tab-content">
+				<div class="layui-tab-content" id="showOrderBox">
 					<div class="layui-tab-item layui-show">
 						<c:forEach var="order" items="${sessionScope.user.orders }">
 						<c:if test="${0==order.status }">
@@ -164,7 +164,7 @@
 											<img src="${pageContext.request.contextPath }/views/images/rooms/${order.room.pictures.toArray()[0].src }" alt="picture">
 										</c:if>
 									</i>
-									<div style="width: 735px; height: 315px; float: right" class="offer-content">
+									<div style="width: 735px; height: 377px; float: right" class="offer-content">
 										<h5>${order.room.rname }</h5>
 										<p>${order.room.info }</p>
 										<p>
@@ -173,6 +173,10 @@
 										</p>
 										<span>共${order.totalPrice }￥ </span> 
 										<a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去评价</a>
+										<div>
+											<a href="javascript:void(0)" data-method="showOrder" style="display: block; width: 108px; padding: 10px 26px;margin-top:20px;" class="book-now showOrder">查看订单</a>
+											<input type="hidden" value="${order.oid }"/>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -189,7 +193,7 @@
 												<img src="${pageContext.request.contextPath }/views/images/rooms/${order.room.pictures.toArray()[0].src }" alt="picture">
 											</c:if>
 										</i>
-										<div style="width: 735px; height: 315px; float: right" class="offer-content">
+										<div style="width: 735px; height: 377px; float: right" class="offer-content">
 											<h5>${order.room.rname }</h5>
 											<p>${order.room.info }</p>
 											<p>
@@ -197,6 +201,10 @@
 												退房时间：${order.end_time }&nbsp&nbsp
 											</p>
 											<span>共${order.totalPrice }￥ </span> <a style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">去使用</a>
+											<div>
+												<a href="javascript:void(0)" data-method="showOrder" style="display: block; width: 108px; padding: 10px 26px;margin-top:20px;" class="book-now showOrder">查看订单</a>
+												<input type="hidden" value="${order.oid }"/>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -214,7 +222,7 @@
 												<img src="${pageContext.request.contextPath }/views/images/rooms/${order.room.pictures.toArray()[0].src }" alt="picture">
 											</c:if>
 										</i>
-										<div style="width: 735px; height: 315px; float: right"
+										<div style="width: 735px; height: 377px; float: right"
 											class="offer-content">
 											<h5>${order.room.rname }</h5>
 											<p>${order.room.info }</p>
@@ -222,7 +230,12 @@
 												入住时间：${order.start_time } &nbsp &nbsp<br />
 												退房时间：${order.end_time }&nbsp&nbsp
 											</p>
-											<span>共${order.totalPrice }￥ </span> <a href="${pageContext.request.contextPath }/order/pay?oid=${order.oid }" style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">马上支付</a>
+											<span>共${order.totalPrice }￥ </span> 
+											<a href="${pageContext.request.contextPath }/order/pay?oid=${order.oid }" style="display: block; width: 108px; padding: 10px 26px;" title="Book Now" class="book-now">马上支付</a>
+											<div>
+												<a href="javascript:void(0)" data-method="showOrder" style="display: block; width: 108px; padding: 10px 26px;margin-top:20px;" class="book-now showOrder">查看订单</a>
+												<input type="hidden" value="${order.oid }"/>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -272,6 +285,7 @@
 	<!-- Footer Main /- -->
 <script>
 var projectName=$("#projectContextPath").val();
+var oid;
 layui.use(['layer'], function(){
 	//触发弹出窗口事件
 	var active = {
@@ -292,6 +306,24 @@ layui.use(['layer'], function(){
 				}
 				,zIndex: layer.zIndex
 			});
+		},
+	
+		showOrder: function(){
+			var that = this; 
+			layer.open({
+				type: 2 
+				,title: '订单详情'
+				,area: ['850px', '600px']
+				,shade: 0
+				,maxmin: false
+				,offset: 'auto'
+				,content: projectName+"/user/showOrder?oid="+oid
+				,btn: '关闭'
+				,yes: function(){
+					layer.closeAll();
+				}
+				,zIndex: layer.zIndex
+			});
 		}
 	};
 	  
@@ -299,8 +331,21 @@ layui.use(['layer'], function(){
 		var othis = $(this), method = othis.data('method');
 		active[method] ? active[method].call(this, othis) : '';
 	});
+	
+	$('#showOrderBox [href]').on('click', function(){
+		oid=$(event.target).next().val();
+		if(isNaN(oid)){
+			alert("获取订单信息失败");
+			return;
+		}
+		var othis = $(this), method = othis.data('method');
+		active[method] ? active[method].call(this, othis) : '';
+	});
+	
 });
-
+function test(){
+	alert("test");
+}
 </script>
 </body>
 </html>

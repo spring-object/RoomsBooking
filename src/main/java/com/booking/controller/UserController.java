@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.booking.domain.Order;
 import com.booking.domain.User;
 import com.booking.domain.enums.UserState;
+import com.booking.service.OrderService;
 import com.booking.service.UserService;
 import com.booking.utils.RSA;
 import com.booking.utils.RSAPubExepAndModulus;
@@ -62,6 +64,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OrderService orderService;
 	ObjectMapper jackson=new ObjectMapper();
 	
 	//转到到个人中心
@@ -373,6 +377,22 @@ public class UserController {
 		}
 		model.addAttribute("showUser", showUser);
 		return "manageUser/showUser";
+	}
+	//显示一个用户的信息
+	@GetMapping("/showOrder")
+	public String showOrder(Long oid, HttpSession session,Model model) {
+		User user=(User) session.getAttribute("user");
+		if(null==user) {
+			model.addAttribute("error", UserState.NOT_LOGIN.toString());
+			return "manageUser/error";
+		}
+		if(null==oid||!orderService.existsById(oid)) {
+			model.addAttribute("error", UserState.ERROR.toString());
+			return "manageUser/error";
+		}
+		Order order=orderService.findById(oid);
+		model.addAttribute("showOrder", order);
+		return "user/showOrder";
 	}
 	
 }
